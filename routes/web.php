@@ -14,5 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/question', function () {
-    return view('question');
+  return view('question');
+});
+
+Route::get('/result', function () {
+  return view('result');
 });

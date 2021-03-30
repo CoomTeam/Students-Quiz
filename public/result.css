@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	font-family: 'PT Sans', sans-serif;
+}
+
+nav {
+	display: block;
+	padding: 16px 20px;
+	background-color: white;
+}
+
+nav img {
+	width: 160px;
+	height: auto;
+}
+
+main {
+	text-align: center;
+	padding-top: 64px;
+	padding-bottom: 64px;
+	background: linear-gradient(45deg, #009ee3, #47c8ff);
+}
+
+.container {
+	width: 100%;
+	max-width: 800px;
+	padding-left: 8px;
+	padding-right: 8px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#student {
+	display: block;
+	padding: 64px;
+	margin: 0 auto;
+	max-width: 420px;
+	background-color: white;
+	box-shadow: -4px 4px 64px -32px black;
+}
+
+#student label {
+	display: block;
+	font-size: 16px;
+	color: #404040;
+	text-align: center;
+	font-style: italic;
+	letter-spacing: 1px;
+	margin-bottom: 32px;
+}
+
+#student .image {
+	margin-bottom: 16px;
+	width: 100%;
+	height: 256px;
+	text-align: center;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(student.png);
+}
+
+#student .type {
+	color: white;
+	display: block;
+	padding: 16px 0;
+	font-size: 32px;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 8px;
+	letter-spacing: 2px;
+	text-transform: lowercase;
+	background: linear-gradient(25deg, #ee7a00, #ff9523 );
+}
+
+#student .description {
+	color: #404040;
+	font-size: 16px;
+	font-style: italic;
+	letter-spacing: 1px;
+}
