@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\TypesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::resource('/', IndexController::class);
+Route::resource('/types', TypesController::class);
 
 Route::get('/question', function () {
   return view('question');
