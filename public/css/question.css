@@ -1,0 +1,108 @@
+@import url(https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap);
+*, ::after, ::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "PT Sans", sans-serif;
+}
+
+header {
+  height: 80px;
+  display: grid;
+  place-items: center left;
+  padding: 0 20px;
+}
+header img {
+  width: 140px;
+  max-height: 100%;
+}
+
+main {
+  flex-grow: 1;
+  display: grid;
+  place-items: center;
+  background-color: white;
+  box-shadow: inset 0px 0px 32px 0px rgba(0, 0, 0, 0.4);
+}
+
+.question {
+  height: 70%;
+  width: 80%;
+  max-width: 750px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 30px 1fr 80px;
+  grid-template-areas: "Number Back" "Text Text" "Answers Answers";
+}
+.question * {
+  display: grid;
+  place-items: center;
+}
+.question .q-number {
+  grid-area: Number;
+  justify-self: left;
+}
+.question .q-back {
+  grid-area: Back;
+  justify-self: right;
+}
+.question .q-back:hover {
+  cursor: pointer;
+}
+.question .q-image {
+  grid-area: Image;
+}
+.question .q-text {
+  grid-area: Text;
+  margin: 0 60px;
+  font-weight: normal;
+  font-size: 24px;
+  text-align: center;
+}
+.question .answers {
+  grid-area: Answers;
+  display: flex;
+}
+.question .answers .answer {
+  all: unset;
+  flex: 1 1 0;
+  width: 0;
+  height: 50px;
+  margin: 0 15px;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  background-color: #1780C3;
+  transition: background-color 80ms linear;
+}
+.question .answers .answer:hover {
+  background-color: #3195d3;
+  cursor: pointer;
+}
+.question .q-number,
+.question .q-back {
+  width: 120px;
+  text-align: center;
+  font-size: 16px;
+  color: #848484;
+}
+
+footer {
+  height: 60px;
+  display: grid;
+  place-items: center;
+}
+footer span {
+  letter-spacing: 2px;
+  color: gray;
+  font-size: 12px;
+  text-align: center;
+}
