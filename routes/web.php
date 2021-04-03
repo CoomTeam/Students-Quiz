@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\TypesController;
+use App\Http\Controllers\QuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::get('/result', function () {
   return view('result');
 });
 
-Route::get('/quiz', function () {
-  return view('quiz');
-});
+Route::get('/quiz', [QuizController::class, 'index']);
+Route::post('/quiz/answer', [QuizController::class, 'answer']);
+Route::post('/quiz/back', [QuizController::class, 'back']);
+Route::post('/quiz/restart', [QuizController::class, 'restart']);
+Route::post('/quiz/current', [QuizController::class, 'current']);
