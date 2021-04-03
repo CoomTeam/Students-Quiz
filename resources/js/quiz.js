@@ -1,0 +1,1 @@
+alert('quiz.js works');
