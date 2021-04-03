@@ -25,6 +25,9 @@
         <button id="takeTestButton" onclick="window.location.assign('/question')">
             Take Test!
         </button>
+        <button id="takeTestButton" onclick="window.location.assign('/quiz')">
+            Take Test (logic)!
+        </button>
         <br><br><br><br><br><br>
     </div>
 
