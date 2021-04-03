@@ -22,7 +22,8 @@ class QuestionFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'text' => $this->faker->text() . '?',
+            'order' => 0,
         ];
     }
 }

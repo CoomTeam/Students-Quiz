@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\QuestionSeeder;
+use Database\Seeders\ResultSeeder;
+use Database\Seeders\CoefficientSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call(QuestionSeeder::class);
+        $this->call(ResultSeeder::class);
+        $this->call(CoefficientSeeder::class);
     }
 }
