@@ -26,3 +26,7 @@ Route::get('/question', function () {
 Route::get('/result', function () {
   return view('result');
 });
+
+Route::get('/quiz', function () {
+  return view('quiz');
+});
