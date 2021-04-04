@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="https://raw.githubusercontent.com/CoomTeam/Students-Quiz/blob/main/public/man.png" alt="student" width="128">
+	<img src="https://ibb.co/FbYTPqw" alt="student" width="128">
 </p>
 
 <h3 align="center">Student type quiz</h3>
