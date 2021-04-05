@@ -17,12 +17,12 @@
 
 
 ### 1. Clone GitHub repo for this project locally
-the project is hosted on github, we can use git on your local computer to clone it from github onto your local computer.
+the project is hosted on GitHub, you can use git on your local computer to clone it from GitHub onto your local computer.
 
 **Note:** Make sure you have git installed locally on your computer first.
 
 ```shell script
-$ git clone project-git-ssh-url
+$ git clone <github-project-url>
 ```
 
 ### 2. cd into your project
@@ -59,7 +59,7 @@ Laravel requires you to have an app encryption key which is generally randomly g
 app will use this encryption key to encode various elements of your application from cookies to password hashes and 
 more.
 
-``` shell script
+```shell script
 $ php artisan key:generate
 ```
 
@@ -77,7 +77,7 @@ the next step.
 ### 7. Migrate the database
 Once your credentials are in the `.env` file, now you can migrate your database.
 
-``` shell script
+```shell script
 $ php artisan migrate
 ```
 
@@ -88,23 +88,26 @@ or dummy data.
 After the migrations are complete and you have the database structure required, then you can seed the database (which 
 means add dummy data to it).
 
-``` shell script
+```shell script
 $ php artisan db:seed
 ```
 
-### 9. Instal NPM dependencies
-After setting up working Laravel project you should instal NPM dependencies for the quiz logic to work.
+### 9. Install NPM dependencies
+After setting up working Laravel project you should install NPM dependencies. They are used to run Laravel Mix, which compiles SCSS and JS from `resources/` directory to the `public/mix/` directory.
 
-```
+```shell script
 $ npm install
 ```
 ### 10. Compiling SCSS to CSS
 
-After installing the nmp module run npm script to compile the SCSS to CSS
+The HTML in the project loads CSS and JS assets from `public/mix/` directory. When you clone the project to your machine, that directory is empty, instead you get SCSS and JS files, which are stored in `resources/js` and `resources/scss` directories. The following command compiles them.
+note: SCSS and CSS is like JavaScript and TypeScript.
 
-```
+```shell script
 $ npm run dev
 ```
+
+
 
 
 ## About Laravel (test commit)
