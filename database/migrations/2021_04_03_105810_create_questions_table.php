@@ -16,6 +16,7 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->text('text');
+            // ID is not enough, what if admin wants to shuffle the questions in the way he wants?
             $table->integer('order');
             $table->timestamps();
         });

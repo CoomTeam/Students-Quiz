@@ -7,27 +7,51 @@ use App\Models\Question;
 use App\Models\Answer;
 use App\Models\Result;
 
+// Controls the quiz: getting the quiz page, the question, the result, submitting answer, going back, restarting.
 class QuizController extends Controller
 {
+    // Gives a page of quiz - an empty page without questions or results -> those are loaded by a separate request
     public function index(Request $request) {
-        // If quiz is runned first time, set the session
+        // If there is no session for the quiz play, then set it
+        // And thus begins the quiz
         if ( is_null(session('on_question')) ) {
-            echo
             $this->resetQuizSession();
         }
 
+        // This page has a JS script with client-side quiz logic
         return view('quiz');
     }
 
+    // Returns current question or result
+    public function current() {
+        $onQuestion = session('on_question');
+        $totalQuestions = Question::count();
+
+        // Return result if answered all (note: first onQuestion was zero, so ===)
+        if ($onQuestion === $totalQuestions) {
+            $answerIDs = session('answers');
+            return $this->generateResultResponse($answerIDs);
+        }
+
+        // Return question if there are questions left to answer
+        if ($onQuestion < $totalQuestions) {
+            return $this->generateQuestionResponse($onQuestion);
+        }
+
+        // this should never happen
+        dd('error onQ>tQ', $onQuestion, $totalQuestions);
+    }
+
+    // Submits the answer, then same as `current`
     public function answer(Request $request) {
         $onQuestion = session('on_question');
         $answerID = request('answer');
 
-        $answer = Answer::find($answerID);
+        // Check if user answer is valid, and it is of the current question
+        $answer = Answer::findOrFail($answerID); // should be try/catch
         if ($answer->question->order !== $onQuestion) {
-            // error, user submited the answer not of his question
-            $this->resetQuizSession();
-            return $this->current();
+            // error
+            dd('answer error ' . $answerID);
         }
     
         $request->session()->push('answers', $answerID);
@@ -36,22 +60,7 @@ class QuizController extends Controller
         return $this->current();
     }
 
-    public function current() {
-        $onQuestion = session('on_question');
-        $totalQuestions = Question::count();
-
-        if ($onQuestion === $totalQuestions) {
-            $answerIDs = session('answers');
-            return $this->generateResultResponse($answerIDs);
-        }
-
-        if ($onQuestion < $totalQuestions) {
-            return $this->generateQuestionResponse($onQuestion);
-        }
-
-        dd('error onQ>tQ', $onQuestion, $totalQuestions);
-    }
-
+    // Unsibmits last answer, then same as `current`
     public function back() {
         
         $onQuestion = session('on_question');
@@ -71,6 +80,7 @@ class QuizController extends Controller
         return $this->current();
     }
 
+    // Starts quiz from beginning, then same as `current`
     public function restart() {
         $this->resetQuizSession();
         return $this->current();
@@ -90,6 +100,7 @@ class QuizController extends Controller
         ];
     }
 
+    // Based on the question order, created JSON of that question
     private function buildQuestion($order) {
         $question = Question::where('order', $order)->with('answers')->first();
     
@@ -110,6 +121,7 @@ class QuizController extends Controller
         return $buildedQuestion;
     }
 
+    // Based on the answers, calculates most appropriate result and creates JSON of it
     private function buildResult($answerIDs) {
         $answers = Answer::find($answerIDs);
     
@@ -135,6 +147,7 @@ class QuizController extends Controller
         return $buildedResult;
     }
 
+    // A session data to start the quiz with
     private function resetQuizSession() {
         session([ 'on_question' => 0 ]);
         session([ 'answers' => [] ]);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Answer;
 use Illuminate\Http\Request;
 
+// To be used in admin panel
 class AnswerController extends Controller
 {
     /**

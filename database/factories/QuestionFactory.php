@@ -23,6 +23,8 @@ class QuestionFactory extends Factory
     {
         return [
             'text' => $this->faker->text() . '?',
+            // In the factory order is 0, but after the Question is created, 
+            //  order must be set and unique (done it in seeder)
             'order' => 0,
         ];
     }

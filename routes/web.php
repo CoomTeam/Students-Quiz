@@ -18,31 +18,45 @@ use Illuminate\Http\Request;
 |
 */
 
+
+// Home page
 Route::resource('/', IndexController::class);
+// Page with list of all possible results
 Route::resource('/types', TypesController::class);
 
+// Quiz prototype without logic -> TO BE REMOVED
 Route::get('/question', function () {
   return view('question');
 });
 
+// Result prototype -> THINK WHAT TO DO
 Route::get('/result', function () {
   return view('result');
 });
 
-// Quiz
 
+
+/******** QUIZ ********/
+
+// Gives a page of quiz - an empty page without questions or results -> those are loaded by a separate request
 Route::get('/quiz', [QuizController::class, 'index']);
-Route::post('/quiz/answer', [QuizController::class, 'answer']);
-Route::post('/quiz/back', [QuizController::class, 'back']);
-Route::post('/quiz/restart', [QuizController::class, 'restart']);
+// Returns current question or result
 Route::post('/quiz/current', [QuizController::class, 'current']);
+// Submits the answer, then same as `current`
+Route::post('/quiz/answer', [QuizController::class, 'answer']);
+// Unsibmits last answer, then same as `current`
+Route::post('/quiz/back', [QuizController::class, 'back']);
+// Starts quiz from beginning, then same as `current`
+Route::post('/quiz/restart', [QuizController::class, 'restart']);
 
-// Session
+/******** SESSION ********/
 
+// Gives a dump of your session
 Route::get('/ses', function (Request $request) {
   return $request->session()->all();
 });
 
+// Clears your session, redirects to /ses (to see a clear dump)
 Route::get('/delses', function (Request $request) {
   $request->session()->invalidate();
   return redirect('/ses');
