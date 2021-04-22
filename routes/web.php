@@ -20,21 +20,14 @@ use Illuminate\Http\Request;
 
 
 // Home page
-Route::resource('/', IndexController::class);
-// Page with list of all possible results
-Route::resource('/types', TypesController::class);
-
-// Quiz prototype without logic -> TO BE REMOVED
-Route::get('/question', function () {
-  return view('question');
+Route::get('/', function () {
+  return view('home');
 });
 
 // Result prototype -> THINK WHAT TO DO
 Route::get('/result', function () {
   return view('result');
 });
-
-
 
 /******** QUIZ ********/
 
