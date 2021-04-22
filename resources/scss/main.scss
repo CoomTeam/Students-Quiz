@@ -19,13 +19,13 @@ body {
 /* Header & Main & Footer */
 
 header {
-    height: 80px;
+    height: 75px;
     display: grid;
     place-items: center left;
     padding: 0 20px;
 
     img {
-        width: 140px;
+        width: 125px;
         max-height: 100%;
     }
 
@@ -175,7 +175,7 @@ footer {
 }
 
 .banner {
-    background: url('../img/rainbow-dark.jpg') no-repeat center;
+    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.7)), url('../img/rainbow-dark.jpg') no-repeat center;
     background-size: cover;
     height: 100%;
     display: grid;
