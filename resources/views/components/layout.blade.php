@@ -22,7 +22,7 @@
 <body>
 
 <header>
-	<img src="{{ asset('img/logo-updated.svg') }}" alt="">
+	<img src="{{ asset('img/logo.svg') }}" alt="">
 </header>
 
 

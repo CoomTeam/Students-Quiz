@@ -1,4 +1,4 @@
 <x-layout>
-    <main></main>
+    <main class="quiz-main"></main>
     <script src="{{ asset('mix/js/quiz.js') }}"></script>
 </x-layout>
