@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+*, ::after, ::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh; // min-height
+    display: flex;
+    flex-direction: column;
+	font-family: 'PT Sans', sans-serif;
+}
+
+/* Header & Main & Footer */
+
+header {
+    height: 75px;
+    display: grid;
+    place-items: center left;
+    padding: 0 20px;
+
+    img {
+        width: 125px;
+        max-height: 100%;
+    }
+
+}
+
+main {
+    flex-grow: 1;
+}
+
+footer {
+    height: 60px;
+    display: grid;
+    place-items: center;
+
+    span {
+        letter-spacing: 2px;
+        color: gray;
+        font-size: 12px;
+        text-align: center;
+    }
+}
+

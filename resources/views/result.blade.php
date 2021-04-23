@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Studen Quiz</title>
-	<link rel="stylesheet" href="result.css">
-</head>
-
-<body>
-	<nav>
-		<img src="logo-updated.svg" alt="HZ University Logo">
-	</nav>
+<x-layout>
+	<link rel="stylesheet" href="other/result.css">
 
 	<main>
 		<div class="container">
@@ -26,11 +14,4 @@
 		</div>
 	</main>
 
-	<section>
-		<div class="container">
-			Some intersting information...
-		</div>
-	</section>
-</body>
-
-</html>
+</x-layout>

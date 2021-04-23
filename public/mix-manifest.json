@@ -1,5 +1,5 @@
 {
-    "/mix/js/app.js": "/mix/js/app.js",
-    "/mix/js/quiz.js": "/mix/js/quiz.js",
-    "/mix/css/main.css": "/mix/css/main.css"
+    "/mix/app.js": "/mix/app.js",
+    "/mix/quiz.js": "/mix/quiz.js",
+    "/mix/main.css": "/mix/main.css"
 }

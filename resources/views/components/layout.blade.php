@@ -12,11 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Chango&family=Syne+Mono&display=swap" rel="stylesheet">
 
     {{-- JS --}}
-    <script src="{{ asset('mix/js/app.js') }}"></script>
+    <script src="{{ asset('mix/app.js') }}"></script>
 
     {{-- CSS --}}
-    <link rel="stylesheet" href="{{ asset('mix/css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('mix/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('mix/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('mix/main.css') }}">
 
 </head>
 <body>

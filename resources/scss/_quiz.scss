@@ -1,0 +1,123 @@
+.quiz-main {
+    display: grid;
+    place-items: center;
+    background-color: #399ad6;
+}
+
+.question {
+    background-color: white;
+    // border-radius: 8px;
+    // box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.4);
+    padding: 30px;
+    height: 70%;
+    width: 80%;
+    max-width: 750px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 30px 1fr 80px;
+    grid-template-areas:
+    'Number Back'
+    // 'Image Image'
+    'Text Text'
+    'Answers Answers';
+
+    * {
+        display: grid;
+        place-items: center;
+    }
+
+    .q-number {
+        grid-area: Number;
+        justify-self: left;
+    }
+
+    .q-back {
+        grid-area: Back;
+        justify-self: right;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .q-image {
+        grid-area: Image;
+    }
+
+    .q-text {
+        grid-area: Text;
+        margin: 0 40px;
+        font-weight: normal;
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .answers {
+        grid-area: Answers;
+        display: flex;
+
+        .answer {
+            all: unset;
+            flex: 1 1 0;
+            width: 0;
+            height: 50px;
+            margin: 0 15px;
+            font-family: 'Lato', sans-serif;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            background-color: #1780C3;
+            // border-radius: 10px;
+            // box-shadow: 1px 1px 4px 0px rgb(0 0 0 / 20%);
+            transition: background-color 80ms linear;
+
+            &:hover {
+                background-color: #206a97;
+                cursor: pointer;
+            }
+
+            &:active {
+                background-color: #1d5375;
+                box-shadow: none;
+            }
+
+        }
+    }
+
+    .q-number,
+    .q-back {
+        margin: 10px 20px;
+        text-align: center;
+        font-size: 16px;
+        color: #848484;
+    }
+}
+
+/* TEMP */
+
+.result {
+    background-color: white;
+    border-radius: 10px;
+    width: 280px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.4);
+}
+
+.r-back, .r-restart {
+    padding: 8px 12px;
+    background-color: rgb(55, 139, 196);
+    border-radius: 10px;
+    color: white;
+    margin-top: 10px;
+    transition: background-color 80ms linear;
+
+    &:hover {
+    background-color: rgb(48, 120, 168);
+        cursor: pointer;
+    }
+}
