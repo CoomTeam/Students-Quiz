@@ -22,7 +22,9 @@
 <body>
 
 <header>
+	<a href="https://www.hz.nl">
 	<img src="{{ asset('img/logo.svg') }}" alt="">
+	</a>
 </header>
 
 
