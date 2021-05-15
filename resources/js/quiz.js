@@ -1,197 +1,174 @@
 
 /**
- * Puts question JSON (server response) into DOM
- * 
- * @param {*} question 
+ * @typedef ServerResponse Response from the server.
+ * @property {"question" | "result"} type Type of response.
+ * @property {Question} content Respone content.
  */
-function render_question(question) {
-    let divQuestion = createElem('div', 'question');
-    let divNumber = createElem('div', 'q-number', divQuestion);
-    let divBack = createElem('div', 'q-back', divQuestion);
-    let divText = createElem('div', 'q-text', divQuestion);
-    let divAnswers = createElem('div', 'answers', divQuestion);
 
-    let answers = question.answers;
-    answers.forEach(answer => {
-        let divAnswer = createElem('button', 'answer', divAnswers);
-        divAnswer.innerText = answer.text;
-        divAnswer.addEventListener('click', onAnswerClick);
-        divAnswer.setAttribute('data-id', answer.id);
-    });
+/**
+ * @typedef Question Question response.
+ * @property {string} text Question text.
+ * @property {number} order Question order.
+ * @property {Answer[]} answers Possible answers.
+ */
 
-    divNumber.innerText = `Question ${question.order + 1}`;
-    divBack.innerText = "Back";
-    divBack.addEventListener('click', back);
-    if (question.order === 0) {
-        // divBack.remove();
-    }
-    divText.innerText = question.text;
+/**
+ * @typedef Answer Possible answer for question.
+ * @property {string} text Answer text.
+ * @property {number} id Answer ID.
+ */
 
-    console.log(divQuestion);
+/**
+ * @typedef Result Quiz result.
+ * @property {string} name Student type.
+ */
 
-    putQuestionInto = document.getElementsByTagName('main')[0];
-    putQuestionInto.innerHTML = '';
-    putQuestionInto.appendChild(divQuestion);
+/**
+ * Quiz initalization
+ */
+async function init() {
+
+	// Listen for go back button
+	document.getElementById('go-back').addEventListener('click', goBack);
+
+	// Get current question or result
+	const data = await POST('/quiz/current');
+
+	// Render response
+	RENDER(data);
 }
 
 /**
- * Puts result JSON (server response) into DOM
- * 
- * @param {Object} result
+ * Process and render response from the server
+ * @param {ServerResponse} response Server response
  */
-function render_result(result) {
-    let divResult = createElem('div', 'result');
-    divResult.innerText = result.name;
-    
-    let divBack = createElem('div', 'r-back', divResult);
-    divBack.innerText = "Back";
-    divBack.addEventListener('click', back);
-
-    let divRestart = createElem('div', 'r-restart', divResult);
-    divRestart.innerText = "Restart";
-    divRestart.addEventListener('click', restart);
-
-    putResultInto = document.getElementsByTagName('main')[0];
-    putResultInto.innerHTML = '';
-    putResultInto.appendChild(divResult);
-
+function RENDER(response) {
+	if (response.type === 'question') renderQuestion(response.content);
+	if (response.type === 'result') renderResult(response.content);
+	console.log(response); // TODO: Remove
 }
 
 /**
- * Creates an element a class name and puts it into another element
- * 
- * @param {string} elemName Name of tag ('div', 'p')
- * @param {string} className Class string ("dark solid")
- * @param {HTMLElement} putInto Parent
- * @returns 
+ * Render question element
+ * @param {Question} question Question content received from the server
  */
-function createElem(elemName, className, putInto = null) {
-    let elem = document.createElement(elemName);
-    elem.className = className;
+function renderQuestion(question) {
+	const title = document.getElementById('question-title');
+	const text = document.getElementById('text');
+	const answers = document.getElementById('answers');
 
-    if (putInto) {
-        putInto.appendChild(elem);
-    }
+	// Update values
+	title.innerText = 'Question ' + question.order;
+	text.innerText = question.text;
 
-    return elem;
+	// Remove old answers
+	answers.innerHTML = '';
+
+	// Render answers
+	question.answers.forEach((answer) => {
+		const answerElement = document.createElement('button');
+		answerElement.className = 'answer';
+		answerElement.innerText = answer.text;
+		answerElement.addEventListener('click', () => sendAnswer(answer.id));
+
+		answers.appendChild(answerElement);
+	});
+
+	// Disable "Back" button if its a first question
+	document.getElementById('go-back').style.display = question.order === 0 ? 'none' : 'block';
+
+	hideResult();
+	showQuestion();
 }
 
 /**
- * 1. Sends POST request to restart the quiz
- * 2. Updates the quiz (with new aka first question)
+ * Render result element
+ * @param {Result} result Result content received from the server
  */
-function restart() {
-    fetch('/quiz/restart', {
-        // Adding method type
-       method: "POST",
+function renderResult(result) {
 
-       // Adding headers to the request
-       headers: {
-           "X-CSRF-Token": document.querySelector('input[name="_token"]').value
-       }
-   })
-   .then(response => response.json())
-   .then(data => {
-       console.log(data);
-       processResponse(data);
-    });
+	// TODO
+
+	showResult();
+	hideQuestion();
+}
+
+
+/**
+ * Go to previous question
+ */
+ async function goBack() {
+	hideResult();
+	hideQuestion();
+
+	const data = await POST('/quiz/back');
+	RENDER(data);
 }
 
 /**
- * 1. Sends POST request to unsubmit last answer
- * 2. Updates the quiz (with new but actually previous question)
+ * Send answer to the server.
+ * @param {number} id Answer id.
  */
-function back() {
-    fetch('/quiz/back', {
-        // Adding method type
-       method: "POST",
+async function sendAnswer(id) {
+	hideResult();
+	hideQuestion();
 
-       // Adding headers to the request
-       headers: {
-           "X-CSRF-Token": document.querySelector('input[name="_token"]').value
-       }
-   })
-   .then(response => response.json())
-   .then(data => {
-       console.log(data);
-       processResponse(data);
-    });
+	const data = await POST('/quiz/answer', { answer: id });
+	RENDER(data);
 }
 
 /**
- * Triggers when an answer is clicked
- * 1. Sends POST request to submit the answer
- * 2. Updates the quiz (with new question or result)
+ * Restart quiz
  */
-function onAnswerClick(event) {
-    console.log(event);
-    let divAnswer = event.currentTarget;
-    let answer_id = parseInt(divAnswer.getAttribute('data-id'));
-    console.log(document.querySelector('input[name="_token"]').value);
-    fetch('/quiz/answer', {
-         // Adding method type
-        method: "POST",
-        
-        // Adding body or contents to send
-        body: JSON.stringify({
-            answer: answer_id
-        }),
+ async function restartQuiz() {
+	hideResult();
+	hideQuestion();
 
-        // Adding headers to the request
-        headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            "X-CSRF-Token": document.querySelector('input[name="_token"]').value
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        processResponse(data);
-    });
+	const data = await POST('/quiz/restart');
+	RENDER(data);
+}
+
+/** Show question modal */
+function showQuestion() {
+	document.getElementById('question').className = '';
+}
+
+/** Hide question modal */
+function hideQuestion() {
+	document.getElementById('question').className = 'hidden';
+}
+
+/** Show result modal */
+function showResult() {
+	document.getElementById('result').className = '';
+}
+
+/** Hide result modal */
+function hideResult() {
+	document.getElementById('result').className = 'hidden';
 }
 
 /**
- * Updates the quiz (with new question or result)
+ * Send request to the server
+ * @param {string} url URL to send requets
+ * @param {object} body Data to send (Optional)
+ * @returns Response in JSON format
  */
-function current() {
-    fetch('/quiz/current', {
-        // Adding method type
-       method: "POST",
+async function POST(url, body) {
+	const request = {
+		method: 'POST',
+		body: body ? JSON.stringify(body) : undefined,
+		headers: {
+			'Content-type': 'application/json; charset=UTF-8',
+			'X-CSRF-Token': document.querySelector('input[name="_token"]').value
+		}
+	}
 
-       // Adding headers to the request
-       headers: {
-           "Content-type": "application/json; charset=UTF-8",
-           "X-CSRF-Token": document.querySelector('input[name="_token"]').value
-       }
-   })
-   .then(response => response.json())
-   .then(data => {
-       console.log(data);
-       processResponse(data);
-    });
+	const response = await fetch(url, request);
+	const data = await response.json();
+
+	return data;
 }
 
-/**
- * Decides what to do with a server response (to update the quiz)
- * 
- * Maybe also should validate the response, check for errors
- */
-function processResponse(response) {
-    if (response?.type === 'question') {
-        render_question(response.content);
-    } else if (response?.type === 'result') {
-        render_result(response.content);
-    } else {
-        console.error('error');
-    }
-}
-
-/**
- * Update the quiz when the page is just loaded
- */
-function onload() {
-    current();
-}
-
-window.addEventListener('load', onload);
-
+// Initialize on page load
+window.addEventListener('load', init);
