@@ -28,8 +28,9 @@
  */
 async function init() {
 
-	// Listen for go back button
+	// Listen for go back & restart buttons
 	document.getElementById('go-back').addEventListener('click', goBack);
+	document.getElementById('restart').addEventListener('click', restartQuiz);
 
 	// Get current question or result
 	const data = await POST('/quiz/current');
@@ -67,7 +68,7 @@ function renderQuestion(question) {
 	// Render answers
 	question.answers.forEach((answer) => {
 		const answerElement = document.createElement('button');
-		answerElement.className = 'answer';
+		answerElement.className = 'button answer';
 		answerElement.innerText = answer.text;
 		answerElement.addEventListener('click', () => sendAnswer(answer.id));
 
@@ -86,8 +87,17 @@ function renderQuestion(question) {
  * @param {Result} result Result content received from the server
  */
 function renderResult(result) {
+	const image = document.getElementById('student-image');
+	const name = document.getElementById('student-name');
+	const description = document.getElementById('student-description');
 
-	// TODO
+	// Update values
+	image.style.backgroundImage = `url("/img/man.png")`; // TODO
+	name.innerText = result.name;
+	description.innerText = 'You always bringing some food for your class mates'; // TODO
+
+	// Remove old answers
+	answers.innerHTML = '';
 
 	showResult();
 	hideQuestion();

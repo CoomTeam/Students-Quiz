@@ -11,12 +11,12 @@
 			<div id="answers"></div>
 		</div>
 
-
-		<div id="result" class="hidden" style="display: none">
+		<div id="result" class="hidden">
 				<label>according to the test, you are a...</label>
-				<div class="image"></div>
-				<h1 class="type">Food Guy!</h1>
-				<p class="description">You always bringing some food for your class mates</p>
+				<div id="student-image"></div>
+				<h1 id="student-name"></h1>
+				<p id="student-description"></p>
+				<div id="restart" class="button">Try one more time!</div>
 		</div>
 	</main>
 

@@ -17,6 +17,7 @@ body {
 }
 
 header {
+	z-index: 999999;
     height: 75px;
     display: grid;
     align-items: center;
@@ -30,10 +31,12 @@ header {
 }
 
 main {
+	z-index: 999;
 	height: 100%;
 }
 
 footer {
+	z-index: 999999;
     height: 32px;
     display: grid;
     place-items: center;
