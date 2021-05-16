@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\TypesController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\EditorController;
 use Illuminate\Http\Request;
 
 /*
@@ -54,3 +55,6 @@ Route::get('/delses', function (Request $request) {
   $request->session()->invalidate();
   return redirect('/ses');
 });
+
+/******** EDITOR ********/
+Route::get('/editor', [EditorController::class, 'index']);
