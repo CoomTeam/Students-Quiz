@@ -58,3 +58,5 @@ Route::get('/delses', function (Request $request) {
 
 /******** EDITOR ********/
 Route::get('/editor', [EditorController::class, 'index']);
+Route::post('/editor/getAllQuestions', [EditorController::class, 'getAllQuestions']);
+Route::post('/editor/getQuestion', [EditorController::class, 'getQuestion']);

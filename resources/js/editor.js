@@ -85,9 +85,17 @@ document.addEventListener("click", closeAllSelect);
 
 ///////////////////////////////////////////
 
-function onQuestionSelect(id) {
-	console.log(id);
+async function onQuestionSelect(id) {
+	hideQuestion();
+	const question = await POST('/editor/getQuestion', {'id': id});
+	renderQuestion(question);
+	console.log(question);
 
+}
+
+async function init() {
+	const questions = await POST('/editor/getAllQuestions');
+	console.log(questions);
 }
 
 async function POST(url, body) {
@@ -105,3 +113,39 @@ async function POST(url, body) {
 
 	return data;
 }
+
+function renderQuestion(question) {
+	const title = document.getElementById('question-title');
+	const text = document.getElementById('text');
+	const answers = document.getElementById('answers');
+
+	// Update values
+	title.innerText = 'Question ' + question.order;
+	text.innerText = question.text;
+
+	// Remove old answers
+	answers.innerHTML = '';
+
+	// Render answers
+	question.answers.forEach((answer) => {
+		const answerElement = document.createElement('button');
+		answerElement.className = 'button answer';
+		answerElement.innerText = answer.text;
+		answerElement.addEventListener('click', () => sendAnswer(answer.id));
+
+		answers.appendChild(answerElement);
+	});
+
+	showQuestion();
+}
+
+function showQuestion() {
+	document.getElementById('question').className = '';
+}
+
+/** Hide question modal */
+function hideQuestion() {
+	document.getElementById('question').className = 'hidden';
+}
+
+window.addEventListener('load', init);

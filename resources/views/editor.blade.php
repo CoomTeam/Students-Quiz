@@ -9,7 +9,7 @@
 				@endforeach
 			</select>
 		</div>
-		<div id="question" class="editor-question ">
+		<div id="question" class="editor-question hidden">
 			<div class="top">
 				<div id="question-title">Question 0</div>
 				<div id="go-back" style="display: none;">Back</div>
