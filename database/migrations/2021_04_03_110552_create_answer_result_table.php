@@ -20,9 +20,9 @@ class CreateAnswerResultTable extends Migration
         Schema::create('answer_result', function (Blueprint $table) {
             $table->id();
             // To what answer is that relation
-            $table->foreignId('answer_id')->constrained();
+            $table->foreignId('answer_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             // To what result is that relation
-            $table->foreignId('result_id')->constrained();
+            $table->foreignId('result_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             // Coefficient of that relationsip
             $table->tinyInteger('coefficient');
             $table->timestamps();

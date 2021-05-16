@@ -17,7 +17,7 @@ class CreateAnswersTable extends Migration
             $table->id();
             $table->text('text');
             // To which question this answer is (one-to-many: question ---< answers)
-            $table->foreignId('question_id')->constrained();
+            $table->foreignId('question_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
