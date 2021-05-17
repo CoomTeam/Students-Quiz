@@ -28,22 +28,19 @@ header {
 }
 
 /* The container must be positioned relative: */
-.custom-select {
+.select {
 	position: relative;
 	margin-bottom: 20px;
 	width:700px;
-  }
+}
 
-  .custom-select select {
-	display: none; /*hide original SELECT element: */
-  }
 
-  .select-selected {
+.select-selection, .select-option {
 	background-color: rgb(255, 255, 255);
-  }
+}
 
   /* Style the arrow inside the select element: */
-  .select-selected:after {
+.select-selection:after {
 	position: absolute;
 	content: "";
 	top: 14px;
@@ -52,50 +49,47 @@ header {
 	height: 0;
 	border: 6px solid transparent;
 	border-color: rgb(151, 151, 151) transparent transparent transparent;
-  }
+}
 
   /* Point the arrow upwards when the select box is open (active): */
-  .select-selected.select-arrow-active:after {
+.select:not(:hidden) .select-selection:after {
 	border-color: transparent transparent #fff transparent;
 	top: 7px;
-  }
+}
 
   /* style the items (options), including the selected item: */
-  .select-items div,.select-selected {
+  .select-option, .select-selection {
 	color: #2F2F2F;
 	padding: 8px 16px;
 	border: 1px solid transparent;
 	border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
 	cursor: pointer;
-  }
+	background-color: rgb(255, 255, 255);
+
+}
 
   /* Style items (options): */
-  .select-items {
+.select-options {
 	position: absolute;
 	background-color: rgb(255, 255, 255);
 	top: 100%;
 	left: 0;
 	right: 0;
 	z-index: 99;
-  }
+}
 
-  /* Hide the items when the select box is closed: */
-  .select-hide {
-	display: none;
-  }
-
-  .select-items div:hover, .same-as-selected {
+.select-option:hover {
 	background-color: rgba(0, 0, 0, 0.1);
-  }
+}
 
-  .coefs-coefs {
-	  display: flex;
-	  flex-wrap: wrap;
-	  align-items: center;
-	  justify-content: center;
-  }
+.coefs {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
 
-  .coefs {
+#answer-editor {
 	background-color: white;
 	width: 700px;
 	padding: 30px;
@@ -103,9 +97,81 @@ header {
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-  }
+	margin-bottom: 20px;
+
+	h2 {
+		align-self: flex-start;
+		margin-bottom: 20px;
+		font-weight: 18px;
+		font-weight: normal;
+	}
+
+	transition: opacity 0.2s linear, top 0.3s ease;
+}
 
 
-  .coef {
-	  margin: 20px;
-  }
+
+
+.coef {
+	margin: 20px;
+	margin-bottom: 40px;
+	display: flex;
+	align-items:center;
+
+	.coef-name {
+		margin-right: 5px;
+	}
+
+}
+
+#answer-text {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.question-text-input {
+	all: unset;
+	display: block;
+}
+
+#answer-text-input {
+	all: unset;
+	padding: 25px;
+	font-weight: normal;
+	font-size: 24px;
+	text-align: center;
+	color: white;
+	padding: 16px 32px;
+	font-size: 12px;
+	letter-spacing: 1px;
+	text-align: center;
+	font-weight: normal;
+	text-transform: uppercase;
+	background-color: #2096df;
+	margin: 5px;
+}
+
+#answer-text-save {
+
+}
+
+.button:disabled {
+	background-color: rgb(81, 98, 117);
+}
+
+#save-all-button {
+ 	width: 500px;
+}
+
+.editor-buttons {
+	display: flex;
+	justify-content: space-around;
+	width: 400px;
+	margin-bottom: 20px;
+
+	.button {
+		width: 100px;
+	}
+}

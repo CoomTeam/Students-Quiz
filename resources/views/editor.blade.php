@@ -1,13 +1,10 @@
 <x-layout>
 
     <main class="editor">
-		<div class="custom-select">
-			<select>
-				<option value="0">Select question:</option>
-				@foreach ($questions as $question)
-					<option value="{{$question->id}}">{{$question->text}}</option>
-				@endforeach
-			</select>
+		<div id="question-list"></div>
+		<div class="editor-buttons">
+			<button id="new-question-button" class="button">New question</button>
+			<button id="save-button" class="button">Save</button>
 		</div>
 		<div id="question" class="editor-question hidden">
 			<div class="top">
@@ -15,44 +12,29 @@
 				<div id="go-back" style="display: none;">Back</div>
 			</div>
 
-			<h1 id="text">Pariatur asperiores est quis quam. Facere quisquam eius eaque sunt reiciendis minima vel. Velit ut delectus quis cupiditate.?</h1>
+			<input id="text" value="Pariatur asperiores est quis quam. Facere quisquam eius eaque sunt reiciendis minima vel. Velit ut delectus quis cupiditate.?">
 			<div id="answers"><button class="button answer">Incidunt vitae.</button><button class="button answer">Minus.</button><button class="button answer">Ea architecto.</button></div>
 		</div>
-		<div class="coefs ">
-			<div class="coefs-coefs">
+
+		<div id="answer-editor" class="hidden">
+			<h2>Edit answer</h2>
+			<div id="answer-text">
+				<input id="answer-text-input" type="text" value="Yes, I am fine!">
+			</div>
+			<div id="coefs" class="coefs">
 				<div class="coef">
 					<span class="coef-name">Zombie</span>
-					<div class="coef-slider-wrap">
-						<input type="range" min="1" max="100" value="50" class="coef-slider">
-					</div>
+					<input type="range" min="1" max="100" value="50" class="coef-slider">
 				</div>
 				<div class="coef">
 					<span class="coef-name">Zombie</span>
-					<div class="coef-slider-wrap">
-						<input type="range" min="1" max="100" value="50" class="coef-slider">
-					</div>
+					<input type="range" min="1" max="100" value="50" class="coef-slider">
 				</div>
 				<div class="coef">
 					<span class="coef-name">Zombie</span>
-					<div class="coef-slider-wrap">
-						<input type="range" min="1" max="100" value="50" class="coef-slider">
-					</div>
-				</div>
-				<div class="coef">
-					<span class="coef-name">Zombie</span>
-					<div class="coef-slider-wrap">
-						<input type="range" min="1" max="100" value="50" class="coef-slider">
-					</div>
-				</div>
-				<div class="coef">
-					<span class="coef-name">Zombie</span>
-					<div class="coef-slider-wrap">
-						<input type="range" min="1" max="100" value="50" class="coef-slider">
-					</div>
+					<input type="range" min="1" max="100" value="50" class="coef-slider">
 				</div>
 			</div>
-			<button class="coef-save button">Save coefs</button>
-
 		</div>
 	</main>
 

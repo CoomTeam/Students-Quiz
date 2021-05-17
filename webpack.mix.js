@@ -13,7 +13,7 @@ const mix = require('laravel-mix');
 
  mix.js('resources/js/app.js', 'public/mix')
     .js('resources/js/quiz.js', 'public/mix')
-    .js('resources/js/editor.js', 'public/mix')
+    .ts('resources/js/editor.ts', 'public/mix')
     .sass('resources/scss/main.scss', 'public/mix').options({
         processCssUrls: false,
     })
