@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\Answer;
 use App\Models\Result;
+use Illuminate\Database\Eloquent\Collection;
 
 class EditorController extends Controller
 {
@@ -142,6 +143,74 @@ class EditorController extends Controller
 		}
 
 		return [];
+	}
+
+	public function export() {
+		$questions = Question::with('answers', 'answers.results:id')->get();
+		$results = Result::all();
+		return [
+			'questions' => $questions,
+			'results' => $results,
+		];
+	}
+
+	public function import() {
+		$quiz = request('quiz');
+
+		Result::all()->each(function ($one) {
+			$one->delete();
+		});
+
+		Answer::all()->each(function ($one) {
+			$one->delete();
+		});
+
+		Question::all()->each(function ($one) {
+			$one->delete();
+		});
+
+		foreach ($quiz['results'] as $result) {
+			$new = new Result;
+			$new->id = $result['id'];
+			$new->name = $result['name'];
+			$new->description = $result['description'];
+			$new->created_at = $result['created_at'];
+			$new->updated_at = $result['updated_at'];
+			$new->save();
+		}
+
+		foreach ($quiz['questions'] as $question) {
+			$new = new Question;
+			$new->id = $question['id'];
+			$new->text = $question['text'];
+			$new->order = $question['order'];
+			$new->created_at = $question['created_at'];
+			$new->updated_at = $question['updated_at'];
+			$new->save();
+
+			foreach ($question['answers'] as $answer) {
+				$ans = new Answer;
+				$ans->id = $answer['id'];
+				$ans->text = $answer['text'];
+				$ans->question_id = $answer['question_id'];
+				$ans->created_at = $answer['created_at'];
+				$ans->updated_at = $answer['updated_at'];
+				$ans->save();
+
+				foreach($answer['results'] as $result) {
+					$ans->results()->attach(
+						$result['pivot']['result_id'],
+						['coefficient' => $result['pivot']['coefficient']],
+					);
+				}
+
+			}
+
+		}
+	}
+
+	function importIndex() {
+		return view('import');
 	}
 
 }
