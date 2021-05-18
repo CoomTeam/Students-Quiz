@@ -1,42 +1,42 @@
 <x-layout>
 
     <main class="editor">
-		<div id="question-list"></div>
-		<div class="editor-buttons">
-			<button id="new-question-button" class="button">New question</button>
-			<button id="save-button" class="button">Save</button>
-		</div>
-		<div id="question" class="editor-question hidden">
-			<div class="top">
-				<div id="question-title">Question 0</div>
-				<div id="go-back" style="display: none;">Back</div>
-			</div>
 
-			<input id="text" value="Pariatur asperiores est quis quam. Facere quisquam eius eaque sunt reiciendis minima vel. Velit ut delectus quis cupiditate.?">
-			<div id="answers"><button class="button answer">Incidunt vitae.</button><button class="button answer">Minus.</button><button class="button answer">Ea architecto.</button></div>
+		<div id="EdQuestionList"></div>
+
+		<div class="ed-buttons">
+			<button id="EdNewQuestionBtn" class="button">New question</button>
+			<button id="EdSaveBtn" class="button">Save all</button>
 		</div>
 
-		<div id="answer-editor" class="hidden">
-			<h2>Edit answer</h2>
-			<div id="answer-text">
-				<input id="answer-text-input" type="text" value="Yes, I am fine!">
+		<div id="EdQuestion" class="hidden">
+			<div class="ed-head">
+				<h2>Edit question</h2>
+				<button class="button" id="EdQuestionDeleteBtn">Delete</button>
 			</div>
-			<div id="coefs" class="coefs">
-				<div class="coef">
-					<span class="coef-name">Zombie</span>
-					<input type="range" min="1" max="100" value="50" class="coef-slider">
-				</div>
-				<div class="coef">
-					<span class="coef-name">Zombie</span>
-					<input type="range" min="1" max="100" value="50" class="coef-slider">
-				</div>
-				<div class="coef">
-					<span class="coef-name">Zombie</span>
-					<input type="range" min="1" max="100" value="50" class="coef-slider">
-				</div>
+
+			<div id="EdQuestionInputWrap" class="ed-input-wrap">
+				<input id="EdQuestionInput" value="">
 			</div>
+
+			<div id="EdAnswers"></div>
 		</div>
+
+		<div id="EdAnswerEditor" class="hidden">
+			<div class="ed-head">
+				<h2>Edit answer</h2>
+				<button class="button" id="EdAnswerDeleteBtn">Delete</button>
+			</div>
+
+			<div id="EdAnswerInputWrap" class="ed-input-wrap">
+				<input id="EdAnswerInput" value="">
+			</div>
+
+			<div id="EdCoefs"></div>
+		</div>
+
 	</main>
 
     <script src="{{ asset('mix/editor.js') }}"></script>
+
 </x-layout>

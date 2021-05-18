@@ -1,4 +1,5 @@
-/////////////////////////////// slider
+///////////////////////////////////////////
+
 interface Option {
 	text: string,
 	callback: () => any,
@@ -27,17 +28,19 @@ class Select {
 	private elSelect: HTMLElement;
 	private elSelection: HTMLElement;
 	private elOptions: HTMLElement;
+	private defaultText: string;
 
 	constructor (elContainer: HTMLElement, text: string, options: Option[] = []) {
+		this.defaultText = text;
 		this.elSelect = createElem('div', 'select', elContainer);
 		this.elSelection = createElem('div', 'select-selection', this.elSelect);
-		this.elSelection.innerText = text;
+		this.setDefault();
 		this.elOptions = createElem('div', 'select-options hidden', this.elSelect);
 		this.elSelect.addEventListener('click', (ev) => {
 			ev.stopPropagation();
 			this.toggle();
 		});
-		document.addEventListener('click', close);
+		document.addEventListener('click', () => this.close());
 	}
 
 	updateOptions (options: Option[]) {
@@ -62,13 +65,17 @@ class Select {
 		this.elOptions.classList.add('hidden');
 	}
 
+	setDefault() {
+		this.elSelection.innerText = this.defaultText;
+	}
+
 }
 
 class QuestionSelect extends Select {
 	updateQuestions(questions: Question[]) {
 		const options = questions.map((question) => {
 			const option = {
-				text: question.text,
+				text: `(${question.order}) ${question.text}`,
 				callback: () => onQuestionSelect(question.id),
 			}
 			return option;
@@ -77,123 +84,186 @@ class QuestionSelect extends Select {
 	}
 }
 
-function createElem(elemName: string, className: string, putInto: HTMLElement = null): HTMLElement {
-	let elem = document.createElement(elemName);
-	elem.className = className;
-
-	if (putInto) {
-		putInto.appendChild(elem);
-	}
-
-	return elem;
-}
-
 ///////////////////////////////////////////
 
 let QUESTION: Question;
-let UNEDITED: Question;
+let selectedAnswer: number = -1;
+let questionList: QuestionSelect;
 let isQuestionSaved: boolean = true;
 let isAnswerSaved: boolean = true;
-let questionList: QuestionSelect;
-let selectedAnswer: number = -1;
-
 
 async function init() {
-	let elQuestionList = document.getElementById('question-list');
+	let elQuestionList = document.getElementById('EdQuestionList');
 	questionList = new QuestionSelect(elQuestionList, 'Select question:');
 
-	let elNewQuestion = document.getElementById('new-question-button');
-	elNewQuestion.addEventListener('click', () => newQuestion());
-
-	let elSave = document.getElementById('save-button');
-	elSave.addEventListener('click', () => save());
+	on('click', 'EdNewQuestionBtn', () => newQuestion());
+	on('click', 'EdSaveBtn', () => save());
+	on('click', 'EdAnswerDeleteBtn', () => deleteAnswer());
+	on('click', 'EdQuestionDeleteBtn', () => deleteQuestion());
 
 	await plantQuestionList();
 }
 
-async function onQuestionSelect(id: number) {
-	if (!beforeQuestionUpdate()) return;
+window.addEventListener('load', init);
 
+
+/*** "When" stuff ***/
+
+// When question is chosen from select menu
+function onQuestionSelect(id: number) {
+	changeQuestion(async () => {
+		return id;
+	});
+}
+
+// When 'new question' button is pressed
+function newQuestion() {
+	changeQuestion(async () => {
+		const data = await POST('/editor/newQuestion');
+		const id = data.id;
+		await plantQuestionList();
+		return id;
+	});
+}
+
+// When 'new answer' button is pressed
+function newAnswer() {
+	changeQuestion(async () => {
+		const id = QUESTION.id;
+		await POST('/editor/newAnswer' , {'id': id});
+		return id;
+	});
+}
+
+// When answer is clicked
+function onAnswerSelect(index: number) {
+	changeAnswer(() => {
+		return index;
+	});
+}
+
+function deleteAnswer() {
+	const answerID = QUESTION.answers[selectedAnswer].id;
+	changeQuestion(async () => {
+		await POST('/editor/deleteAnswer' , {'id': answerID});
+		return QUESTION.id;
+	});
+}
+
+function deleteQuestion() {
+	const questionID = QUESTION.id;
+	changeQuestion(async () => {
+		questionList.setDefault();
+		await POST('/editor/deleteQuestion' , {'id': questionID});
+		await plantQuestionList();
+		return -1;
+	});
+}
+
+/*** "Wrappers" stuff ***/
+
+// wrapper for functions that change question
+async function changeQuestion(wrapped: () => number | Promise<number>, checkSave = true) {
+	// Prevent from losing unsaved changes
+	if (checkSave && (!isQuestionSaved || !isAnswerSaved)) {
+		pleaseSave();
+		return;
+	}
+	// Hide everything
 	hideQuestion();
-	await plantQuestion(id);
+	hideAnswerEditor();
+	// Set no answer is yet selected
 	selectedAnswer = -1;
-	showQuestion();
+	// Do the stuff in wrapped()
+	let questionID = await wrapped();
+	// Load the question and show it
+	if (questionID !== -1) {
+		await plantQuestion(questionID);
+		showQuestion();
+	}
 }
 
-async function newQuestion() {
-	if (!beforeQuestionUpdate()) return;
+async function changeAnswer(wrapped: () => number | Promise<number>, checkSave = true) {
+	if (checkSave && !isAnswerSaved) {
+		pleaseSave();
+		return;
+	}
 
-	hideQuestion();
-  	const data = await POST('/editor/newQuestion');
-	const id = data.id;
-	await plantQuestionList();
-	await plantQuestion(id);
-	selectedAnswer = -1;
-	showQuestion();
+	hideAnswerEditor();
+	let answer_id = await wrapped();
+	if (answer_id !== -1) {
+		await plantAnswerEditor(answer_id);
+		showAnswerEditor();
+	}
 }
 
-async function newAnswer() {
-	if (!beforeQuestionUpdate) return;
 
-	const id = QUESTION.id;
-	hideQuestion();
-	await POST('/editor/newAnswer' , {'id': id});
-	await plantQuestion(id);
-	console.log(12);
+/*** "Planters" stuff */
 
-}
-
+// Update the list of questions (from server)
 async function plantQuestionList() {
   	const questions = await POST('/editor/getAllQuestions');
 	questionList.updateQuestions(questions);
 }
 
+// Load and render question of given ID (from server)
 async function plantQuestion(id: number) {
+	// Get question
 	QUESTION = await POST('/editor/getQuestion', {'id': id});
-	UNEDITED = JSON.parse(JSON.stringify(QUESTION));
-	renderQuestion(QUESTION);
-	console.log(QUESTION);
+
+	// Get elements
+	const text = document.getElementById('EdQuestionInput') as HTMLInputElement;
+	const answers = document.getElementById('EdAnswers');
+
+	// Update question values
+	text.value = QUESTION.text;
+
+	// Setup editor for question text
+	text.addEventListener('input', () => {
+		QUESTION.text = text.value;
+		isQuestionSaved = false;
+	});
+
+	// Remove all answers
+	answers.innerHTML = '';
+
+	// Render actual answers
+	QUESTION.answers.forEach((answer , index) => {
+		const answerElement = createElem('button', 'button answer', answers);
+		answerElement.innerText = answer.text;
+		answerElement.addEventListener('click', () => onAnswerSelect(index));
+	});
+
+	// Render "new answer" button
+	const newAnswerElement = createElem('button', 'button answer', answers);
+	newAnswerElement.innerText = 'ADD NEW';
+	newAnswerElement.addEventListener('click', () => newAnswer());
 }
 
-function beforeQuestionUpdate() {
-	if (!isQuestionSaved || !isAnswerSaved) {
-		pleaseSave();
-		return false;
-	}
-	hideQuestion();
-	hideAnswerEditor();
-	return true;
-}
-
-function beforeAnswerEditorUpdate() {
-	if (!isAnswerSaved) {
-		pleaseSave();
-		return false;
-	}
-	hideAnswerEditor();
-	return true;
-}
-
-async function displayAnswerEditor(index: number) {
-
-	if (!beforeAnswerEditorUpdate()) return;
-
-	hideAnswerEditor();
-
+// Render answer of given index from QUESTION.answers[]
+async function plantAnswerEditor(index: number) {
+	console.log('planted answer editor');
+	const answer = QUESTION.answers[index];
 	selectedAnswer = index;
 
-	const answer = QUESTION.answers[index];
+	const elAnsText = document.getElementById('EdAnswerInputWrap');
+	elAnsText.innerHTML = '';
+	const elAnsTextInput = createElem('input', '', elAnsText) as HTMLInputElement;
+	elAnsTextInput.id = 'EdAnswerInput';
+	elAnsTextInput.type = "text";
+	elAnsTextInput.value = answer.text;
+	console.log(elAnsTextInput);
 
+	const ansEls = document.getElementsByClassName('answer');
+	const ansEl = ansEls[index] as HTMLDivElement;
 
-	const elAnsInput = document.getElementById('answer-text-input') as HTMLInputElement;
-	elAnsInput.value = answer.text;
-
-	elAnsInput.addEventListener('change', () => {
-		answer.text = elAnsInput.value;
+	elAnsTextInput.addEventListener('input', () => {
+		answer.text = elAnsTextInput.value;
+		ansEl.innerText = elAnsTextInput.value
 		isAnswerSaved = false;
 	});
 
-	const elCoefs = document.getElementById('coefs');
+	const elCoefs = document.getElementById('EdCoefs');
 	elCoefs.innerHTML = '';
 	answer.coefs.forEach(coef => {
 		const elCoef = createElem('div', 'coef', elCoefs);
@@ -206,62 +276,62 @@ async function displayAnswerEditor(index: number) {
 		elCoefSlider.setAttribute('type', 'range');
 		elCoefSlider.value = coef.value.toString();
 
-		elCoefSlider.addEventListener('change', () => {
+		elCoefSlider.addEventListener('input', () => {
+			console.log(coef.value, elCoefSlider.value, index);
+
 			coef.value = parseInt(elCoefSlider.value);
 			isAnswerSaved = false;
+
+			console.log(coef);
+			console.log(QUESTION.answers[index].coefs);
 		});
-
-		console.log(coef, coef.value.toString());
 	});
-
-
-	showAnswerEditor();
 }
+
+/*** Hide&Show stuff ***/
+
+function showAnswerEditor() { document.getElementById('EdAnswerEditor').classList.remove('hidden'); }
+function hideAnswerEditor() { document.getElementById('EdAnswerEditor').classList.add('hidden'); }
+function showQuestion() { console.log('q shown'); document.getElementById('EdQuestion').className = ''; }
+function hideQuestion() { console.log('q hidden'); document.getElementById('EdQuestion').className = 'hidden'; }
+
+
+/*** Saving stuff ***/
 
 function pleaseSave() {
 	alert('You have unsaved changes. Action denied');
 }
 
-function showAnswerEditor() {
-	document.getElementById('answer-editor').classList.remove('hidden');
-}
-
-function hideAnswerEditor() {
-	document.getElementById('answer-editor').classList.add('hidden');
-}
-
-
-
 async function save() {
 	if (isAnswerSaved && isQuestionSaved) {
-		console.log('nothing to save');
+		alert('nothing to save');
 		return;
 	}
 
-	hideQuestion();
-	hideAnswerEditor();
+	let sa = selectedAnswer
+	changeAnswer(async () => {
 
-	if (!isAnswerSaved) {
-		await saveAnswer();
-	}
+		await changeQuestion(async () => {
 
-	if (!isQuestionSaved) {
-		await saveQuestion();
-	}
+			await saveQuestion();
 
+			if (!isAnswerSaved) {
+				selectedAnswer = sa;
+				await saveAnswer();
+			}
 
-	isAnswerSaved = true;
-	isQuestionSaved = true;
-	if (selectedAnswer != -1) displayAnswerEditor(selectedAnswer);
-	plantQuestionList();
-	plantQuestion(QUESTION.id);
-	showAnswerEditor();
-	showQuestion();
+			return QUESTION.id;
+
+		}, false);
+
+		return selectedAnswer;
+
+	}, false);
 }
 
 async function saveAnswer() {
-	console.log(QUESTION.answers[selectedAnswer], selectedAnswer);
 	await POST('/editor/saveAnswer', {answer: QUESTION.answers[selectedAnswer]});
+	isAnswerSaved = true;
 }
 
 async function saveQuestion() {
@@ -271,10 +341,11 @@ async function saveQuestion() {
 	};
 
 	await POST('/editor/saveQuestion', {question: question});
+	isQuestionSaved = true;
 }
 
 
-
+/*** Other stuff ***/
 
 async function POST(url: string, body = undefined) {
 	const csrf = document.querySelector('input[name="_token"]') as HTMLInputElement;
@@ -293,53 +364,19 @@ async function POST(url: string, body = undefined) {
 	return data;
 }
 
-function renderQuestion(question: Question) {
-	question = QUESTION;
-	const title = document.getElementById('question-title');
-	const text = document.getElementById('text') as HTMLInputElement;
-	const answers = document.getElementById('answers');
+function createElem(elemName: string, className: string, putInto: HTMLElement = null): HTMLElement {
+	let elem = document.createElement(elemName);
+	elem.className = className;
 
-	// Update values
-	title.innerText = 'Question ' + question.order;
-	text.value = question.text;
+	if (putInto) {
+		putInto.appendChild(elem);
+	}
 
-	text.addEventListener('change', () => {
-		QUESTION.text = text.value;
-		isQuestionSaved = false;
-	});
-
-	// Remove old answers
-	answers.innerHTML = '';
-
-	// Render answers
-	question.answers.forEach((answer , index) => {
-		const answerElement = document.createElement('button');
-		answerElement.className = 'button answer';
-		answerElement.innerText = answer.text;
-		answerElement.addEventListener('click', () => displayAnswerEditor(index));
-
-		answers.appendChild(answerElement);
-	});
-
-	const newAnswerElement = document.createElement('button');
-	newAnswerElement.className = 'button answer';
-	newAnswerElement.innerText = 'ADD NEW';
-	newAnswerElement.addEventListener('click', () => newAnswer());
-
-
-	answers.appendChild(newAnswerElement);
-
+	return elem;
 }
 
-
-
-function showQuestion() {
-	document.getElementById('question').className = '';
+// barely used
+function on(type: string, id: string, listener: () => any) {
+	let element = document.getElementById(id);
+	element.addEventListener(type, listener);
 }
-
-/** Hide question modal */
-function hideQuestion() {
-	document.getElementById('question').className = 'hidden';
-}
-
-window.addEventListener('load', init);

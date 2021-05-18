@@ -15,7 +15,7 @@ class EditorController extends Controller
 	}
 
 	public function getAllQuestions() {
-		$questions = Question::select('id', 'text')->orderBy('order')->get();
+		$questions = Question::select('id', 'text', 'order')->orderBy('order')->get();
 		return $questions;
 	}
 
@@ -70,14 +70,15 @@ class EditorController extends Controller
 
 	public function newAnswer() {
 		$id = request('id');
+
 		$question = Question::where('id', $id)->with('answers' , 'answers.results:id,name')->first();
 		$answer = new Answer;
-		$answer->text = "New answer!";
+		$answer->text = "";
 		$question->answers()->save($answer);
 
 		$results = Result::all();
         foreach ($results as $result) {
-			$answer->results()->attach($result, ['coefficient' => 50]);
+			$answer->results()->attach($result, ['coefficient' => 1]);
 		}
 
 		return [];
@@ -85,8 +86,6 @@ class EditorController extends Controller
 
 	public function saveAnswer() {
 		$edited = request('answer');
-
-
 
 		$answer = Answer::where('id', $edited['id'])->with('results')->first();
 		$answer->text = $edited['text'];
@@ -116,4 +115,33 @@ class EditorController extends Controller
 
 		return [];
 	}
+
+	public function deleteAnswer() {
+		$id = request('id');
+
+		$answer = Answer::find($id);
+		$answer->delete();
+
+		return [];
+	}
+
+	public function deleteQuestion() {
+		$id = request('id');
+
+		$question = Question::find($id);
+		$deletedOrder = $question->order;
+		$question->delete();
+
+		$questions = Question::all('order');
+
+		foreach ($questions as $question) {
+			if ($question->order > $deletedOrder) {
+				$question->order--;
+				$question->order->save();
+			}
+		}
+
+		return [];
+	}
+
 }

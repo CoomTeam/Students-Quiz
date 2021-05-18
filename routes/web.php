@@ -64,3 +64,5 @@ Route::post('/editor/newQuestion', [EditorController::class, 'newQuestion']);
 Route::post('/editor/newAnswer', [EditorController::class, 'newAnswer']);
 Route::post('/editor/saveAnswer', [EditorController::class, 'saveAnswer']);
 Route::post('/editor/saveQuestion', [EditorController::class, 'saveQuestion']);
+Route::post('/editor/deleteAnswer', [EditorController::class, 'deleteAnswer']);
+Route::post('/editor/deleteQuestion', [EditorController::class, 'deleteQuestion']);

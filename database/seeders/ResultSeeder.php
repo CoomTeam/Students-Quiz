@@ -15,6 +15,28 @@ class ResultSeeder extends Seeder
      */
     public function run()
     {
-        Result::factory()->count(5)->create();
+        Result::factory()->create([
+			'name' => 'Zombie',
+		]);
+
+		Result::factory()->create([
+			'name' => 'Sceleton',
+		]);
+
+		Result::factory()->create([
+			'name' => 'Drowned',
+		]);
+
+		Result::factory()->create([
+			'name' => 'Slime',
+		]);
+
+		Result::factory()->create([
+			'name' => 'Blaze',
+		]);
+
+		Result::factory()->create([
+			'name' => 'Свинозомби',
+		]);
     }
 }

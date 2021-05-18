@@ -21,4 +21,5 @@ const mix = require('laravel-mix');
     .browserSync({
         proxy: 'http://localhost:8000/',
         notify: false,
-    });
+    })
+	.sourceMaps();
