@@ -7,15 +7,25 @@ use App\Models\Result;
 
 class ResEditorController extends Controller
 {
+	/**
+	 * Return view page
+	 */
     public function index() {
 		return view('results');
 	}
 
+
+	/**
+	 * Used for the results list
+	 */
 	public function getAllResults() {
 		$results = Result::select('id', 'name')->get();
 		return $results;
 	}
 
+	/**
+	 * Used for rendering the selected result
+	 */
 	public function getResult() {
 		$id = request('id');
 		$result = Result::find($id);
@@ -23,6 +33,9 @@ class ResEditorController extends Controller
         return $result;
 	}
  
+	/**
+	 * Created new result and pops it back to the client
+	 */
 	public function newResult() {
 		$result = new Result;
 		$result->name = "Pokemon";
@@ -37,6 +50,9 @@ class ResEditorController extends Controller
 		return ['id' => $result->id];
 	}
 
+	/**
+	 * Updates the result
+	 */
 	public function saveResult() {
 		$id = request('id');
 		$name = request('name');
@@ -50,6 +66,9 @@ class ResEditorController extends Controller
 		return [];
 	}
 
+	/**
+	 * Delete the result
+	 */
 	public function deleteResult() {
 		$id = request('id');
 

@@ -1,10 +1,12 @@
 ///////////////////////////////////////////
 
+//Used in ResultSelect class
 interface Option {
 	text: string,
 	callback: () => any,
 }
 
+//Used in ResultSelect class
 interface Result {
 	id?: number,
 	name?: string,
@@ -17,6 +19,7 @@ class ResultSelect {
 	private elOptions: HTMLElement;
 	private defaultText: string;
 
+	//Adding list element to the result editor page
 	constructor (elContainer: HTMLElement, text: string) {
 		this.defaultText = text;
 		this.elSelect = createElem('div', 'select', elContainer);
@@ -30,6 +33,12 @@ class ResultSelect {
 		document.addEventListener('click', () => this.close());
 	}
 
+	/**
+	 * 
+	 * Update result list
+	 * 
+	 * @param results Array of results from the server
+	 */
     updateResults(results: Result[]) {
 		const options = results.map((result) => {
 			const option = {
@@ -41,6 +50,12 @@ class ResultSelect {
 		this.updateOptions(options);
 	}
 
+	/**
+	 * 
+	 * Update the select with new options
+	 * 
+	 * @param options Array of new options
+	 */
 	updateOptions (options: Option[]) {
 		this.elOptions.innerHTML = '';
 		options.forEach(option => {
@@ -50,6 +65,14 @@ class ResultSelect {
 		});
 	}
 
+	/**
+	 * 
+	 * 
+	 * This is called when user clicks on the option
+	 * Executes the callback of the option
+	 * 
+	 * @param option 
+	 */
 	onOptionClick(option: Option) {
 		this.elSelection.innerText = option.text;
 		option.callback();
@@ -70,33 +93,48 @@ class ResultSelect {
 }
 
 let resultList: ResultSelect;
+
+// Of the result
 let selectedID: number;
 
+
 function init() {
-    const listContainer = document.getElementById('ResEdList')
-    resultList = new ResultSelect(listContainer, 'Select result:');
-    const saveBtn = document.getElementById('ResEdSave');
+
+	// Set up buttons
+	const saveBtn = document.getElementById('ResEdSave');
     const newBtn = document.getElementById('ResEdNew');
     const deleteBtn = document.getElementById('ResEdDelete');
-
     saveBtn.addEventListener('click', saveResult);
     newBtn.addEventListener('click', newResult);
     deleteBtn.addEventListener('click', deleteResult);
-
+	
+	// Set up the result list
+    const listContainer = document.getElementById('ResEdList')
+    resultList = new ResultSelect(listContainer, 'Select result:');
     updateResultList();
     
 }
 
 window.addEventListener('load', init);
 
+/**
+ * Get results from server
+ * Then put them into list
+ */
 async function updateResultList() {
 
     let results = await POST('/resEditor/getAllResults');
     resultList.updateResults(results);
 
-    console.log(results);
 }
 
+/**
+ * 
+ * Get result from the server
+ * Render to input fields
+ * 
+ * @param id ID of the result to fetch
+ */
 async function renderResult(id: number) {
     let result = await POST('/resEditor/getResult', {'id': id});
     console.log(result);
@@ -109,6 +147,13 @@ async function renderResult(id: number) {
 
     selectedID = id;
 }
+
+
+/**
+ * 
+ * Save the changes of input fields to the server
+ * And reload the page
+ */
 
 async function saveResult() {
     const nameInput = document.getElementById('ResEdNameInput') as HTMLInputElement;
@@ -123,11 +168,18 @@ async function saveResult() {
     location.reload();
 }
 
+/**
+ * Ask server to create new result
+ * Render that result
+ */
 async function newResult() {
     const data = await POST('/resEditor/newResult');
     renderResult(data.id);
 }
 
+/**
+ * Delete the selected result
+ */
 async function deleteResult(){
     await POST('/resEditor/deleteResult', {
         'id': selectedID,
@@ -136,7 +188,7 @@ async function deleteResult(){
     updateResultList();
 }
 
-/*** Other stuff ***/
+/*** Helper functions from other teammates ***/
 
 async function POST(url: string, body = undefined) {
 	const csrf = document.querySelector('input[name="_token"]') as HTMLInputElement;
