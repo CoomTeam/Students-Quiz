@@ -10,6 +10,7 @@ use App\Models\Answer;
 class Result extends Model
 {
     // I don't think this will be ever used
+    // you rong
     public function answers()
     {
         return $this->belongsToMany(Answer::class)->withPivot('coefficient');

@@ -2,5 +2,6 @@
     "/mix/app.js": "/mix/app.js",
     "/mix/quiz.js": "/mix/quiz.js",
     "/mix/editor.js": "/mix/editor.js",
+    "/mix/resEditor.js": "/mix/resEditor.js",
     "/mix/main.css": "/mix/main.css"
 }
