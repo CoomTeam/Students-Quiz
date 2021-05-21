@@ -1,0 +1,65 @@
+
+:root {
+
+    // --bg-color: #399ad6;
+    // --header-color:  white;
+    // --footer-color:  white;
+    // --quiz-button-color: #1780C3;
+    // --quiz-button-hover-active-color: #1c75ac;
+    // --question-result-box-color: white;
+    // --question-result-box-color: white;
+    // --text-span-color: gray;
+    // --text-span-color: gray;
+    // --start-button-text-color: white;
+    // --start-button-border-color: white;
+    // --start-button-bg-hover-color: white;
+    // --start-button-text-hover-color: black;
+
+
+    --white:#32363d;
+    --black:white;
+    --blue: #181818;
+    --blue-hover: #777a8d;
+
+    --bg-color: var(--blue);
+    --header-color: var(--white);
+    --footer-color:  var(--white);
+    --quiz-button-color:var(--blue);
+    --quiz-button-hover-active-color: var(--blue-hover);
+    --question-result-box-color: var(--white);
+    --text-span-color: gray;
+    --start-button-text-color: var(--white);
+    --start-button-border-color: var(--white);
+    --start-button-bg-hover-color: var(--white);
+    --start-button-text-hover-color: var(--black);
+
+}
+
+.light {
+    --bg:var(--bg-color);
+    --header:var(--header-color);
+    --footer:var(--footer-color);
+    --quiz-button:var(--quiz-button-color);
+    --quiz-button-hover-active:var(--quiz-button-hover-active-color);
+    --question-result-box:var( --question-result-box-color);
+    --text-span:var(--text-span-color);
+    --start-button-text:var(--start-button-text-color);
+    --start-button-border:var(--start-button-border-color);
+    --start-button-bg-hover:var(--start-button-bg-hover-color);
+    --start-button-text-hover:var(--start-button-text-hover-color);
+}
+  
+
+.dark {
+    --bg:var(--bg-dark);
+    --header:var(--header-dark);
+    --footer:var(--footer-dark);
+    --quiz-button:var(--quiz-button--dark);
+    --quiz-button-hover-active:var( --quiz-button-dark);
+    --text-span:var(--text-span-dark);
+    --start-button-text:var(--start-button-text-dark);
+    --start-button-border:var(--start-button-border-dark);
+    --start-button-bg-hover:var(--start-button-bg-hover-dark);
+    --start-button-text-hover:var(--start-button-text-hover-dark);
+}
+

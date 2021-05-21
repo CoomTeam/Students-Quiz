@@ -18,11 +18,15 @@
 	<link rel="stylesheet" href="{{ asset('mix/main.css') }}">
 </head>
 
-<body>
+
+<body class="light">
+
+
 	<header>
 		<a href="https://www.hz.nl">
 			<img src="img/logo.svg" alt="HZ Logo">
 		</a>
+		{{-- <button id="darkmode-button">Dark</button> --}}
 	</header>
 
 	@csrf
@@ -31,6 +35,8 @@
 	<footer>
 		<span>created by coom team</span>
 	</footer>
+	<script src="{{ asset('mix/darkmode.js') }}"></script>
 </body>
+
 
 </html>
