@@ -2,7 +2,8 @@
 
 .welcome {
 	display: grid;
-    background: url('../img/auditorium-blue.jpg') no-repeat center;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.418), rgba(0, 0, 0, 0.384)), url('../img/auditorium-blue.jpg') no-repeat center;
+    // background: url('../img/auditorium-blue.jpg') no-repeat center;
 	background-size: cover;
     place-items: center;
 
@@ -20,7 +21,7 @@
 			letter-spacing: 2px;
 		}
 
-		.batonchik {
+		.sladkijbatonchik {
 			all: unset;
 			margin: 35px auto 0;
 			width: 285px;
@@ -31,13 +32,13 @@
 			font-weight: bold;
 			letter-spacing: 2px;
 			text-transform: uppercase;
-			color: var(--start-button-text);
-			border: 4px solid var(--start-button-border);
+			color: white;
+			border: 4px solid white;
 			transition: background-color 80ms linear;
 
 			&:hover {
-				background-color: var(--start-button-bg-hover);
-				color: var(--start-button-text-hover);
+				background-color: white;
+				color: black;
 				cursor: pointer;
 			}
 
@@ -57,7 +58,7 @@
 				font-size: 14px;
 				letter-spacing: 1px;
 			}
-			.batonchik {
+			.sladkijbatonchik {
 				width: 200px;
 			}
 		}
