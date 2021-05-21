@@ -68,4 +68,5 @@ Route::post('/editor/deleteAnswer', [EditorController::class, 'deleteAnswer']);
 Route::post('/editor/deleteQuestion', [EditorController::class, 'deleteQuestion']);
 Route::get('/editor/export', [EditorController::class, 'export']);
 Route::post('/editor/import', [EditorController::class, 'import']);
-Route::get('/editor/import', [EditorController::class, 'importIndex']);
+Route::get('/editor/import', [EditorController::class, 'indexImport']);
+Route::post('/test', [EditorController::class, 'test']);
