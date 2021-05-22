@@ -16,6 +16,27 @@
 
 	{{-- CSS --}}
 	<link rel="stylesheet" href="{{ asset('mix/main.css') }}">
+
+	{{-- TEMP START --}}
+	<style>
+		#links {
+			position: fixed;
+			top: 15px;
+			right: 20px;
+			display: flex;
+			z-index: 999999999;
+
+		}
+
+		#links a {
+			text-decoration: none;
+			color: rgb(217, 215, 230);
+			font-weight: bold;
+			margin-left: 10px;
+		}
+	</style>
+	{{-- TEMP END --}}
+
 </head>
 
 
@@ -31,6 +52,16 @@
 
 	@csrf
 	{{ $slot }}
+
+	{{-- TEMP START --}}
+	<div id="links">
+		<a href="/">Home</a>
+		<a href="/quiz">Quiz</a>
+		<a href="/editor">Editor</a>
+		<a href="/editor/export">Export</a>
+		<a href="/editor/import">Import</a>
+	</div>
+	{{-- TEMP END --}}
 
 	<footer>
 		<span>created by coom team</span>
