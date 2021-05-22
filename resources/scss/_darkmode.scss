@@ -14,7 +14,7 @@
     // --start-button-border-color: white;
     // --start-button-bg-hover-color: white;
     // --start-button-text-hover-color: black;
-
+    // --quiz-question-text-color:black;
 
     --white:#32363d;
     --black:white;
@@ -32,6 +32,7 @@
     --start-button-border-color: var(--white);
     --start-button-bg-hover-color: var(--white);
     --start-button-text-hover-color: var(--black);
+    --quiz-question-text-color:var(--black);
 
 }
 
@@ -47,6 +48,7 @@
     --start-button-border:var(--start-button-border-color);
     --start-button-bg-hover:var(--start-button-bg-hover-color);
     --start-button-text-hover:var(--start-button-text-hover-color);
+    --quiz-question-text:var(--quiz-question-text-color);
 }
   
 
@@ -61,5 +63,6 @@
     --start-button-border:var(--start-button-border-dark);
     --start-button-bg-hover:var(--start-button-bg-hover-dark);
     --start-button-text-hover:var(--start-button-text-hover-dark);
+    --quiz-question-text:var(--quiz-question-text-dark);
 }
 
