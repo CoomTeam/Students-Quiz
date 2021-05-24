@@ -1,6 +1,6 @@
 
 :root {
-
+    --bg-image-color:url('../img/auditorium-blue.jpg') no-repeat center;
     --bg-color: #399ad6;
     --header-color:  white;
     --footer-color:  white;
@@ -20,13 +20,14 @@
     --black:white;
     --blue: #181818;
     --blue-hover: #777a8d;
-
+    
+    --bg-image-dark:linear-gradient(to right, rgba(0, 0, 0, 0.418), rgba(0, 0, 0, 0.384)), url('../img/auditorium-blue.jpg') no-repeat center;
     --bg-dark: var(--blue);
     --header-dark: var(--white);
     --footer-dark:  var(--white);
     --quiz-button-dark:var(--blue);
     --quiz-button-hover-active-dark: var(--blue-hover);
-    --question-result-box-dark: var(--blue);
+    --question-result-box-dark: var(--white);
     --text-span-dark: gray;
     --start-button-text-dark: var(--white);
     --start-button-border-dark: var(--white);
@@ -37,6 +38,7 @@
 }
 
 .light {
+    --bg-image:var(--bg-image-color);
     --bg:var(--bg-color);
     --header:var(--header-color);
     --footer:var(--footer-color);
@@ -53,10 +55,11 @@
   
 
 .dark {
+    --bg-image:var(--bg-image-dark);
     --bg:var(--bg-dark);
     --header:var(--header-dark);
     --footer:var(--footer-dark);
-    --quiz-button:var(--quiz-button--dark);
+    --quiz-button:var(--quiz-button-dark);
     --quiz-button-hover-active:var( --quiz-button-dark);
     --question-result-box:var(--question-result-box-dark);
     --text-span:var(--text-span-dark);

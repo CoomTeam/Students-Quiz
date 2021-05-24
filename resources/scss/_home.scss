@@ -2,7 +2,7 @@
 
 .welcome {
 	display: grid;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.418), rgba(0, 0, 0, 0.384)), url('../img/auditorium-blue.jpg') no-repeat center;
+    background:var(--bg-image);
     // background: url('../img/auditorium-blue.jpg') no-repeat center;
 	background-size: cover;
     place-items: center;
