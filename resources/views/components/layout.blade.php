@@ -55,6 +55,8 @@
 
 	{{-- TEMP START --}}
 	<div id="links">
+		<input class="tgl tgl-ios" id="cb2" type="checkbox"/>
+		<label class="tgl-btn" for="cb2"></label>
 		<a href="/">Home</a>
 		<a href="/quiz">Quiz</a>
 		<a href="/editor">Editor</a>
