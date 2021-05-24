@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
-
+@import 'darkmode';
 *, ::after, ::before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+	transition: background-color 0.3s ease;
 }
 
 body {
@@ -17,7 +18,7 @@ body {
 }
 
 header {
-	background-color: white;
+	background-color: var(--header);
 	position: fixed;
 	width: 100vw;
 	z-index: 999999;
@@ -39,7 +40,7 @@ main {
 }
 
 footer {
-	background-color: white;
+	background-color:var(--footer);
 	position: fixed;
 	bottom: 0;
 	width: 100vw;

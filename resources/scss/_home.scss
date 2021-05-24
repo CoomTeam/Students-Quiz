@@ -1,6 +1,9 @@
+@import 'darkmode'; 
+
 .welcome {
 	display: grid;
-    background: url('../img/auditorium-blue.jpg') no-repeat center;
+    background:var(--bg-image);
+    // background: url('../img/auditorium-blue.jpg') no-repeat center;
 	background-size: cover;
     place-items: center;
 
@@ -34,7 +37,7 @@
 			transition: background-color 80ms linear;
 
 			&:hover {
-				background-color: #ffffff;
+				background-color: white;
 				color: black;
 				cursor: pointer;
 			}

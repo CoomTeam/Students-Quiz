@@ -39,11 +39,15 @@
 
 </head>
 
-<body>
+
+<body class="light">
+
+
 	<header>
 		<a href="https://www.hz.nl">
-			<img src="img/logo.svg" alt="HZ Logo">
+			<img src="img/logo.svg" alt="HZ Logo" id='logo'>
 		</a>
+		{{-- <button id="darkmode-button">Dark</button> --}}
 	</header>
 
 	@csrf
@@ -51,6 +55,8 @@
 
 	{{-- TEMP START --}}
 	<div id="links">
+		<input class="tgl tgl-ios" id="cb2" type="checkbox"/>
+		<label class="tgl-btn" for="cb2"></label>
 		<a href="/">Home</a>
 		<a href="/quiz">Quiz</a>
 		<a href="/editor">Editor</a>
@@ -62,6 +68,8 @@
 	<footer>
 		<span>created by coom team</span>
 	</footer>
+	<script src="{{ asset('mix/darkmode.js') }}"></script>
 </body>
+
 
 </html>

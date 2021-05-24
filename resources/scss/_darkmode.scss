@@ -1,0 +1,164 @@
+
+:root {
+    --bg-image-color:url('../img/auditorium-blue.jpg') no-repeat center;
+    --bg-color: #399ad6;
+    --header-color:  white;
+    --footer-color:  white;
+    --quiz-button-color: #1780C3;
+    --quiz-button-hover-active-color: #1c75ac;
+    --question-result-box-color: white;
+    --question-result-box-color: white;
+    --text-span-color: gray;
+    --text-span-color: gray;
+    --start-button-text-color: white;
+    --start-button-border-color: white;
+    --start-button-bg-hover-color: white;
+    --start-button-text-hover-color: black;
+    --quiz-question-text-color:black;
+
+    --white:#32363d;
+    --black:white;
+    --blue: #181818;
+    --blue-hover: #777a8d;
+    
+    --bg-image-dark:linear-gradient(to right, rgba(0, 0, 0, 0.418), rgba(0, 0, 0, 0.384)), url('../img/auditorium-blue.jpg') no-repeat center;
+    --bg-dark: var(--blue);
+    --header-dark: var(--white);
+    --footer-dark:  var(--white);
+    --quiz-button-dark:var(--blue);
+    --quiz-button-hover-active-dark: var(--blue-hover);
+    --question-result-box-dark: var(--white);
+    --text-span-dark: gray;
+    --start-button-text-dark: var(--white);
+    --start-button-border-dark: var(--white);
+    --start-button-bg-hover-dark: var(--white);
+    --start-button-text-hover-dark: var(--black);
+    --quiz-question-text-dark:var(--black);
+
+}
+
+.light {
+    --bg-image:var(--bg-image-color);
+    --bg:var(--bg-color);
+    --header:var(--header-color);
+    --footer:var(--footer-color);
+    --quiz-button:var(--quiz-button-color);
+    --quiz-button-hover-active:var(--quiz-button-hover-active-color);
+    --question-result-box:var( --question-result-box-color);
+    --text-span:var(--text-span-color);
+    --start-button-text:var(--start-button-text-color);
+    --start-button-border:var(--start-button-border-color);
+    --start-button-bg-hover:var(--start-button-bg-hover-color);
+    --start-button-text-hover:var(--start-button-text-hover-color);
+    --quiz-question-text:var(--quiz-question-text-color);
+}
+  
+
+.dark {
+    --bg-image:var(--bg-image-dark);
+    --bg:var(--bg-dark);
+    --header:var(--header-dark);
+    --footer:var(--footer-dark);
+    --quiz-button:var(--quiz-button-dark);
+    --quiz-button-hover-active:var( --quiz-button-dark);
+    --question-result-box:var(--question-result-box-dark);
+    --text-span:var(--text-span-dark);
+    --start-button-text:var(--start-button-text-dark);
+    --start-button-border:var(--start-button-border-dark);
+    --start-button-bg-hover:var(--start-button-bg-hover-dark);
+    --start-button-text-hover:var(--start-button-text-hover-dark);
+    --quiz-question-text:var(--quiz-question-text-dark);
+}
+
+
+.tgl {
+	display: none;
+  
+	// add default box-sizing for this scope
+	&,
+  &:after,
+  &:before,
+	& *,
+  & *:after,
+  & *:before,
+	& + .tgl-btn {
+		box-sizing: border-box;
+		&::selection {
+			background: none;
+		}
+	}
+  
+	+ .tgl-btn {
+		outline: 0;
+		display: block;
+		width: 3.5em;
+		height: 2em;
+		position: relative;
+		cursor: pointer;
+    user-select: none;
+		&:after,
+    &:before {
+			position: relative;
+			display: block;
+			content: "";
+			width: 50%;
+			height: 100%;
+		}
+    
+		&:after {
+			left: 0;
+		}
+    
+		&:before {
+			display: none;
+		}
+	}
+  
+	&:checked + .tgl-btn:after {
+		left: 50%;
+	}
+}
+
+.tgl-ios {
+	+ .tgl-btn {
+		background: #0f0d0d;
+		border-radius: 2em;
+		padding: 2px;
+		transition: all .4s ease;
+		border: 1px solid  #0f0d0d;
+		&:after {
+			border-radius: 2em;
+			background: #fbfbfb;
+			transition:
+        left .3s cubic-bezier(
+          0.175, 0.885, 0.320, 1.275
+        ),
+        padding .3s ease, margin .3s ease;
+			box-shadow:
+        0 0 0 1px rgba(0,0,0,.1),
+        0 4px 0 rgba(0,0,0,.08);
+		}
+    
+    &:hover:after {
+      will-change: padding;
+    }
+    
+		&:active {
+			box-shadow: inset 0 0 0 2em #e8eae9;
+			&:after {
+				padding-right: .8em;
+			}
+		}
+	}
+  
+	&:checked + .tgl-btn {
+    border: 1px solid #e4c284;
+    background: #e4c284;
+    &:active {
+      box-shadow: none;
+      &:after {
+        margin-left: -.8em;
+      }
+    }
+	}
+}
