@@ -45,7 +45,7 @@
 
 	<header>
 		<a href="https://www.hz.nl">
-			<img src="img/logo.svg" alt="HZ Logo">
+			<img src="img/logo.svg" alt="HZ Logo" id='logo'>
 		</a>
 		{{-- <button id="darkmode-button">Dark</button> --}}
 	</header>

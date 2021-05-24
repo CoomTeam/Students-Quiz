@@ -1,6 +1,7 @@
 
 const tgl = document.getElementById('cb2');
 const body = document.body;
+const logo = document.getElementById('logo');
 
 let darkmode = localStorage.getItem('darkmode');
 
@@ -33,10 +34,12 @@ function checkLocalStorage() {
 
 function lightToggle() {
     body.classList.replace('dark', 'light');
+    logo.src ='/img/logo.svg';
     localStorage.setItem('darkmode', 'off');
 }
 
 function darkToggle() {
     body.classList.replace('light', 'dark');
+    logo.src ='/img/logo-white.svg';
     localStorage.setItem('darkmode', 'on');
 }

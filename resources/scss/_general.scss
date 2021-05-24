@@ -5,6 +5,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+	transition: background-color 0.3s ease;
 }
 
 body {
@@ -14,7 +15,6 @@ body {
 	// overflow-x: hidden; // tell me why does everything that I love get taken away from me? Why does everything that I love get taken away? You take me to the edge, push me too far
     flex-direction: column;
 	font-family: 'PT Sans', sans-serif;
-	transition: background-color 0.6s ease, color 1s ease;
 }
 
 header {
