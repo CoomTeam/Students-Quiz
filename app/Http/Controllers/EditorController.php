@@ -47,14 +47,6 @@ class EditorController extends Controller
 				'coefs' => $coefs,
 			];
 		}
-		// lazy loading is not so bad
-		// foreach($question->answers as $answer) {
-		// 	foreach($answer->results as $result) {
-		// 		$result->coef = $result->pivot->coefficient;
-		// 	}
-		// }
-
-
 
 		return $formatted;
 	}
@@ -89,7 +81,7 @@ class EditorController extends Controller
 		$edited = request('answer');
 
 		$answer = Answer::where('id', $edited['id'])->with('results')->first();
-		$answer->text = $edited['text'];
+		$answer->text = $edited['text']; // cant be null ""
 
 		$coefs = [];
 
@@ -133,12 +125,12 @@ class EditorController extends Controller
 		$deletedOrder = $question->order;
 		$question->delete();
 
-		$questions = Question::all('order');
+		$questions = Question::all('order', 'id');
 
 		foreach ($questions as $question) {
 			if ($question->order > $deletedOrder) {
-				$question->order--;
-				$question->order->save();
+				$question->order = $question->order - 1;
+				$question->save();
 			}
 		}
 
@@ -169,48 +161,68 @@ class EditorController extends Controller
 			$one->delete();
 		});
 
+		// Import results
 		foreach ($quiz['results'] as $result) {
-			$new = new Result;
-			$new->id = $result['id'];
-			$new->name = $result['name'];
-			$new->description = $result['description'];
-			$new->created_at = $result['created_at'];
-			$new->updated_at = $result['updated_at'];
-			$new->save();
+			$this->importResult($result);
 		}
 
+		// Import questions PLUS answers PLUS coefficients
 		foreach ($quiz['questions'] as $question) {
-			$new = new Question;
-			$new->id = $question['id'];
-			$new->text = $question['text'];
-			$new->order = $question['order'];
-			$new->created_at = $question['created_at'];
-			$new->updated_at = $question['updated_at'];
-			$new->save();
+			$this->importQuestion($question);
 
 			foreach ($question['answers'] as $answer) {
-				$ans = new Answer;
-				$ans->id = $answer['id'];
-				$ans->text = $answer['text'];
-				$ans->question_id = $answer['question_id'];
-				$ans->created_at = $answer['created_at'];
-				$ans->updated_at = $answer['updated_at'];
-				$ans->save();
-
-				foreach($answer['results'] as $result) {
-					$ans->results()->attach(
-						$result['pivot']['result_id'],
-						['coefficient' => $result['pivot']['coefficient']],
-					);
-				}
-
+				$this->importAnswer($answer);
 			}
-
 		}
+
+		return [];
 	}
 
-	function importIndex() {
+	private function importResult($result) {
+		$new = new Result;
+		$new->id = $result['id'];
+		$new->name = $result['name'];
+		$new->description = $result['description'];
+		$new->created_at = $result['created_at'];
+		$new->updated_at = $result['updated_at'];
+		$new->save();
+	}
+
+	private function importQuestion($question) {
+		$new = new Question;
+		$new->id = $question['id'];
+		$new->text = $question['text'];
+		$new->order = $question['order'];
+		$new->created_at = $question['created_at'];
+		$new->updated_at = $question['updated_at'];
+		$new->save();
+	}
+
+	private function importAnswer($answer) {
+		$ans = new Answer;
+		$ans->id = $answer['id'];
+		$ans->text = $answer['text'];
+		$ans->question_id = $answer['question_id'];
+		$ans->created_at = $answer['created_at'];
+		$ans->updated_at = $answer['updated_at'];
+		$ans->save();
+
+		// Coefficients
+		foreach($answer['results'] as $result) {
+			$ans->results()->attach(
+				$result['pivot']['result_id'],
+				['coefficient' => $result['pivot']['coefficient']],
+			);
+		}
+
+	}
+
+	function indexImport() {
 		return view('import');
+	}
+
+	function test() {
+		return [];
 	}
 
 }

@@ -4,6 +4,7 @@
 		<h1>Import json you got from /editor/export</h1>
 		<textarea name="json" id="json" cols="50" rows="40"></textarea>
 		<button id="submit" class="button">Submit</button>
+		<button id="test" class="button">test</button>
 	</main>
 
 	<script>
@@ -11,6 +12,10 @@
 		function init() {
 			const submit = document.getElementById('submit');
 			const text = document.getElementById('json');
+			const test = document.getElementById('test');
+			test.addEventListener('click', async () => {
+				const data = await POST('/test');
+			});
 			submit.addEventListener('click', async () => {
 				console.log(JSON.parse(text.value));
 

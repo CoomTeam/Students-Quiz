@@ -6,6 +6,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\TypesController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\EditorController;
+use App\Http\Controllers\ResEditorController;
 use Illuminate\Http\Request;
 
 /*
@@ -68,4 +69,12 @@ Route::post('/editor/deleteAnswer', [EditorController::class, 'deleteAnswer']);
 Route::post('/editor/deleteQuestion', [EditorController::class, 'deleteQuestion']);
 Route::get('/editor/export', [EditorController::class, 'export']);
 Route::post('/editor/import', [EditorController::class, 'import']);
-Route::get('/editor/import', [EditorController::class, 'importIndex']);
+Route::get('/editor/import', [EditorController::class, 'indexImport']);
+Route::post('/test', [EditorController::class, 'test']);
+
+Route::get('/resEditor', [ResEditorController::class, 'index']);
+Route::post('/resEditor/getAllResults', [ResEditorController::class, 'getAllResults']);
+Route::post('/resEditor/getResult', [ResEditorController::class, 'getResult']);
+Route::post('/resEditor/newResult', [ResEditorController::class, 'newResult']);
+Route::post('/resEditor/saveResult', [ResEditorController::class, 'saveResult']);
+Route::post('/resEditor/deleteResult', [ResEditorController::class, 'deleteResult']);
