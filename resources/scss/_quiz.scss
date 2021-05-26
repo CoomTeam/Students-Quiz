@@ -37,7 +37,7 @@
 
 #question, #result {
 	position: absolute;
-	top: calc(50% - 16px);
+	top: 50%;
 	left: 50%;
 	display: flex;
 	width: 700px;
@@ -111,6 +111,13 @@
 }
 
 #result {
+	.shareon{
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 10px;
+	}
+
 	label {
 		opacity: 0.5;
 		font-size: 14px;

@@ -1,5 +1,10 @@
 <x-layout>
 
+	<link href="https://cdn.jsdelivr.net/npm/shareon@1/dist/shareon.min.css"
+		  rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/shareon@1/dist/shareon.min.js"
+			type="text/javascript"></script>
+
     <main class="quiz">
 		<div id="question" class="hidden">
 			<div class="top">
@@ -17,6 +22,15 @@
 				<h1 id="student-name"></h1>
 				<p id="student-description"></p>
 				<div id="restart" class="button">Try one more time!</div>
+
+			<div class="shareon">
+				<a class="facebook" data-title="Completed the quiz!"></a>
+				<a class="linkedin"></a>
+				<!-- FB App ID is required for the Messenger button to function -->
+				<button class="twitter"></button>
+				<button class="whatsapp"></button>
+			</div>
+
 		</div>
 	</main>
 
