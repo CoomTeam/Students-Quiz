@@ -1,5 +1,6 @@
 <x-layout>
 
+
     <main class="editor">
 
 		<div id="ResEdList"></div>
@@ -18,7 +19,7 @@
 			<input id="ResEdNameInput" value="" type="text">
             <input id="ResEdDescInput" value="" type="text">
 		</div>
-        
+
     </main>
 
     <script src="{{ asset('mix/resEditor.js') }}"></script>

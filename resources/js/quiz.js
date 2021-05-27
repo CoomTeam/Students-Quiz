@@ -99,6 +99,10 @@ function renderResult(result) {
 	// Remove old answers
 	answers.innerHTML = '';
 
+	// For sharing
+	document.title = 'Studen Type Quiz: Im a "' + result.name + '"!';
+	shareon();
+
 	showResult();
 	hideQuestion();
 }
@@ -179,6 +183,8 @@ async function POST(url, body) {
 
 	return data;
 }
+
+
 
 // Initialize on page load
 window.addEventListener('load', init);
