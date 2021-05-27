@@ -100,7 +100,7 @@ function renderResult(result) {
 	answers.innerHTML = '';
 
 	// For sharing
-	document.title = 'Studen Type Quiz: Im a "' + result.name + '"!';
+	document.title = 'Student Type Quiz: Im a "' + result.name + '"! Which one are you?';
 	shareon();
 
 	showResult();
@@ -135,6 +135,7 @@ async function sendAnswer(id) {
  * Restart quiz
  */
  async function restartQuiz() {
+	document.title = 'Student Type Quiz';
 	hideResult();
 	hideQuestion();
 
