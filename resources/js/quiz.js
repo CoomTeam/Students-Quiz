@@ -59,7 +59,7 @@ function renderQuestion(question) {
 	const answers = document.getElementById('answers');
 
 	// Update values
-	title.innerText = 'Question ' + question.order;
+	title.innerText = `Question ${question.order + 1}`;
 	text.innerText = question.text;
 
 	// Remove old answers
