@@ -72,6 +72,7 @@ Route::post('/editor/import', [EditorController::class, 'import']);
 Route::get('/editor/import', [EditorController::class, 'indexImport']);
 Route::post('/test', [EditorController::class, 'test']);
 
+/******** Result Editor ********/
 Route::get('/resEditor', [ResEditorController::class, 'index']);
 Route::post('/resEditor/getAllResults', [ResEditorController::class, 'getAllResults']);
 Route::post('/resEditor/getResult', [ResEditorController::class, 'getResult']);
