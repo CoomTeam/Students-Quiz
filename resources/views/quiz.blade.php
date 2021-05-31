@@ -1,4 +1,7 @@
 <x-layout>
+	<!-- Shareon buttons -->
+	<link href="https://cdn.jsdelivr.net/npm/shareon@1/dist/shareon.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/shareon@1/dist/noinit/shareon.min.js" type="text/javascript"></script>
 
     <main class="quiz">
 		<div id="question" class="hidden">
@@ -17,6 +20,15 @@
 				<h1 id="student-name"></h1>
 				<p id="student-description"></p>
 				<div id="restart" class="button">Try one more time!</div>
+
+			<div class="shareon" data-url="{{ env('APP_URL') }}">
+				<a class="facebook"></a>
+				<a class="telegram"></a>
+				<a class="twitter"></a>
+				<a class="whatsapp"></a>
+			</div>
+
+
 		</div>
 	</main>
 

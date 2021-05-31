@@ -99,6 +99,10 @@ function renderResult(result) {
 	// Remove old answers
 	answers.innerHTML = '';
 
+	// For sharing
+	document.title = 'Student Type Quiz: Im a "' + result.name + '"! Which one are you?';
+	shareon();
+
 	showResult();
 	hideQuestion();
 }
@@ -131,6 +135,7 @@ async function sendAnswer(id) {
  * Restart quiz
  */
  async function restartQuiz() {
+	document.title = 'Student Type Quiz';
 	hideResult();
 	hideQuestion();
 
@@ -179,6 +184,8 @@ async function POST(url, body) {
 
 	return data;
 }
+
+
 
 // Initialize on page load
 window.addEventListener('load', init);

@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Complete the quiz</title>
+	<title>Student Type Quiz</title>
 
 	{{-- FONTS --}}
 	<link rel="preconnect" href="https://fonts.gstatic.com">
@@ -60,13 +60,14 @@
 		<a href="/">Home</a>
 		<a href="/quiz">Quiz</a>
 		<a href="/editor">Editor</a>
+		<a href="/resEditor">ResEditor</a>
 		<a href="/editor/export">Export</a>
 		<a href="/editor/import">Import</a>
 	</div>
 	{{-- TEMP END --}}
 
 	<footer>
-		<span>created by coom team</span>
+		<span><a class="cookie-link" href="/cookies">cookie policy</a></span>
 	</footer>
 	<script src="{{ asset('mix/darkmode.js') }}"></script>
 </body>

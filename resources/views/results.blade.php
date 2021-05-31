@@ -1,5 +1,6 @@
 <x-layout>
 
+
     <main class="editor">
 
 		<div id="ResEdList"></div>
@@ -9,16 +10,18 @@
 			<button id="ResEdSave" class="button">Save</button>
 		</div>
 
-		<div id="EdResult" class="">
+		<div id="EdResult" class="hidden">
 			<div class="ed-head">
-				<h2>Edit result</h2>
+				<h3>Edit result</h3>
 				<button class="button" id="ResEdDelete">Delete</button>
 			</div>
-
-			<input id="ResEdNameInput" value="" type="text">
-            <input id="ResEdDescInput" value="" type="text">
+			<input id="ResEdNameInput" class="form__input" value="" type="text">
+			<div class="ed-head">
+				<h3>Edit Description</h3>
+			</div>
+            <input id="ResEdDescInput" class="form__input" value="" type="text">
 		</div>
-        
+
     </main>
 
     <script src="{{ asset('mix/resEditor.js') }}"></script>

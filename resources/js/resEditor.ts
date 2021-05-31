@@ -136,14 +136,17 @@ async function updateResultList() {
  * @param id ID of the result to fetch
  */
 async function renderResult(id: number) {
-    let result = await POST('/resEditor/getResult', {'id': id});
+	
+	let result = await POST('/resEditor/getResult', {'id': id});
     console.log(result);
-
+	showResultEditor();
+	
     const nameInput = document.getElementById('ResEdNameInput') as HTMLInputElement;
     const descInput = document.getElementById('ResEdDescInput') as HTMLInputElement;
 
     nameInput.value = result.name;
     descInput.value = result.description;
+
 
     selectedID = id;
 }
@@ -165,7 +168,7 @@ async function saveResult() {
         'description':descInput.value,
     });
 
-    location.reload();
+	location.reload();
 }
 
 /**
@@ -185,8 +188,22 @@ async function deleteResult(){
         'id': selectedID,
     });
 
-    updateResultList();
+    location.reload();
 }
+
+
+function showResultEditor() { 
+	console.log('r shown');
+	const rshow  = document.getElementById('EdResult'); 
+	rshow.className = '';
+}
+
+function hideResultEditor() { 
+	const rshow  = document.getElementById('EdResult'); 
+	rshow.className = 'hidden'; 
+}
+
+
 
 /*** Helper functions from other teammates ***/
 
