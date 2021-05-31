@@ -82,6 +82,10 @@
 			&:last-child {
 				margin-right: 0;
 			}
+
+			&.selected {
+				outline: 2px rgb(0, 0, 0) solid;
+			}
 		}
 	}
 }
@@ -203,3 +207,4 @@
 
 	transition: opacity 0.2s linear, top 0.3s ease;
 }
+

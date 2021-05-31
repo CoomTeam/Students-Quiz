@@ -6,7 +6,7 @@
 
 		<div class="ed-buttons">
 			<button id="EdNewQuestionBtn" class="button">New question</button>
-			<button id="EdSaveBtn" class="button">Save all</button>
+			<button id="EdSaveBtn" class="button" disabled>Save all</button>
 		</div>
 
 		<div id="EdQuestion" class="hidden">

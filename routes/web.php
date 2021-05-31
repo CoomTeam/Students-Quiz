@@ -61,10 +61,10 @@ Route::get('/delses', function (Request $request) {
 Route::get('/editor', [EditorController::class, 'index']);
 Route::post('/editor/getAllQuestions', [EditorController::class, 'getAllQuestions']);
 Route::post('/editor/getQuestion', [EditorController::class, 'getQuestion']);
+Route::post('/editor/getAnswer', [EditorController::class, 'getAnswer']);
 Route::post('/editor/newQuestion', [EditorController::class, 'newQuestion']);
 Route::post('/editor/newAnswer', [EditorController::class, 'newAnswer']);
-Route::post('/editor/saveAnswer', [EditorController::class, 'saveAnswer']);
-Route::post('/editor/saveQuestion', [EditorController::class, 'saveQuestion']);
+Route::post('/editor/save', [EditorController::class, 'save']);
 Route::post('/editor/deleteAnswer', [EditorController::class, 'deleteAnswer']);
 Route::post('/editor/deleteQuestion', [EditorController::class, 'deleteQuestion']);
 Route::get('/editor/export', [EditorController::class, 'export']);
