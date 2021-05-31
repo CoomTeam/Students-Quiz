@@ -67,7 +67,7 @@
 	{{-- TEMP END --}}
 
 	<footer>
-		<span>created by coom team</span>
+		<span><a class="cookie-link" href="/cookies">cookie policy</a></span>
 	</footer>
 	<script src="{{ asset('mix/darkmode.js') }}"></script>
 </body>

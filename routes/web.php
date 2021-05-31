@@ -44,6 +44,7 @@ Route::post('/quiz/back', [QuizController::class, 'back']);
 // Starts quiz from beginning, then same as `current`
 Route::post('/quiz/restart', [QuizController::class, 'restart']);
 
+
 /******** SESSION ********/
 
 // Gives a dump of your session
@@ -79,3 +80,9 @@ Route::post('/resEditor/getResult', [ResEditorController::class, 'getResult']);
 Route::post('/resEditor/newResult', [ResEditorController::class, 'newResult']);
 Route::post('/resEditor/saveResult', [ResEditorController::class, 'saveResult']);
 Route::post('/resEditor/deleteResult', [ResEditorController::class, 'deleteResult']);
+
+/******** Cookies ********/
+
+Route::get('/cookies', function () {
+	return view('cookies');
+});
