@@ -58,21 +58,6 @@ Route::get('/delses', function (Request $request) {
   return redirect('/ses');
 });
 
-/******** EDITOR ********/
-Route::get('/editor', [EditorController::class, 'index']);
-Route::post('/editor/getAllQuestions', [EditorController::class, 'getAllQuestions']);
-Route::post('/editor/getQuestion', [EditorController::class, 'getQuestion']);
-Route::post('/editor/getAnswer', [EditorController::class, 'getAnswer']);
-Route::post('/editor/newQuestion', [EditorController::class, 'newQuestion']);
-Route::post('/editor/newAnswer', [EditorController::class, 'newAnswer']);
-Route::post('/editor/save', [EditorController::class, 'save']);
-Route::post('/editor/deleteAnswer', [EditorController::class, 'deleteAnswer']);
-Route::post('/editor/deleteQuestion', [EditorController::class, 'deleteQuestion']);
-Route::get('/editor/export', [EditorController::class, 'export']);
-Route::post('/editor/import', [EditorController::class, 'import']);
-Route::get('/editor/import', [EditorController::class, 'indexImport']);
-Route::post('/test', [EditorController::class, 'test']);
-
 /******** Cookies ********/
 
 Route::get('/cookies', function () {
@@ -82,6 +67,7 @@ Route::get('/cookies', function () {
 Route::group(['prefix' => 'admin'], function () {
 	Voyager::routes();
 
+	/******** EDITOR ********/
 	Route::post('/quiz-editor/getAllQuestions', [EditorController::class, 'getAllQuestions'])->middleware('admin.user');
 	Route::post('/quiz-editor/getQuestion', [EditorController::class, 'getQuestion'])->middleware('admin.user');
 	Route::post('/quiz-editor/getAnswer', [EditorController::class, 'getAnswer'])->middleware('admin.user');
@@ -94,7 +80,6 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/quiz-editor/import', [EditorController::class, 'import'])->middleware('admin.user');
 	Route::get('/quiz-editor/import', [EditorController::class, 'indexImport'])->middleware('admin.user');
 	Route::get('/quiz-editor', [EditorController::class, 'index'])->middleware('admin.user');
-
 
 	/******** Result Editor ********/
 	Route::post('/results-editor/getAllResults', [ResEditorController::class, 'getAllResults'])->middleware('admin.user');
