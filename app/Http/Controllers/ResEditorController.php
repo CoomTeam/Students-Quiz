@@ -11,7 +11,7 @@ class ResEditorController extends Controller
 	 * Return view page
 	 */
     public function index() {
-		return view('results');
+		return view('voyager/results');
 	}
 
 
@@ -32,7 +32,7 @@ class ResEditorController extends Controller
 
         return $result;
 	}
- 
+
 	/**
 	 * Created new result and pops it back to the client
 	 */

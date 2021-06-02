@@ -12,7 +12,7 @@ class EditorController extends Controller
 {
     public function index() {
 		$questions = Question::all();
-		return view('editor', ['questions' => $questions]);
+		return view('voyager/editor', ['questions' => $questions]);
 	}
 
 	public function getAllQuestions() {
