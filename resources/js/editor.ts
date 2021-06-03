@@ -242,6 +242,11 @@ async function loadQuestion() {
 		coefSliderEl.setAttribute('type', 'range');
 		coefSliderEl.value = coef.value.toString();
 
+		const outputEl = createElem('output', '', coefEl) as HTMLInputElement;
+		coefSliderEl.addEventListener('input', () => {
+			outputEl.value = coefSliderEl.value
+		});
+
 		coefSliderEl.addEventListener('input', setNeedToSave);
 	});
 
