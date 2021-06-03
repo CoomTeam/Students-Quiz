@@ -143,10 +143,15 @@ async function renderResult(id: number) {
 
     const nameInput = document.getElementById('ResEdNameInput') as HTMLInputElement;
     const descInput = document.getElementById('ResEdDescInput') as HTMLInputElement;
+	const urlInput = document.getElementById('ResEdImgInput') as HTMLInputElement;
+
 
     nameInput.value = result.name;
     descInput.value = result.description;
+	urlInput.value = result.url;
 
+	console.log(urlInput.value);
+	
 
     selectedID = id;
 }
@@ -161,11 +166,13 @@ async function renderResult(id: number) {
 async function saveResult() {
     const nameInput = document.getElementById('ResEdNameInput') as HTMLInputElement;
     const descInput = document.getElementById('ResEdDescInput') as HTMLInputElement;
+	const urlInput = document.getElementById('ResEdImgInput') as HTMLInputElement;
 
     await POST('/admin/results-editor/saveResult', {
         'id': selectedID,
         'name':nameInput.value,
         'description':descInput.value,
+		'url':urlInput.value
     });
 
 	location.reload();

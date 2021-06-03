@@ -66,7 +66,6 @@ Route::get('/cookies', function () {
 
 Route::group(['prefix' => 'admin'], function () {
 	Voyager::routes();
-
 	/******** EDITOR ********/
 	Route::post('/quiz-editor/getAllQuestions', [EditorController::class, 'getAllQuestions'])->middleware('admin.user');
 	Route::post('/quiz-editor/getQuestion', [EditorController::class, 'getQuestion'])->middleware('admin.user');

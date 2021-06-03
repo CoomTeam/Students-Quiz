@@ -24,6 +24,10 @@
 				<h3>Edit Description</h3>
 			</div>
             <input id="ResEdDescInput" class="form__input" value="" type="text">
+			<div class="ed-head">
+				<h3>Image URL</h3>
+			</div>
+            <input id="ResEdImgInput" class="form__input" value="" type="text">
 		</div>
 
     </main>
