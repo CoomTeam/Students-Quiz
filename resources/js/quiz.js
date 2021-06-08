@@ -1,4 +1,3 @@
-
 /**
  * @typedef ServerResponse Response from the server.
  * @property {"question" | "result"} type Type of response.
@@ -111,7 +110,7 @@ function renderResult(result) {
 /**
  * Go to previous question
  */
- async function goBack() {
+async function goBack() {
 	hideResult();
 	hideQuestion();
 
@@ -127,14 +126,14 @@ async function sendAnswer(id) {
 	hideResult();
 	hideQuestion();
 
-	const data = await POST('/quiz/answer', { answer: id });
+	const data = await POST('/quiz/answer', {answer: id});
 	RENDER(data);
 }
 
 /**
  * Restart quiz
  */
- async function restartQuiz() {
+async function restartQuiz() {
 	document.title = 'Student Type Quiz';
 	hideResult();
 	hideQuestion();
@@ -184,7 +183,6 @@ async function POST(url, body) {
 
 	return data;
 }
-
 
 
 // Initialize on page load

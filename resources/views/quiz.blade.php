@@ -15,7 +15,7 @@
 		</div>
 
 		<div id="result" class="hidden">
-				<label>according to the test, you are a...</label>
+				<label>according to the test, you are a... </label>
 				<div id="student-image"></div>
 				<h1 id="student-name"></h1>
 				<p id="student-description"></p>
