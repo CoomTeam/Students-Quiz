@@ -63,13 +63,14 @@
 		<a href="/">Home</a>
 		<a href="/quiz">Quiz</a>
 		<a href="/editor">Editor</a>
+		<a href="/resEditor">ResEditor</a>
 		<a href="/editor/export">Export</a>
 		<a href="/editor/import">Import</a>
 	</div>
 	{{-- TEMP END --}}
 
 	<footer>
-		<span>created by coom team</span>
+		<span><a class="cookie-link" href="/cookies">cookie policy</a></span>
 	</footer>
 	<script src="{{ asset('mix/darkmode.js') }}"></script>
 </body>

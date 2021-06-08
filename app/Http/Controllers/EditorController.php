@@ -31,22 +31,55 @@ class EditorController extends Controller
 		];
 
 		foreach ($question->answers as $answer) {
-			$coefs = [];
-
-			foreach ($answer->results as $result) {
-				$coefs[] = [
-					'value' => $result->pivot->coefficient,
-					'name' => $result->name,
-					'id' => $result->id,
-				];
-			}
-
 			$formatted['answers'][] = [
 				'id' => $answer->id,
 				'text' => $answer->text,
-				'coefs' => $coefs,
 			];
 		}
+
+		// foreach ($question->answers as $answer) {
+		// 	$coefs = [];
+
+		// 	foreach ($answer->results as $result) {
+		// 		$coefs[] = [
+		// 			'value' => $result->pivot->coefficient,
+		// 			'name' => $result->name,
+		// 			'id' => $result->id,
+		// 		];
+		// 	}
+
+		// 	$formatted['answers'][] = [
+		// 		'id' => $answer->id,
+		// 		'text' => $answer->text,
+		// 		'coefs' => $coefs,
+		// 	];
+		// }
+
+		return $formatted;
+	}
+
+	public function getAnswer() {
+
+		$id = request('id');
+		$answer = Answer::where('id', $id)->with('results:id,name')->first();
+
+		$formatted = [
+			'id' => $answer->id,
+			'text' => $answer->text,
+			'coefs' => [],
+		];
+
+		$coefs = [];
+
+		foreach ($answer->results as $result) {
+			$coefs[] = [
+				'value' => $result->pivot->coefficient,
+				'name' => $result->name,
+				'id' => $result->id,
+			];
+		}
+
+		$formatted['coefs'] = $coefs;
 
 		return $formatted;
 	}
@@ -74,7 +107,47 @@ class EditorController extends Controller
 			$answer->results()->attach($result, ['coefficient' => 1]);
 		}
 
-		return [];
+		return ['id' => $answer->id];
+	}
+
+	public function save() {
+
+		// (1) Save question
+		$question_id = request('question_id');
+		$question_text = request('question_text', '');
+
+		$question = Question::find($question_id);
+		$question->text = $question_text;
+		$question->save();
+
+		// Stop if not with answer
+		$with_answer = request('with_answer', false);
+		if (!$with_answer) {
+			return $this->msg('Only question saved');
+		}
+
+		// (2) Save answer
+		$answer_id = request('answer_id');
+		$answer_text = request('answer_text', '');
+
+		$answer = Answer::find($answer_id);
+		$answer->text = $answer_text;
+		$answer->save();
+
+		// (3) Save coefficients
+		$answer_coefs = request('answer_coefs');
+		foreach($answer->results as $result) {
+			if (!array_key_exists($result->id, $answer_coefs)) $this->msg('allo garazh');; // error
+			$result->pivot->coefficient = $answer_coefs[$result->id];
+			$result->pivot->save();
+		}
+
+		return $this->msg('All saved');
+
+	}
+
+	private function msg($text) {
+		return ['msg' => $text];
 	}
 
 	public function saveAnswer() {

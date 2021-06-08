@@ -44,6 +44,7 @@ Route::post('/quiz/back', [QuizController::class, 'back']);
 // Starts quiz from beginning, then same as `current`
 Route::post('/quiz/restart', [QuizController::class, 'restart']);
 
+
 /******** SESSION ********/
 
 // Gives a dump of your session
@@ -61,10 +62,10 @@ Route::get('/delses', function (Request $request) {
 Route::get('/editor', [EditorController::class, 'index']);
 Route::post('/editor/getAllQuestions', [EditorController::class, 'getAllQuestions']);
 Route::post('/editor/getQuestion', [EditorController::class, 'getQuestion']);
+Route::post('/editor/getAnswer', [EditorController::class, 'getAnswer']);
 Route::post('/editor/newQuestion', [EditorController::class, 'newQuestion']);
 Route::post('/editor/newAnswer', [EditorController::class, 'newAnswer']);
-Route::post('/editor/saveAnswer', [EditorController::class, 'saveAnswer']);
-Route::post('/editor/saveQuestion', [EditorController::class, 'saveQuestion']);
+Route::post('/editor/save', [EditorController::class, 'save']);
 Route::post('/editor/deleteAnswer', [EditorController::class, 'deleteAnswer']);
 Route::post('/editor/deleteQuestion', [EditorController::class, 'deleteQuestion']);
 Route::get('/editor/export', [EditorController::class, 'export']);
@@ -72,9 +73,16 @@ Route::post('/editor/import', [EditorController::class, 'import']);
 Route::get('/editor/import', [EditorController::class, 'indexImport']);
 Route::post('/test', [EditorController::class, 'test']);
 
+/******** Result Editor ********/
 Route::get('/resEditor', [ResEditorController::class, 'index']);
 Route::post('/resEditor/getAllResults', [ResEditorController::class, 'getAllResults']);
 Route::post('/resEditor/getResult', [ResEditorController::class, 'getResult']);
 Route::post('/resEditor/newResult', [ResEditorController::class, 'newResult']);
 Route::post('/resEditor/saveResult', [ResEditorController::class, 'saveResult']);
 Route::post('/resEditor/deleteResult', [ResEditorController::class, 'deleteResult']);
+
+/******** Cookies ********/
+
+Route::get('/cookies', function () {
+	return view('cookies');
+});

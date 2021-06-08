@@ -39,7 +39,8 @@ class QuizController extends Controller
         }
 
         // this should never happen
-        dd('error onQ>tQ', $onQuestion, $totalQuestions);
+        $this->resetQuizSession();
+		return $this->generateQuestionResponse(0);
     }
 
     // Submits the answer, then same as `current`
@@ -53,7 +54,7 @@ class QuizController extends Controller
             // error
             dd('answer error ' . $answerID);
         }
-    
+
         $request->session()->push('answers', $answerID);
         $request->session()->increment('on_question', 1);
 
@@ -62,13 +63,13 @@ class QuizController extends Controller
 
     // Unsibmits last answer, then same as `current`
     public function back() {
-        
+
         $onQuestion = session('on_question');
         if ($onQuestion === 0) {
             // error on client side actually
             return $this->current();
         }
-        
+
         $onQuestion--;
         session([ 'on_question' => $onQuestion ]);
 
@@ -103,7 +104,7 @@ class QuizController extends Controller
     // Based on the question order, created JSON of that question
     private function buildQuestion($order) {
         $question = Question::where('order', $order)->with('answers')->first();
-    
+
         $buildedAnswers = [];
         foreach($question->answers as $answer) {
             $buildedAnswers[] = [
@@ -111,22 +112,22 @@ class QuizController extends Controller
                 'id' => $answer->id,
             ];
         }
-    
+
         $buildedQuestion = [
             'text' => $question->text,
             'order' => $question->order,
             'answers' => $buildedAnswers,
         ];
-    
+
         return $buildedQuestion;
     }
 
     // Based on the answers, calculates most appropriate result and creates JSON of it
     private function buildResult($answerIDs) {
         $answers = Answer::find($answerIDs);
-    
+
         $results = [];
-    
+
         foreach($answers as $answer) {
             foreach($answer->results as $result) {
                 if (!array_key_exists($result->id, $results)) {
@@ -135,15 +136,15 @@ class QuizController extends Controller
                 $results[$result->id] += $result->pivot->coefficient;
             }
         }
-    
+
         $max = max($results);
         $id = array_search($max, $results); // can be improved
         $result = Result::find($id);
-    
+
         $buildedResult = [
             'name' => $result->name,
         ];
-    
+
         return $buildedResult;
     }
 
