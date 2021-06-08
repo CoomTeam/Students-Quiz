@@ -17,11 +17,9 @@
 		function init() {
 			const submit = document.getElementById('submit');
 			const text = document.getElementById('json');
-			const test = document.getElementById('test');
-			test.addEventListener('click', async () => {
-				const data = await POST('/test');
-			});
+
 			submit.addEventListener('click', async () => {
+				console.log('hi');
 				console.log(JSON.parse(text.value));
 
 				const data = await POST('/quiz-panel/admin/quiz-editor/import', {'quiz': JSON.parse(text.value)});

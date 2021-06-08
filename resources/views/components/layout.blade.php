@@ -58,10 +58,6 @@
 		<div>
 			<img src="/img/moon.png" id="darkmodeIcon">
 		</div>
-		<a href="/">Home</a>
-		<a href="/quiz">Quiz</a>
-		<a href="/editor/export">Export</a>
-		<a href="/editor/import">Import</a> --}}
 	</div>
 	{{-- TEMP END --}}
 

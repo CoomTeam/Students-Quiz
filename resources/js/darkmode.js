@@ -22,7 +22,6 @@ toggleImage.onclick = function () {
 }
 
 function checkLocalStorage () {
-	// console.log("clicked");
 	if (darkmode === 'on') {
         darkToggle();
         toggleImage.src = "img/sun.png"
@@ -31,32 +30,6 @@ function checkLocalStorage () {
         toggleImage.src = "img/moon.png"
     }
 }
-// tgl.onchange = function() {
-//     darkmode = localStorage.getItem('')
-//     if(body.classList.contains('light')){
-//         darkToggle();
-//         return;
-//     }
-//     if(body.classList.contains('dark')){
-//         lightToggle();
-//         return;
-//     }
-//
-// };
-
-// function checkLocalStorage() {
-//     if (darkmode === 'on') {
-//         //set theme to dark
-//         darkToggle();
-//         tgl.checked = true;
-//     } else {
-//         //set theme to light
-//         lightToggle();
-//         tgl.checked = false;
-//     }
-// }
-
-
 
 function lightToggle() {
     body.classList.replace('dark', 'light');
