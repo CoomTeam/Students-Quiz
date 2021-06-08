@@ -55,6 +55,7 @@ class ResEditorController extends Controller
 	 * Updates the result
 	 */
 	public function saveResult() {
+		
 		$id = request('id');
 		$name = request('name');
 		$desc = request('description');

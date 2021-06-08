@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AllResultsController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\TypesController;
 use App\Http\Controllers\QuizController;
@@ -30,6 +31,10 @@ Route::get('/', function () {
 Route::get('/result', function () {
   return view('result');
 });
+
+// All result page
+Route::get('/all-results', [AllResultsController::class, 'index']);
+
 
 /******** QUIZ ********/
 
