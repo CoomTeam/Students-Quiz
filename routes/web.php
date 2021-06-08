@@ -69,28 +69,30 @@ Route::get('/cookies', function () {
 	return view('cookies');
 });
 
-Route::group(['prefix' => 'admin'], function () {
-	Voyager::routes();
-	/******** EDITOR ********/
-	Route::post('/quiz-editor/getAllQuestions', [EditorController::class, 'getAllQuestions'])->middleware('admin.user');
-	Route::post('/quiz-editor/getQuestion', [EditorController::class, 'getQuestion'])->middleware('admin.user');
-	Route::post('/quiz-editor/getAnswer', [EditorController::class, 'getAnswer'])->middleware('admin.user');
-	Route::post('/quiz-editor/newQuestion', [EditorController::class, 'newQuestion'])->middleware('admin.user');
-	Route::post('/quiz-editor/newAnswer', [EditorController::class, 'newAnswer'])->middleware('admin.user');
-	Route::post('/quiz-editor/save', [EditorController::class, 'save'])->middleware('admin.user');
-	Route::post('/quiz-editor/deleteAnswer', [EditorController::class, 'deleteAnswer'])->middleware('admin.user');
-	Route::post('/quiz-editor/deleteQuestion', [EditorController::class, 'deleteQuestion'])->middleware('admin.user');
-	Route::get('/quiz-editor/export', [EditorController::class, 'export'])->middleware('admin.user');
-	Route::post('/quiz-editor/import', [EditorController::class, 'import'])->middleware('admin.user');
-	Route::get('/quiz-editor/import', [EditorController::class, 'indexImport'])->middleware('admin.user');
-	Route::get('/quiz-editor', [EditorController::class, 'index'])->middleware('admin.user');
-
-	/******** Result Editor ********/
-	Route::post('/results-editor/getAllResults', [ResEditorController::class, 'getAllResults'])->middleware('admin.user');
-	Route::post('/results-editor/getResult', [ResEditorController::class, 'getResult'])->middleware('admin.user');
-	Route::post('/results-editor/newResult', [ResEditorController::class, 'newResult'])->middleware('admin.user');
-	Route::post('/results-editor/saveResult', [ResEditorController::class, 'saveResult'])->middleware('admin.user');
-	Route::post('/results-editor/deleteResult', [ResEditorController::class, 'deleteResult'])->middleware('admin.user');
-	Route::get('/results-editor', [ResEditorController::class, 'index'])->middleware('admin.user');
-
+Route::group(['prefix' => 'quiz-panel'], function () {
+	Route::group(['prefix' => 'admin'], function () {
+		Voyager::routes();
+		/******** EDITOR ********/
+		Route::post('/quiz-editor/getAllQuestions', [EditorController::class, 'getAllQuestions'])->middleware('admin.user');
+		Route::post('/quiz-editor/getQuestion', [EditorController::class, 'getQuestion'])->middleware('admin.user');
+		Route::post('/quiz-editor/getAnswer', [EditorController::class, 'getAnswer'])->middleware('admin.user');
+		Route::post('/quiz-editor/newQuestion', [EditorController::class, 'newQuestion'])->middleware('admin.user');
+		Route::post('/quiz-editor/newAnswer', [EditorController::class, 'newAnswer'])->middleware('admin.user');
+		Route::post('/quiz-editor/save', [EditorController::class, 'save'])->middleware('admin.user');
+		Route::post('/quiz-editor/deleteAnswer', [EditorController::class, 'deleteAnswer'])->middleware('admin.user');
+		Route::post('/quiz-editor/deleteQuestion', [EditorController::class, 'deleteQuestion'])->middleware('admin.user');
+		Route::get('/quiz-editor/export', [EditorController::class, 'export'])->middleware('admin.user');
+		Route::post('/quiz-editor/import', [EditorController::class, 'import'])->middleware('admin.user');
+		Route::get('/quiz-editor/import', [EditorController::class, 'indexImport'])->middleware('admin.user');
+		Route::get('/quiz-editor', [EditorController::class, 'index'])->middleware('admin.user');
+	
+		/******** Result Editor ********/
+		Route::post('/results-editor/getAllResults', [ResEditorController::class, 'getAllResults'])->middleware('admin.user');
+		Route::post('/results-editor/getResult', [ResEditorController::class, 'getResult'])->middleware('admin.user');
+		Route::post('/results-editor/newResult', [ResEditorController::class, 'newResult'])->middleware('admin.user');
+		Route::post('/results-editor/saveResult', [ResEditorController::class, 'saveResult'])->middleware('admin.user');
+		Route::post('/results-editor/deleteResult', [ResEditorController::class, 'deleteResult'])->middleware('admin.user');
+		Route::get('/results-editor', [ResEditorController::class, 'index'])->middleware('admin.user');
+	});
 });
+

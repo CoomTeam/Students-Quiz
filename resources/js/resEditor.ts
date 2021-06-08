@@ -123,7 +123,7 @@ window.addEventListener('load', init);
  */
 async function updateResultList() {
 
-    let results = await POST('/admin/results-editor/getAllResults');
+    let results = await POST('/quiz-panel/admin/results-editor/getAllResults');
     resultList.updateResults(results);
 
 }
@@ -137,7 +137,7 @@ async function updateResultList() {
  */
 async function renderResult(id: number) {
 
-	let result = await POST('/admin/results-editor/getResult', {'id': id});
+	let result = await POST('/quiz-panel/admin/results-editor/getResult', {'id': id});
     console.log(result);
 	showResultEditor();
 
@@ -168,7 +168,7 @@ async function saveResult() {
     const descInput = document.getElementById('ResEdDescInput') as HTMLInputElement;
 	const urlInput = document.getElementById('ResEdImgInput') as HTMLInputElement;
 
-    await POST('/admin/results-editor/saveResult', {
+    await POST('/quiz-panel/admin/results-editor/saveResult', {
         'id': selectedID,
         'name':nameInput.value,
         'description':descInput.value,
@@ -183,7 +183,7 @@ async function saveResult() {
  * Render that result
  */
 async function newResult() {
-    const data = await POST('/admin/results-editor/newResult');
+    const data = await POST('/quiz-panel/admin/results-editor/newResult');
     renderResult(data.id);
 }
 
@@ -191,7 +191,7 @@ async function newResult() {
  * Delete the selected result
  */
 async function deleteResult(){
-    await POST('/admin/results-editor/deleteResult', {
+    await POST('/quiz-panel/admin/results-editor/deleteResult', {
         'id': selectedID,
     });
 
