@@ -47,7 +47,7 @@
 		<a href="https://www.hz.nl">
 			<img src="img/logo.svg" alt="HZ Logo" id='logo'>
 		</a>
-		{{-- <button id="darkmode-button">Dark</button> --}}
+{{--		 <button id="darkmode-button">Dark</button>--}}
 	</header>
 
 	@csrf
@@ -55,9 +55,10 @@
 
 	{{-- TEMP START --}}
 	<div id="links">
-		<input class="tgl tgl-ios" id="cb2" type="checkbox"/>
-		<label class="tgl-btn" for="cb2"></label>
-		{{-- <a href="/">Home</a>
+		<div>
+			<img src="/img/moon.png" id="darkmodeIcon">
+		</div>
+		<a href="/">Home</a>
 		<a href="/quiz">Quiz</a>
 		<a href="/editor/export">Export</a>
 		<a href="/editor/import">Import</a> --}}

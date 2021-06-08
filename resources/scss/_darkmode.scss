@@ -20,7 +20,7 @@
     --black:white;
     --blue: #181818;
     --blue-hover: #777a8d;
-    
+
     --bg-image-dark:linear-gradient(to right, rgba(0, 0, 0, 0.418), rgba(0, 0, 0, 0.384)), url('../img/auditorium-blue.jpg') no-repeat center;
     --bg-dark: var(--blue);
     --header-dark: var(--white);
@@ -52,7 +52,7 @@
     --start-button-text-hover:var(--start-button-text-hover-color);
     --quiz-question-text:var(--quiz-question-text-color);
 }
-  
+
 
 .dark {
     --bg-image:var(--bg-image-dark);
@@ -70,10 +70,20 @@
     --quiz-question-text:var(--quiz-question-text-dark);
 }
 
+#darkmodeIcon{
+	width: 35px;
+	height: 35px;
+	transition: all .4s ease;
+	transition-duration: 0.1s;
+}
+
+#darkmodeIcon:hover{
+	transform: scale(1.1);
+}
 
 .tgl {
 	display: none;
-  
+
 	// add default box-sizing for this scope
 	&,
   &:after,
@@ -87,7 +97,7 @@
 			background: none;
 		}
 	}
-  
+
 	+ .tgl-btn {
 		outline: 0;
 		display: block;
@@ -104,16 +114,16 @@
 			width: 50%;
 			height: 100%;
 		}
-    
+
 		&:after {
 			left: 0;
 		}
-    
+
 		&:before {
 			display: none;
 		}
 	}
-  
+
 	&:checked + .tgl-btn:after {
 		left: 50%;
 	}
@@ -138,11 +148,11 @@
         0 0 0 1px rgba(0,0,0,.1),
         0 4px 0 rgba(0,0,0,.08);
 		}
-    
+
     &:hover:after {
       will-change: padding;
     }
-    
+
 		&:active {
 			box-shadow: inset 0 0 0 2em #e8eae9;
 			&:after {
@@ -150,7 +160,7 @@
 			}
 		}
 	}
-  
+
 	&:checked + .tgl-btn {
     border: 1px solid #e4c284;
     background: #e4c284;

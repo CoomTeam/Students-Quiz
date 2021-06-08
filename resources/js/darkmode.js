@@ -1,36 +1,62 @@
-
-const tgl = document.getElementById('cb2');
+// const tgl = document.getElementById('cb2');
 const body = document.body;
 const logo = document.getElementById('logo');
+const toggleImage = document.getElementById("darkmodeIcon");
 
 let darkmode = localStorage.getItem('darkmode');
 
 checkLocalStorage();
 
-tgl.onchange = function() {
-    darkmode = localStorage.getItem('')
-    if(body.classList.contains('light')){
-        darkToggle();
-        return;    
-    } 
-    if(body.classList.contains('dark')){
-        lightToggle();
-        return;    
-    } 
+toggleImage.onclick = function () {
+	darkmode = localStorage.getItem('');
+	if(body.classList.contains('light')){
+		toggleImage.src = "img/sun.png";
+		darkToggle();
+		return;
+	}
+	if(body.classList.contains('dark')){
+		toggleImage.src = "img/moon.png";
+		lightToggle();
+		return;
+	}
+}
 
-};
-
-function checkLocalStorage() {
-    if (darkmode === 'on') {
-        //set theme to dark
+function checkLocalStorage () {
+	// console.log("clicked");
+	if (darkmode === 'on') {
         darkToggle();
-        tgl.checked = true;
+        toggleImage.src = "img/sun.png"
     } else {
-        //set theme to light
         lightToggle();
-        tgl.checked = false;
+        toggleImage.src = "img/moon.png"
     }
 }
+// tgl.onchange = function() {
+//     darkmode = localStorage.getItem('')
+//     if(body.classList.contains('light')){
+//         darkToggle();
+//         return;
+//     }
+//     if(body.classList.contains('dark')){
+//         lightToggle();
+//         return;
+//     }
+//
+// };
+
+// function checkLocalStorage() {
+//     if (darkmode === 'on') {
+//         //set theme to dark
+//         darkToggle();
+//         tgl.checked = true;
+//     } else {
+//         //set theme to light
+//         lightToggle();
+//         tgl.checked = false;
+//     }
+// }
+
+
 
 function lightToggle() {
     body.classList.replace('dark', 'light');
