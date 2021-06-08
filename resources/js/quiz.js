@@ -91,9 +91,9 @@ function renderResult(result) {
 	const description = document.getElementById('student-description');
 
 	// Update values
-	image.style.backgroundImage = `url("/img/man.png")`; // TODO
+	image.style.backgroundImage = `url(${result.url})`; // TODO
 	name.innerText = result.name;
-	description.innerText = 'You always bringing some food for your class mates'; // TODO
+	description.innerText = result.description; // TODO
 
 	// Remove old answers
 	answers.innerHTML = '';

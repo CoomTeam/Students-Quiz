@@ -58,14 +58,10 @@
 		<div>
 			<img src="/img/moon.png" id="darkmodeIcon">
 		</div>
-{{--		<input class="tgl tgl-ios" id="cb2" type="checkbox"/>--}}
-{{--		<label class="tgl-btn" for="cb2"></label>--}}
 		<a href="/">Home</a>
 		<a href="/quiz">Quiz</a>
-		<a href="/editor">Editor</a>
-		<a href="/resEditor">ResEditor</a>
 		<a href="/editor/export">Export</a>
-		<a href="/editor/import">Import</a>
+		<a href="/editor/import">Import</a> --}}
 	</div>
 	{{-- TEMP END --}}
 

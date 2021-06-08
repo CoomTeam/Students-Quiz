@@ -143,6 +143,8 @@ class QuizController extends Controller
 
         $buildedResult = [
             'name' => $result->name,
+            'description' => $result->description,
+            'url' => $result->url
         ];
 
         return $buildedResult;

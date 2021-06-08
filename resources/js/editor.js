@@ -87,14 +87,14 @@ document.addEventListener("click", closeAllSelect);
 
 async function onQuestionSelect(id) {
 	hideQuestion();
-	const question = await POST('/editor/getQuestion', {'id': id});
+	const question = await POST('/quiz-panel/admin/quiz-editor/getQuestion', {'id': id});
 	renderQuestion(question);
 	console.log(question);
 
 }
 
 async function init() {
-	const questions = await POST('/editor/getAllQuestions');
+	const questions = await POST('/quiz-panel/admin/quiz-editor/getAllQuestions');
 	console.log(questions);
 }
 

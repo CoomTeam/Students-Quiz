@@ -12,7 +12,7 @@ class EditorController extends Controller
 {
     public function index() {
 		$questions = Question::all();
-		return view('editor', ['questions' => $questions]);
+		return view('voyager/editor', ['questions' => $questions]);
 	}
 
 	public function getAllQuestions() {
@@ -213,10 +213,15 @@ class EditorController extends Controller
 	public function export() {
 		$questions = Question::with('answers', 'answers.results:id')->get();
 		$results = Result::all();
-		return [
+		$json = [
 			'questions' => $questions,
 			'results' => $results,
 		];
+
+		$json = json_encode($json);
+
+		return view('export', ['json' => $json]);
+
 	}
 
 	public function import() {

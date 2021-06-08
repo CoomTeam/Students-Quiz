@@ -11,7 +11,7 @@ class ResEditorController extends Controller
 	 * Return view page
 	 */
     public function index() {
-		return view('results');
+		return view('voyager/results');
 	}
 
 
@@ -32,7 +32,7 @@ class ResEditorController extends Controller
 
         return $result;
 	}
- 
+
 	/**
 	 * Created new result and pops it back to the client
 	 */
@@ -40,6 +40,7 @@ class ResEditorController extends Controller
 		$result = new Result;
 		$result->name = "Pokemon";
 		$result->description = 'The little yellow dude';
+		$result->url= 'Sample';
 		$result->save();
 
         $answers = Answer::all();
@@ -54,13 +55,18 @@ class ResEditorController extends Controller
 	 * Updates the result
 	 */
 	public function saveResult() {
+		
 		$id = request('id');
 		$name = request('name');
 		$desc = request('description');
+		$url = request('url');
+
+		// dd(request('url'));
 
 		$result = Result::find($id);
 		$result->name = $name;
         $result->description = $desc;
+		$result->url = $url;
 		$result->save();
 
 		return [];
