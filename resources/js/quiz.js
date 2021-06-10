@@ -93,7 +93,7 @@ function renderResult(result) {
 	// Update values
 	image.style.backgroundImage = `url(${result.url})`; // TODO
 	name.innerText = result.name;
-	description.innerText = result.description; // TODO
+	description.innerText = 'You always bring some food for your class mates'; // TODO
 
 	// Remove old answers
 	answers.innerHTML = '';
@@ -142,22 +142,22 @@ async function restartQuiz() {
 	RENDER(data);
 }
 
-/** Show question modal */
+/** Show question model */
 function showQuestion() {
 	document.getElementById('question').className = '';
 }
 
-/** Hide question modal */
+/** Hide question model */
 function hideQuestion() {
 	document.getElementById('question').className = 'hidden';
 }
 
-/** Show result modal */
+/** Show result model */
 function showResult() {
 	document.getElementById('result').className = '';
 }
 
-/** Hide result modal */
+/** Hide result model */
 function hideResult() {
 	document.getElementById('result').className = 'hidden';
 }

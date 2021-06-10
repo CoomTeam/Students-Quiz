@@ -37,6 +37,15 @@
 	</style>
 	{{-- TEMP END --}}
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FLDWH16ZT6"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-FLDWH16ZT6');
+	</script>
 </head>
 
 
