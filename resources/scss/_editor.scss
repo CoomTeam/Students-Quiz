@@ -1,11 +1,11 @@
 
 
 .editor {
-    background-color: none;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
+	margin-bottom: 128px;
 	padding: 40px;
 	flex-grow: 1;
 }
@@ -24,7 +24,6 @@
 		height: 0;
 		border: 6px solid transparent;
 		border-color: rgb(151, 151, 151) transparent transparent transparent;
-		//border-color: transparent transparent #fff transparent;
 		top: 12px;
 	}
 
@@ -81,11 +80,15 @@
 			}
 
 			&.selected {
-				outline: 2px rgb(0, 0, 0) solid;
+				border-width: 2px;
+				border-style: solid;
+				border-color: black;
+				border-radius: 6px;
+				transform: scale(1.05);
 			}
 
 			&.add-new {
-				background-color: #439655;
+				background-color: #1ebd40;
 			}
 		}
 	}

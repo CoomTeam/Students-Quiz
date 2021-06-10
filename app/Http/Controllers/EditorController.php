@@ -220,7 +220,7 @@ class EditorController extends Controller
 
 		$json = json_encode($json);
 
-		return view('export', ['json' => $json]);
+		return view('voyager.export', ['json' => $json]);
 
 	}
 
@@ -296,7 +296,7 @@ class EditorController extends Controller
 	}
 
 	function indexImport() {
-		return view('import');
+		return view('voyager.import');
 	}
 
 	function test() {

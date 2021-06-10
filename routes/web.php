@@ -85,7 +85,7 @@ Route::group(['prefix' => 'quiz-panel'], function () {
 		Route::post('/quiz-editor/import', [EditorController::class, 'import'])->middleware('admin.user');
 		Route::get('/quiz-editor/import', [EditorController::class, 'indexImport'])->middleware('admin.user');
 		Route::get('/quiz-editor', [EditorController::class, 'index'])->middleware('admin.user');
-	
+
 		/******** Result Editor ********/
 		Route::post('/results-editor/getAllResults', [ResEditorController::class, 'getAllResults'])->middleware('admin.user');
 		Route::post('/results-editor/getResult', [ResEditorController::class, 'getResult'])->middleware('admin.user');
