@@ -34,9 +34,9 @@ class ResultSelect {
 	}
 
 	/**
-	 * 
+	 *
 	 * Update result list
-	 * 
+	 *
 	 * @param results Array of results from the server
 	 */
     updateResults(results: Result[]) {
@@ -51,9 +51,9 @@ class ResultSelect {
 	}
 
 	/**
-	 * 
+	 *
 	 * Update the select with new options
-	 * 
+	 *
 	 * @param options Array of new options
 	 */
 	updateOptions (options: Option[]) {
@@ -66,12 +66,12 @@ class ResultSelect {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * This is called when user clicks on the option
 	 * Executes the callback of the option
-	 * 
-	 * @param option 
+	 *
+	 * @param option
 	 */
 	onOptionClick(option: Option) {
 		this.elSelection.innerText = option.text;
@@ -107,12 +107,12 @@ function init() {
     saveBtn.addEventListener('click', saveResult);
     newBtn.addEventListener('click', newResult);
     deleteBtn.addEventListener('click', deleteResult);
-	
+
 	// Set up the result list
     const listContainer = document.getElementById('ResEdList')
     resultList = new ResultSelect(listContainer, 'Select result:');
     updateResultList();
-    
+
 }
 
 window.addEventListener('load', init);
@@ -123,37 +123,42 @@ window.addEventListener('load', init);
  */
 async function updateResultList() {
 
-    let results = await POST('/resEditor/getAllResults');
+    let results = await POST('/quiz-panel/admin/results-editor/getAllResults');
     resultList.updateResults(results);
 
 }
 
 /**
- * 
+ *
  * Get result from the server
  * Render to input fields
- * 
+ *
  * @param id ID of the result to fetch
  */
 async function renderResult(id: number) {
-	
-	let result = await POST('/resEditor/getResult', {'id': id});
+
+	let result = await POST('/quiz-panel/admin/results-editor/getResult', {'id': id});
     console.log(result);
 	showResultEditor();
-	
+
     const nameInput = document.getElementById('ResEdNameInput') as HTMLInputElement;
     const descInput = document.getElementById('ResEdDescInput') as HTMLInputElement;
+	const urlInput = document.getElementById('ResEdImgInput') as HTMLInputElement;
+
 
     nameInput.value = result.name;
     descInput.value = result.description;
+	urlInput.value = result.url;
 
+	console.log(urlInput.value);
+	
 
     selectedID = id;
 }
 
 
 /**
- * 
+ *
  * Save the changes of input fields to the server
  * And reload the page
  */
@@ -161,11 +166,13 @@ async function renderResult(id: number) {
 async function saveResult() {
     const nameInput = document.getElementById('ResEdNameInput') as HTMLInputElement;
     const descInput = document.getElementById('ResEdDescInput') as HTMLInputElement;
+	const urlInput = document.getElementById('ResEdImgInput') as HTMLInputElement;
 
-    await POST('/resEditor/saveResult', {
+    await POST('/quiz-panel/admin/results-editor/saveResult', {
         'id': selectedID,
         'name':nameInput.value,
         'description':descInput.value,
+		'url':urlInput.value
     });
 
 	location.reload();
@@ -176,7 +183,7 @@ async function saveResult() {
  * Render that result
  */
 async function newResult() {
-    const data = await POST('/resEditor/newResult');
+    const data = await POST('/quiz-panel/admin/results-editor/newResult');
     renderResult(data.id);
 }
 
@@ -184,7 +191,7 @@ async function newResult() {
  * Delete the selected result
  */
 async function deleteResult(){
-    await POST('/resEditor/deleteResult', {
+    await POST('/quiz-panel/admin/results-editor/deleteResult', {
         'id': selectedID,
     });
 
@@ -192,15 +199,15 @@ async function deleteResult(){
 }
 
 
-function showResultEditor() { 
+function showResultEditor() {
 	console.log('r shown');
-	const rshow  = document.getElementById('EdResult'); 
+	const rshow  = document.getElementById('EdResult');
 	rshow.className = '';
 }
 
-function hideResultEditor() { 
-	const rshow  = document.getElementById('EdResult'); 
-	rshow.className = 'hidden'; 
+function hideResultEditor() {
+	const rshow  = document.getElementById('EdResult');
+	rshow.className = 'hidden';
 }
 
 

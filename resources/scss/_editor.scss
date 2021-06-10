@@ -1,13 +1,12 @@
 
 
 .editor {
-    background-color: #399ad6;
+    background-color: none;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
 	padding: 40px;
-	margin: 75px 0 32px;
 	flex-grow: 1;
 }
 
@@ -15,6 +14,7 @@
 	position: relative;
 	width: 700px;
 	margin-bottom: 20px;
+
 
 	.select-selection:after {
 		position: absolute;
@@ -28,7 +28,6 @@
 		top: 12px;
 	}
 
-
 	.select-option, .select-selection {
 		color: #2F2F2F;
 		padding: 8px 16px;
@@ -36,6 +35,8 @@
 		border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
 		cursor: pointer;
 		background-color: rgb(255, 255, 255);
+		box-shadow: 0 2px 16px -12px black !important;
+
 	}
 
 	.select-options {
@@ -64,6 +65,7 @@
 	flex-direction: column;
 	background-color: white;
 	transition: opacity 0.2s linear, top 0.3s ease;
+	box-shadow: 0 2px 32px -20px black;
 
 	#EdAnswers {
 		display: flex;
@@ -205,6 +207,7 @@
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	box-shadow: 0 2px 32px -20px black;
 
 	h2 {
 		align-self: flex-start;

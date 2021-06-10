@@ -17,6 +17,7 @@ class CreateResultsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
+            $table->string('url')->default('Insert url image here!');
             $table->timestamps();
         });
     }

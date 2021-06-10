@@ -170,7 +170,7 @@ class QuestionSelect {
 async function loadQuestion() {
 
 	// Get question
-	const question: Question = await POST('/editor/getQuestion', {'id': CHOSEN_QUESTION});
+	const question: Question = await POST('/quiz-panel/admin/quiz-editor/getQuestion', {'id': CHOSEN_QUESTION});
 
 	// Get elements
 	const input = document.getElementById('EdQuestionInput') as HTMLInputElement;
@@ -214,7 +214,7 @@ async function loadQuestion() {
  */
  async function loadAnswer() {
 
-	const answer: Answer = await POST('/editor/getAnswer', {'id': CHOSEN_ANSWER});
+	const answer: Answer = await POST('/quiz-panel/admin/quiz-editor/getAnswer', {'id': CHOSEN_ANSWER});
 
 	const inputWrap = document.getElementById('EdAnswerInputWrap');
 	inputWrap.innerHTML = '';
@@ -307,7 +307,7 @@ async function newAnswer() {
 	// Hide everything
 	before_question();
 	// Hey server, make new question
-	const resp = await POST('/editor/newAnswer', {'id': CHOSEN_QUESTION});
+	const resp = await POST('/quiz-panel/admin/quiz-editor/newAnswer', {'id': CHOSEN_QUESTION});
 	// Get updated question (with new answer)
 	await loadQuestion();
 	// CHOSEN_ANSWER = resp.id
@@ -328,7 +328,7 @@ async function newQuestion() {
 	if (NEED_SAVE) return pleaseSave();
 	before_question();
 
-	const resp = await POST('editor/newQuestion');
+	const resp = await POST('/quiz-panel/admin/quiz-editor/newQuestion');
 	await chooseQuestion(resp.id);
 	await loadQuestion();
 	after_question();
@@ -341,7 +341,7 @@ async function newQuestion() {
 async function deleteQuestion() {
 	if (NEED_SAVE) return pleaseSave();
 	before_question();
-	await POST('editor/deleteQuestion', {id: CHOSEN_QUESTION});
+	await POST('/quiz-panel/admin/quiz-editor/deleteQuestion', {id: CHOSEN_QUESTION});
 	await chooseQuestion(-1);
 }
 
@@ -352,7 +352,7 @@ async function deleteQuestion() {
 async function deleteAnswer() {
 	if (NEED_SAVE) return pleaseSave();
 	before_question();
-	await POST('editor/deleteAnswer', {id: CHOSEN_ANSWER});
+	await POST('/quiz-panel/admin/quiz-editor/deleteAnswer', {id: CHOSEN_ANSWER});
 	chooseAnswer(-1);
 	await loadQuestion();
 	after_question();
@@ -403,7 +403,7 @@ async function save() {
 	req.question_text = text.value;
 
 	// Tell server to save gathered req
-	await POST('/editor/save', req);
+	await POST('/quiz-panel/admin/quiz-editor/save', req);
 
 	// Refresh question, just in case
 	await loadQuestion();
@@ -466,7 +466,7 @@ async function save() {
 async function chooseQuestion(id: number) {
 	CHOSEN_QUESTION = id;
 	QUESTION_LIST.update(
-		await POST('/editor/getAllQuestions')
+		await POST('/quiz-panel/admin/quiz-editor/getAllQuestions')
 	);
 }
 
