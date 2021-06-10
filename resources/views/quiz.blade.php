@@ -19,7 +19,6 @@
 			<div id="student-image"></div>
 			<h1 id="student-name"></h1>
 			<p id="student-description"></p>
-			<div id="restart" class="button">Try one more time!</div>
 
 			<div class="shareon" data-url="{{ env('APP_URL') }}">
 				<a class="facebook"></a>
@@ -27,7 +26,14 @@
 				<a class="twitter"></a>
 				<a class="whatsapp"></a>
 			</div>
+
+			<div class="links">
+				<a id="restart">Try one more time!</a>
+				<span>&</span>
+				<a id="all-results" href="/all-results">See all results!</a>
+			</div>
 		</div>
+
 	</main>
 
 	<script src="{{ asset('mix/quiz.js') }}"></script>

@@ -1,7 +1,7 @@
 /**
  * @typedef ServerResponse Response from the server.
  * @property {"question" | "result"} type Type of response.
- * @property {Question} content Respone content.
+ * @property {Question | Result} content Respone content.
  */
 
 /**
@@ -20,6 +20,8 @@
 /**
  * @typedef Result Quiz result.
  * @property {string} name Student type.
+ * @property {string} url Student image url.
+ * @property {string} description Student description.
  */
 
 /**
@@ -91,9 +93,9 @@ function renderResult(result) {
 	const description = document.getElementById('student-description');
 
 	// Update values
-	image.style.backgroundImage = `url(${result.url})`; // TODO
+	image.style.backgroundImage = `url(${result.url})`;
 	name.innerText = result.name;
-	description.innerText = 'You always bring some food for your class mates'; // TODO
+	description.innerText = result.description;
 
 	// Remove old answers
 	answers.innerHTML = '';

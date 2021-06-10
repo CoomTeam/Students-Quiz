@@ -41,18 +41,20 @@
 	top: 50%;
 	left: 50%;
 	display: flex;
-	width: 700px;
 	height: auto;
 	padding: 48px;
 	border-radius: 6px;
 	margin-bottom: 32px;
 	flex-direction: column;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%, calc(-50% + 22px));
 	background-color: var(--quiz-modal-background);
 	transition: opacity 0.2s linear, top 0.3s ease;
 }
 
 #question {
+	width: 100%;
+	max-width: 700px;
+
 	.top {
 		user-select: none;
 		display: flex;
@@ -84,6 +86,7 @@
 		}
 	}
 
+
 	#text {
 		text-align: center;
 		font-weight: normal;
@@ -112,6 +115,11 @@
 }
 
 #result {
+	width: 100%;
+	max-width: 400px;
+	align-items: center;
+	padding-bottom: 16px;
+
 	label {
 		opacity: 0.5;
 		font-size: 14px;
@@ -135,30 +143,57 @@
 	}
 
 	#student-name {
+		display: block;
 		font-size: 32px;
 		font-weight: bold;
 		text-align: center;
 		margin-bottom: 6px;
-		text-decoration: underline;
-		text-underline-offset: 4px;
-		color: var(--quiz-text-color);
+		color: white;
+		width: 100%;
+		padding: 12px 32px;
+		text-align: center;
+		border-radius: 32px;
+		background: var(--quiz-button-background-color);
 	}
 
 	#student-description {
-		font-size: 16px;
+		font-size: 14px;
 		text-align: center;
 		margin-bottom: 24px;
 		color: var(--quiz-text-color);
 	}
 
-	#restart {
-		margin-left: auto;
-		margin-right: auto;
-		max-width: 256px;
-		margin-bottom: 2px;
+	.links {
+		display: flex;
+		width: 100%;
+		padding: 4px;
+		font-size: 12px;
+		letter-spacing: 1px;
+		flex-direction: row;
+		justify-content: center;
+		color: var(--quiz-other-text-color);
+		font-style: italic;
+
+		span {
+			margin-left: 8px;
+			margin-right: 8px;
+		}
+
+		#restart, #all-results {
+			all: unset;
+			opacity: 0.5;
+			cursor: pointer;
+		}
+
+		#restart:hover, #all-results:hover {
+			opacity: 1;
+			text-decoration: underline;
+			text-underline-offset: 3px;
+		}
 	}
 
 	.shareon {
+		transform: scale(0.75);
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
@@ -223,6 +258,9 @@
 	}
 
 	#result {
+		height: 100%;
+		max-width: 100%;
+
 		label {
 			font-size: 12px;
 			margin-bottom: 14px;
@@ -242,8 +280,15 @@
 		}
 
 		#student-description {
-			font-size: 14px;
-			margin-bottom: 48px;
+			margin-bottom: 32px;
+		}
+
+		.shareon {
+			margin-top: auto;
+		}
+
+		.links {
+			margin-bottom: 92px;
 		}
 	}
 }
