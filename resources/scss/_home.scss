@@ -15,7 +15,7 @@
 		border-spacing: 5px;
 		border-collapse: separate;
 		width: 40%;
-		height: 300px;
+		height: 200px;
 		border: hidden;
 		margin-top: 1%;
 
@@ -27,7 +27,8 @@
 		th, td {
 			width: 33.333%;
 			text-align: center;
-			color: #14a9ff;
+			font-weight: 600;
+			color: #0594e7;
 			border-radius: 4px;
 			background-color: white;
 		}
@@ -91,5 +92,15 @@
 			}
 		}
 
+		.cookie-title {
+			margin-top: 25%;
+		}
+
+		.cookie-table {
+			table-layout: auto;
+			width: 95%;
+			text-align: left;
+			font-size: 12px;
+		}
 	}
 }
