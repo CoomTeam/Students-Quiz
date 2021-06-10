@@ -10,28 +10,29 @@
 	overflow-y: hidden;
 	position: relative;
 	display: block;
-    background-color: var(--bg);
+    background: var(--quiz-background);
 }
 
 .button {
 	all: unset;
+	border-radius: 3px;
 	cursor: pointer;
-	color: white;
 	padding: 16px 32px;
 	font-size: 12px;
 	letter-spacing: 1px;
 	text-align: center;
 	font-weight: normal;
 	text-transform: uppercase;
-	background-color: var(--quiz-button);
-	transition: background-color 50ms ease;
+	color: var(--quiz-button-text-color);
+	background-color: var(--quiz-button-background-color);
+	transition: transform 0.1s ease;
 
 	&:hover {
-		background-color: var(--quiz-button-hover-active);
+		transform: scale(1.05);
 	}
 
 	&:active {
-		background-color: var(--quiz-button-hover-active);
+		transform: scale(0.95);
 	}
 }
 
@@ -43,10 +44,11 @@
 	width: 700px;
 	height: auto;
 	padding: 48px;
+	border-radius: 6px;
 	margin-bottom: 32px;
 	flex-direction: column;
-	background-color: var(--question-result-box);
 	transform: translate(-50%, -50%);
+	background-color: var(--quiz-modal-background);
 	transition: opacity 0.2s linear, top 0.3s ease;
 }
 
@@ -61,12 +63,14 @@
 		letter-spacing: 1px;
 
 		#question-title {
+			color: var(--quiz-other-text-color);
 			opacity: 0.5;
 			width: 100%;
 			text-align: left;
 		}
 
 		#go-back {
+			color: var(--quiz-other-text-color);
 			opacity: 0.5;
 			width: 100%;
 			cursor: pointer;
@@ -83,41 +87,31 @@
 	#text {
 		text-align: center;
 		font-weight: normal;
-		font-size: 24px;
-		margin: 64px 32px;
-		margin-bottom: 92px;
-		color:var(--quiz-question-text);
+		font-size: 20px;
+		margin: 24px;
+		margin-bottom: 64px;
+		color: var(--quiz-text-color);
 	}
 
 	#answers {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		justify-content: center;
 		width: 100%;
 
 		.answer {
             width: 100%;
-            margin: 0 16px;
-
-			&:first-child {
-				margin-left: 0;
-			}
+			margin-bottom: 16px;
+            padding: 14px 0;
 
 			&:last-child {
-				margin-right: 0;
+				margin-bottom: 0;
 			}
 		}
 	}
 }
 
 #result {
-	.shareon{
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: 10px;
-	}
-
 	label {
 		opacity: 0.5;
 		font-size: 14px;
@@ -125,6 +119,7 @@
 		font-style: italic;
 		margin-bottom: 16px;
 		letter-spacing: 1px;
+		color: var(--quiz-other-text-color);
 	}
 
 	#student-image {
@@ -137,7 +132,6 @@
 		background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
-		background-color: rgb(230, 230, 230);
 	}
 
 	#student-name {
@@ -147,12 +141,14 @@
 		margin-bottom: 6px;
 		text-decoration: underline;
 		text-underline-offset: 4px;
+		color: var(--quiz-text-color);
 	}
 
 	#student-description {
 		font-size: 16px;
 		text-align: center;
 		margin-bottom: 24px;
+		color: var(--quiz-text-color);
 	}
 
 	#restart {
@@ -162,7 +158,7 @@
 		margin-bottom: 2px;
 	}
 
-	.shareon{
+	.shareon {
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
@@ -182,7 +178,8 @@
 	}
 
 	.button {
-		font-size: 12px;
+		font-size: 11px;
+		letter-spacing: 0.1px;
 	}
 
 	.quiz {
@@ -191,12 +188,13 @@
 	}
 
 	#question, #result {
-		top: 0;
+		top: 60px;
 		left: 0;
 		width: 100%;
 		height: 100%;
 		padding: 24px;
 		padding-top: 16px;
+		border-radius: 0px;
 		transform: none;
 	}
 
@@ -207,14 +205,11 @@
 
 		#text {
 			font-size: 16px;
-			margin: 32px 16px;
-			margin-bottom: 48px;
-			color:var();
+			margin: 18px 8px;
+			margin-bottom: 32px;
 		}
 
 		#answers {
-			flex-direction: column;
-
 			.answer {
 				margin: 0;
 				padding: 14px 0;
@@ -235,7 +230,7 @@
 
 		#student-image {
 			width: 100%;
-			height: 100%;
+			height: auto;
 			margin-left: 0;
 			margin-right: 0;
 			margin-bottom: 32px;

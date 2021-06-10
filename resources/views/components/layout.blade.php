@@ -37,7 +37,7 @@
 	</style>
 	{{-- TEMP END --}}
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FLDWH16ZT6"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
@@ -51,36 +51,28 @@
 
 <body class="light">
 
-
 	<header>
 		<a href="https://www.hz.nl">
 			<img src="img/logo.svg" alt="HZ Logo" id='logo'>
 		</a>
-{{--		 <button id="darkmode-button">Dark</button>--}}
+
+		<div class="darkmode-switch">
+			<img src="/img/moon.png" id="darkmodeIcon" alt="darkmode-icon">
+		</div>
 	</header>
 
 	@csrf
 	{{ $slot }}
 
-	{{-- TEMP START --}}
-	<div id="links">
-		<div>
-			<img src="/img/moon.png" id="darkmodeIcon">
-		</div>
-	</div>
-	{{-- TEMP END --}}
-
 	<footer>
 		<p>
 			<span>© 2021 HZ University of Applied Sciences</span>
-			<a style="letter-spacing: 2px;
-			color: gray;
-			font-size: 12px;
-			text-align: center;
-			margin-left:20px;" class="cookie-link" href="/cookies">Cookie Policy</a>
+			<a class="footer-link" href="/">Home</a>
+			<a class="footer-link" href="/all-results">All Results</a>
+			<a class="footer-link" href="/cookies">Cookie Policy</a>
 		</p>
-		
 	</footer>
+
 	<script src="{{ asset('mix/darkmode.js') }}"></script>
 </body>
 

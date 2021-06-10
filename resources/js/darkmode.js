@@ -1,4 +1,3 @@
-// const tgl = document.getElementById('cb2');
 const body = document.body;
 const logo = document.getElementById('logo');
 const toggleImage = document.getElementById("darkmodeIcon");
@@ -42,3 +41,4 @@ function darkToggle() {
     logo.src ='/img/logo-white.svg';
     localStorage.setItem('darkmode', 'on');
 }
+

@@ -69,24 +69,23 @@
 
 	#EdAnswers {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		justify-content: center;
 		width: 100%;
 
 		.answer {
-            width: 100%;
-            margin: 0 16px;
-
-			&:first-child {
-				margin-left: 0;
-			}
+            margin-bottom: 8px;
 
 			&:last-child {
-				margin-right: 0;
+				margin: 0;
 			}
 
 			&.selected {
 				outline: 2px rgb(0, 0, 0) solid;
+			}
+
+			&.add-new {
+				background-color: #439655;
 			}
 		}
 	}
@@ -161,7 +160,7 @@
 
 
 	button {
-		background-color: #c31717;
+		background-color: #c23f3f;
 		padding-bottom: 6px;
 		padding-top: 6px;
 

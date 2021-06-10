@@ -1,37 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 @import 'darkmode';
+
 *, ::after, ::before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-	transition: background-color 0.3s ease;
+	// transition: background-color 0.2s linear;
 }
 
 body {
     display: flex;
 	min-height: 100vh;
 	height: 100vh;
-	// overflow-x: hidden; // tell me why does everything that I love get taken away from me? Why does everything that I love get taken away? You take me to the edge, push me too far
+	overflow-x: hidden; // tell me why does everything that I love get taken away from me? Why does everything that I love get taken away? You take me to the edge, push me too far
     flex-direction: column;
 	font-family: 'PT Sans', sans-serif;
 }
 
 header {
-	background-color: var(--header);
-	position: fixed;
-	width: 100vw;
+	background-color: var(--header-color);
 	z-index: 999999;
+	position: fixed;
+    display: flex;
+	width: 100vw;
     height: 75px;
-    display: grid;
     align-items: center;
-	justify-content: left;
+	flex-direction: row;
 	padding: 0 20px;
 
-    img {
+    #logo {
         width: 120px;
         max-height: 100%;
     }
+
+	.darkmode-switch {
+		margin-left: auto;
+	}
 }
 
 main {
@@ -40,7 +45,7 @@ main {
 }
 
 footer {
-	background-color:var(--footer);
+	background-color: var(--footer-color);
 	position: fixed;
 	bottom: 0;
 	width: 100vw;
@@ -48,13 +53,21 @@ footer {
     height: 32px;
     display: grid;
     place-items: center;
+	letter-spacing: 2px;
+	font-size: 12px;
+	color: var(--other-text-color);
+	text-align: center;
 
-    span {
-        letter-spacing: 2px;
-        color: gray;
-        font-size: 12px;
-        text-align: center;
-    }
+	.footer-link {
+		text-decoration: none;
+		color: inherit;
+		margin-left: 16px;
+	}
+
+	.footer-link:hover {
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
 }
 
 @media only screen and (max-width: 700px) {
@@ -64,6 +77,15 @@ footer {
 
 		img {
 			width: 100px;
+		}
+	}
+
+	footer {
+		letter-spacing: 0.1px;
+		font-size: 11px;
+
+		.cookie-link {
+			margin-left: 8px;
 		}
 	}
 }

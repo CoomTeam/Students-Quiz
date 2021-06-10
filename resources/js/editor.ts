@@ -199,7 +199,7 @@ async function loadQuestion() {
 	});
 
 	// New answer button
-	const newAnswerElement = createElem('button', 'button answer', answers);
+	const newAnswerElement = createElem('button', 'button answer add-new', answers);
 	newAnswerElement.innerText = 'ADD NEW';
 
 	// New answer callback
