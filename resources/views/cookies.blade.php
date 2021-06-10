@@ -1,13 +1,33 @@
 <x-layout>
 	<main class="welcome">
 
+		<h1 class="cookie-title">What cookies do we use?</h1>
+
+		<table class="cookie-table">
+			<thead> 
+				<tr> 
+					<th>Session</th> 
+					<th>Preference</th> 
+					<th>Google Analytics</th>
+				</tr> 
+			</thead> 
+			<tbody> 
+				<tr> 
+					<td>
+						Placeholder information.
+					</td> 
+					<td>
+						Placeholder information.
+					</td> 
+					<td>
+						Placeholder information.
+					</td>  
+				</tr> 
+			</tbody> 
+		</table>	
+
+
 		<div class="content">
-			<h1>Cookies</h1>
-			<p>We use 3 types of cookies </p>
-			<p>Session cookies</p>
-			<p>Preference cookies</p>
-			<p>Google analytics</p>
-			<p>No tracking cookies are used on this website</p>
 			<a class="batonchik" href="/quiz">Take the quiz</a>
 		</div>
 

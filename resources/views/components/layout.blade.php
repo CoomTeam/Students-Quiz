@@ -62,7 +62,15 @@
 	{{-- TEMP END --}}
 
 	<footer>
-		<span><a class="cookie-link" href="/cookies">cookie policy</a></span>
+		<p>
+			<span>© 2021 HZ University of Applied Sciences</span>
+			<a style="letter-spacing: 2px;
+			color: gray;
+			font-size: 12px;
+			text-align: center;
+			margin-left:20px;" class="cookie-link" href="/cookies">Cookie Policy</a>
+		</p>
+		
 	</footer>
 	<script src="{{ asset('mix/darkmode.js') }}"></script>
 </body>
