@@ -14,13 +14,16 @@
 			<tbody> 
 				<tr> 
 					<td>
-						Placeholder information.
+						We use a session cookie to store your
+						current question and previous answers.
 					</td> 
 					<td>
-						Placeholder information.
+						We use a preference cookie to store
+						your choice of light or dark theme.
 					</td> 
 					<td>
-						Placeholder information.
+						We use anonymous analytics cookies
+						for website statistics.
 					</td>  
 				</tr> 
 			</tbody> 
