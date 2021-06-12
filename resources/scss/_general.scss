@@ -45,18 +45,18 @@ main {
 }
 
 footer {
-	background-color: var(--footer-color);
-	position: fixed;
 	bottom: 0;
 	width: 100vw;
-	z-index: 999999;
     height: 32px;
     display: grid;
-    place-items: center;
-	letter-spacing: 2px;
 	font-size: 12px;
-	color: var(--other-text-color);
+	z-index: 999999;
+	position: fixed;
 	text-align: center;
+    place-items: center;
+	letter-spacing: 1px;
+	color: var(--other-text-color);
+	background-color: var(--footer-color);
 
 	.footer-link {
 		text-decoration: none;

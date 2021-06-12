@@ -37,6 +37,7 @@
 }
 
 #question, #result {
+	box-shadow: 4px 4px 32px rgba(0, 0, 0, 0.2);
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -153,6 +154,7 @@
 		padding: 12px 32px;
 		text-align: center;
 		border-radius: 32px;
+		text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 		background: var(--quiz-button-background-color);
 	}
 
@@ -183,6 +185,10 @@
 			all: unset;
 			opacity: 0.5;
 			cursor: pointer;
+		}
+
+		#restart:visited, #all-results:visited {
+			color: var(--quiz-other-text-color);
 		}
 
 		#restart:hover, #all-results:hover {
