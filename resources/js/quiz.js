@@ -24,10 +24,36 @@
  * @property {string} description Student description.
  */
 
+// Amount of secconds to wait
+const waitingTime = 30;
+
+// True if HubSpot form was submited
+let isFormSubmited = localStorage.getItem('form-submited') === 'true' ? true : false;
+
+// Amount of time left before showing the result
+let secondsToShow = waitingTime;
+
+// Countdown timer for showing result
+let countdownTimer;
+
 /**
  * Quiz initalization
  */
 async function init() {
+
+	// HubSpot Setup
+	hbspt.forms.create({
+		target: '#hubspot-form',
+		region: 'na1',
+		portalId: '2034076',
+		formId: '5615ba28-acdd-418e-a456-9ca21b62d766',
+		onFormSubmitted: () => {
+			localStorage.setItem('form-submited', 'true');
+			hideForm();
+			hideQuestion();
+			showResult();
+		}
+	});
 
 	// Listen for go back & restart buttons
 	document.getElementById('go-back').addEventListener('click', goBack);
@@ -47,7 +73,6 @@ async function init() {
 function RENDER(response) {
 	if (response.type === 'question') renderQuestion(response.content);
 	if (response.type === 'result') renderResult(response.content);
-	console.log(response); // TODO: Remove
 }
 
 /**
@@ -101,11 +126,18 @@ function renderResult(result) {
 	answers.innerHTML = '';
 
 	// For sharing
-	document.title = 'Student Type Quiz: Im a "' + result.name + '"! Which one are you?';
+	document.title = `Student Type Quiz: Im a "${result.name}"! Which one are you?`;
 	shareon();
 
-	showResult();
-	hideQuestion();
+	// Show HubSpot form if its not submited
+	if (localStorage.getItem('form-submited') === 'true') {
+		showResult();
+		hideQuestion();
+	} else {
+		showForm();
+		hideResult();
+		hideQuestion();
+	}
 }
 
 
@@ -128,7 +160,7 @@ async function sendAnswer(id) {
 	hideResult();
 	hideQuestion();
 
-	const data = await POST('/quiz/answer', {answer: id});
+	const data = await POST('/quiz/answer', { answer: id });
 	RENDER(data);
 }
 
@@ -137,6 +169,7 @@ async function sendAnswer(id) {
  */
 async function restartQuiz() {
 	document.title = 'Student Type Quiz';
+	hideForm();
 	hideResult();
 	hideQuestion();
 
@@ -144,24 +177,60 @@ async function restartQuiz() {
 	RENDER(data);
 }
 
-/** Show question model */
+/** Show form modal */
+function showForm() {
+
+	// Reset timer
+	secondsToShow = waitingTime;
+	setWaitingTime(secondsToShow);
+
+	// Set timer
+	countdownTimer = setInterval(() => {
+		secondsToShow -= 1;
+		setWaitingTime(secondsToShow);
+
+		if (secondsToShow <= 0) {
+			hideForm();
+			hideQuestion();
+			showResult();
+		}
+	}, 1000);
+
+	document.getElementById('form').className = '';
+}
+
+/** Hide form modal */
+function hideForm() {
+	clearInterval(countdownTimer);
+	document.getElementById('form').className = 'hidden';
+}
+
+/** Show question modal */
 function showQuestion() {
 	document.getElementById('question').className = '';
 }
 
-/** Hide question model */
+/** Hide question modal */
 function hideQuestion() {
 	document.getElementById('question').className = 'hidden';
 }
 
-/** Show result model */
+/** Show result modal */
 function showResult() {
 	document.getElementById('result').className = '';
 }
 
-/** Hide result model */
+/** Hide result modal */
 function hideResult() {
 	document.getElementById('result').className = 'hidden';
+}
+
+/**
+ * Update time on page timer
+ * @param {number} seconds
+ */
+ function setWaitingTime(seconds) {
+	document.getElementById('waiting-time').innerText = `${seconds} ${seconds === 1 ? 'second' : 'seconds' }`;
 }
 
 /**

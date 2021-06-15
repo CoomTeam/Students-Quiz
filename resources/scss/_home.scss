@@ -25,10 +25,10 @@
 		}
 
 		th, td {
+			color: #0594e7;
 			width: 33.333%;
 			text-align: center;
 			font-weight: 600;
-			color: #0594e7;
 			border-radius: 4px;
 			background-color: white;
 		}
@@ -38,7 +38,7 @@
 	.content {
 		color: white;
 		text-align: center;
-		margin-bottom: 10vh;
+		margin-bottom: 5vh;
 
 		h1 {
 			font-size: 40px;
@@ -47,30 +47,31 @@
 		p {
 			font-size: 18px;
 			letter-spacing: 2px;
+			margin-bottom: 32px;
 		}
 
-		.batonchik {
+		.start-button {
 			all: unset;
-			margin: 35px auto 0;
-			width: 255px;
-			height: 50px;
+			cursor: pointer;
+			font-size: 16px;
+			width: 180px;
+			height: 48px;
+			color: white;
 			display: grid;
+			margin-left: auto;
+			margin-right: auto;
 			align-items: center;
 			text-align: center;
 			font-weight: bold;
-			letter-spacing: 2px;
+			letter-spacing: 4px;
 			text-transform: uppercase;
-			color: white;
 			border: 4px solid white;
-			border-radius: 4px;
-			transition: background-color 80ms linear;
+			transition: all 100ms ease;
 
 			&:hover {
-				background-color: white;
 				color: black;
-				cursor: pointer;
+				background-color: white;
 			}
-
 		}
 	}
 }
@@ -87,8 +88,13 @@
 				font-size: 14px;
 				letter-spacing: 1px;
 			}
-			.batonchik {
-				width: 200px;
+
+			.start-button {
+				margin-top: 48px;
+				letter-spacing: 2px;
+				font-size: 13px;
+				height: 48px;
+				width: 160px;
 			}
 		}
 

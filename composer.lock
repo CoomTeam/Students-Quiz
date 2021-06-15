@@ -6065,12 +6065,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/the-control-group/voyager.git",
-                "reference": "84e17f6a454b41203a99194b40fc830654ec28b6"
+                "reference": "f24e18b335629f28350457a8c8e0583ea26ea550"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/the-control-group/voyager/zipball/84e17f6a454b41203a99194b40fc830654ec28b6",
-                "reference": "84e17f6a454b41203a99194b40fc830654ec28b6",
+                "url": "https://api.github.com/repos/the-control-group/voyager/zipball/f24e18b335629f28350457a8c8e0583ea26ea550",
+                "reference": "f24e18b335629f28350457a8c8e0583ea26ea550",
                 "shasum": ""
             },
             "require": {
@@ -6082,7 +6082,8 @@
                 "larapack/doctrine-support": "~0.1.4",
                 "larapack/voyager-hooks": "~1.2.1",
                 "laravel/ui": ">=1.0",
-                "league/flysystem": "~1.1|~2.0"
+                "league/flysystem": "~1.1|~2.0",
+                "php": "^7.3|^7.4|^8.0"
             },
             "require-dev": {
                 "laravel/browser-kit-testing": ">=5.0.0",
@@ -6152,7 +6153,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-05-03T11:46:48+00:00"
+            "time": "2021-05-27T18:50:32+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

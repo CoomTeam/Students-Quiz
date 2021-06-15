@@ -12,7 +12,7 @@
 	--quiz-background: linear-gradient(30deg, #2d24aa 0%, #0098fd 75%);
 	--quiz-modal-background: white;
 	--quiz-text-color: black;
-	--quiz-other-text-color: black;
+	--quiz-other-text-color: rgba(0, 0, 0, 0.5);
 	--quiz-button-text-color: white;
 	--quiz-button-background-color: #2659ff;
 }
@@ -30,7 +30,7 @@
 	--quiz-background: #0f0f0f;
 	--quiz-modal-background: #1f1f1f;
 	--quiz-text-color: white;
-	--quiz-other-text-color: white;
+	--quiz-other-text-color: rgba(255, 255, 255, 0.5);
 	--quiz-button-text-color: white;
 	--quiz-button-background-color: #3d3d3d;
 }

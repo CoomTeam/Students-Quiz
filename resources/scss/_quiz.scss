@@ -13,6 +13,10 @@
     background: var(--quiz-background);
 }
 
+.hs-button {
+	font-size: 64px;
+}
+
 .button {
 	all: unset;
 	border-radius: 3px;
@@ -36,20 +40,21 @@
 	}
 }
 
-#question, #result {
-	box-shadow: 4px 4px 32px rgba(0, 0, 0, 0.2);
+#question, #result, #form, noscript {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	display: flex;
 	height: auto;
 	padding: 48px;
+	overflow: hidden;
 	border-radius: 6px;
 	margin-bottom: 32px;
 	flex-direction: column;
 	transform: translate(-50%, calc(-50% + 22px));
 	background-color: var(--quiz-modal-background);
 	transition: opacity 0.2s linear, top 0.3s ease;
+	box-shadow: -8px 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 #question {
@@ -67,20 +72,17 @@
 
 		#question-title {
 			color: var(--quiz-other-text-color);
-			opacity: 0.5;
 			width: 100%;
 			text-align: left;
 		}
 
 		#go-back {
 			color: var(--quiz-other-text-color);
-			opacity: 0.5;
 			width: 100%;
 			cursor: pointer;
 			text-align: right;
 
 			&:hover {
-				opacity: 1;
 				text-decoration: underline;
 				text-underline-position: under;
 			}
@@ -122,7 +124,6 @@
 	padding-bottom: 16px;
 
 	label {
-		opacity: 0.5;
 		font-size: 14px;
 		text-align: center;
 		font-style: italic;
@@ -154,7 +155,6 @@
 		padding: 12px 32px;
 		text-align: center;
 		border-radius: 32px;
-		text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 		background: var(--quiz-button-background-color);
 	}
 
@@ -183,8 +183,8 @@
 
 		#restart, #all-results {
 			all: unset;
-			opacity: 0.5;
 			cursor: pointer;
+			color: var(--quiz-other-text-color);
 		}
 
 		#restart:visited, #all-results:visited {
@@ -192,7 +192,6 @@
 		}
 
 		#restart:hover, #all-results:hover {
-			opacity: 1;
 			text-decoration: underline;
 			text-underline-offset: 3px;
 		}
@@ -210,10 +209,44 @@
 	}
 }
 
+#form {
+	width: 100%;
+	max-width: 700px;
+
+	h2 {
+		font-size: 28px;
+		letter-spacing: 2px;
+		text-align: center;
+		margin-bottom: 20px;
+		color: var(--quiz-text-color);
+	}
+
+	p {
+		color: var(--quiz-other-text-color);
+		font-style: italic;
+		font-size: 18px;
+		margin-bottom: 8px;
+		text-align: center;
+		letter-spacing: -0.5px;
+
+		#waiting-time {
+			font-weight: bold;
+		}
+	}
+
+	#hubspot-form {
+		padding: 32px;
+		margin-bottom: 8px;
+		overflow: hidden;
+		border-radius: 4px;
+		background-color: white;
+		border: 1px solid rgba(0, 0, 0, 0.5);
+	}
+}
+
 @media only screen and (max-width: 700px), only screen and (max-height: 600px) {
 	.hidden {
 		top: 100vh !important;
-		opacity: 1 !important;
 		user-select: none;
 		pointer-events: none;
 	}
@@ -228,7 +261,7 @@
 		align-content: flex-start;
 	}
 
-	#question, #result {
+	#question, #result, #form {
 		top: 60px;
 		left: 0;
 		width: 100%;
@@ -240,6 +273,8 @@
 	}
 
 	#question {
+		max-width: 100%;
+
 		.top {
 			margin-bottom: 12px;
 		}
@@ -295,6 +330,19 @@
 
 		.links {
 			margin-bottom: 92px;
+		}
+	}
+
+	#form {
+		max-width: 100%;
+
+		h2 {
+			font-size: 20px;
+			letter-spacing: 0px;
+		}
+
+		p {
+			font-size: 14px;
 		}
 	}
 }
