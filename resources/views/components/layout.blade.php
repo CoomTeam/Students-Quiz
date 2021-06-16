@@ -41,7 +41,10 @@
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FLDWH16ZT6"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
+
+		function gtag() {
+			dataLayer.push(arguments);
+		}
 		gtag('js', new Date());
 
 		gtag('config', 'G-FLDWH16ZT6');
@@ -65,12 +68,12 @@
 	{{ $slot }}
 
 	<footer>
-		<p>
+		<div>
 			<span>© 2021 HZ University of Applied Sciences</span>
 			<a class="footer-link" href="/">Home</a>
 			<a class="footer-link" href="/all-results">All Results</a>
 			<a class="footer-link" href="/cookies">Cookie Policy</a>
-		</p>
+		</div>
 	</footer>
 
 	<script src="{{ asset('mix/darkmode.js') }}"></script>

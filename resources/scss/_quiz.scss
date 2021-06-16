@@ -149,7 +149,7 @@
 		font-size: 32px;
 		font-weight: bold;
 		text-align: center;
-		margin-bottom: 6px;
+		margin-bottom: 16px;
 		color: white;
 		width: 100%;
 		padding: 12px 32px;
@@ -162,6 +162,7 @@
 		font-size: 14px;
 		text-align: center;
 		margin-bottom: 24px;
+		letter-spacing: -0.5px;
 		color: var(--quiz-text-color);
 	}
 
@@ -309,7 +310,9 @@
 
 		#student-image {
 			width: 100%;
-			height: auto;
+			height: 100%;
+			min-height: 128px;
+			max-height: 384px;
 			margin-left: 0;
 			margin-right: 0;
 			margin-bottom: 32px;
@@ -317,7 +320,6 @@
 
 		#student-name {
 			font-size: 24px;
-			margin-bottom: 4px;
 		}
 
 		#student-description {

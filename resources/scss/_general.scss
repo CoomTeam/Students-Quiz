@@ -12,7 +12,7 @@ body {
     display: flex;
 	min-height: 100vh;
 	height: 100vh;
-	overflow-x: hidden; // tell me why does everything that I love get taken away from me? Why does everything that I love get taken away? You take me to the edge, push me too far
+	overflow-x: hidden;
     flex-direction: column;
 	font-family: 'PT Sans', sans-serif;
 }
@@ -53,14 +53,13 @@ footer {
 	position: fixed;
 	text-align: center;
     place-items: center;
-	letter-spacing: 1px;
 	color: var(--other-text-color);
 	background-color: var(--footer-color);
 
 	.footer-link {
-		text-decoration: none;
 		color: inherit;
-		margin-left: 16px;
+		margin-left: 24px;
+		text-decoration: none;
 	}
 
 	.footer-link:hover {
@@ -81,7 +80,12 @@ footer {
 
 	footer {
 		letter-spacing: 0.1px;
-		font-size: 11px;
+		font-size: 10px;
+		height: 24px;
+
+		a {
+			display: none;
+		}
 
 		.cookie-link {
 			margin-left: 8px;
