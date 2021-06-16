@@ -31,7 +31,7 @@
 
 
 		<div class="content">
-			<a class="batonchik" href="/quiz">Take the quiz</a>
+			<a class="start-button" href="/quiz">Take the quiz</a>
 		</div>
 
 	</main>
