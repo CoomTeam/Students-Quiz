@@ -17,6 +17,9 @@
 	{{-- CSS --}}
 	<link rel="stylesheet" href="{{ asset('mix/main.css') }}">
 
+	{{-- ICON --}}
+	<link rel="icon" type="image/png" href="/img/favicon.png"/>
+
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-2583700-9"></script>
 	<script>
