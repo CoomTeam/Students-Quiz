@@ -123,7 +123,6 @@ class QuestionSelect {
 
 		const questions = Array.from(document.getElementsByClassName('select-option')) as any[];
 
-		console.log(questions);
 		// Find question to select
 		const question = questions.find(
 			question => CHOSEN_QUESTION.toString() === question.dataset.id
