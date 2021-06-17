@@ -38,7 +38,7 @@
 	{{-- TEMP END --}}
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FLDWH16ZT6"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-2583700-9"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 
@@ -47,7 +47,7 @@
 		}
 		gtag('js', new Date());
 
-		gtag('config', 'G-FLDWH16ZT6');
+		gtag('config', 'UA-2583700-9');
 	</script>
 </head>
 
