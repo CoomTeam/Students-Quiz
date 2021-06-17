@@ -4,10 +4,7 @@
   font-size: 16px;
   color: #404040;
   font-family: Montserrat, sans-serif;
-  background-color: #2a2a72;
-  background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
-  background-position: center;
-  background-attachment: fixed;
+  background: var(--background);
   margin: 0;
   display: flex;
   place-items: center;
@@ -60,7 +57,7 @@
 .card h2.name {
 	text-align: center;
 	color: white;
-	background-color: #009ffd;
+	background: var(--all-results-title-background-color);
 	margin: 0px 50px 10px 50px;
 	border-radius: 30px;
 	padding-top: 10px;
