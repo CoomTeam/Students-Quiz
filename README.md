@@ -1,8 +1,8 @@
 <p align="center">
-	<img src="https://i.postimg.cc/6QQBJ2BB/man-1.png" alt="student" width="128">
+	<img src="https://i.imgur.com/S5BrAP5.png" alt="student" width="160">
 </p>
 
-<h3 align="center">Student type quiz</h3>
+<h3 align="center">Student Type Quiz</h3>
 
 <p align="center">
     <i>The quiz about finding out</i>
