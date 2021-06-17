@@ -41,6 +41,29 @@ header {
 main {
 	z-index: 999;
 	height: 100%;
+
+	.animated-background {
+		opacity: 0.1;
+		top: 50%;
+		left: 50%;
+		z-index: 9;
+		width: 100%;
+		height: 100vh;
+		position: fixed;
+		background-size: 20%;
+		background-repeat: repeat;
+		background-position: 0 0;
+		background-image: url('/img/bg.png');
+		transform: translate(-50%, -50%) rotate(-5deg) scale(1.2);
+		transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+		animation: Falling 45s linear infinite;
+
+		&.zoomed {
+			opacity: 0.3;
+			transform: translate(-50%, -60%) rotate(0deg) scale(2);
+		}
+	}
+
 }
 
 footer {
@@ -78,6 +101,16 @@ footer {
 		}
 	}
 
+	main .animated-background {
+		background-size: 50%;
+		animation: none;
+
+		&.zoomed {
+			opacity: 0.1;
+			transform: translate(-50%, -50%) rotate(-5deg) scale(1.2);
+		}
+	}
+
 	footer {
 		letter-spacing: 0.1px;
 		font-size: 10px;
@@ -90,5 +123,15 @@ footer {
 		.cookie-link {
 			margin-left: 8px;
 		}
+	}
+}
+
+
+@keyframes Falling {
+	from {
+		background-position: 0 0;
+	}
+	to {
+		background-position: -600px 0;
 	}
 }

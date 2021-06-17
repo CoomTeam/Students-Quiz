@@ -101,6 +101,9 @@ function renderQuestion(question: Question): void {
 	// Remove old answers
 	answers.innerHTML = '';
 
+	// Remove background zoom
+	document.querySelector('.animated-background').classList.remove('zoomed');
+
 	// Render answers
 	question.answers.forEach((answer) => {
 		const answerElement = document.createElement('button');
@@ -131,6 +134,9 @@ function renderResult(result: Result): void {
 	image.style.backgroundImage = `url(${result.url})`;
 	name.innerText = result.name;
 	description.innerText = result.description;
+
+	// Make background zoomed
+	document.querySelector('.animated-background').classList.add('zoomed');
 
 	// For sharing
 	document.title = `Student Type Quiz: Im a "${result.name}"! Which one are you?`;

@@ -11,22 +11,6 @@
 	position: relative;
 	display: block;
     background: var(--quiz-background);
-
-	.animated-background {
-		opacity: 0.05;
-		top: 0;
-		left: 0;
-		z-index: 9;
-		width: 100%;
-		height: 100vh;
-		position: fixed;
-		background-size: 20%;
-		background-repeat: repeat;
-		background-position: 0 0;
-		background-image: url('/img/bg.png');
-		transform: rotate(-5deg) scale(1.2);
-		animation: Falling 40s linear infinite;
-	}
 }
 
 .hs-button {
@@ -279,11 +263,6 @@
 	.quiz {
 		padding: 16px;
 		align-content: flex-start;
-
-		.animated-background {
-			background-size: 50%;
-			animation: none;
-		}
 	}
 
 	#question, #result, #form {
@@ -369,14 +348,5 @@
 		p {
 			font-size: 14px;
 		}
-	}
-}
-
-@keyframes Falling {
-	from {
-		background-position: 0 0;
-	}
-	to {
-		background-position: -600px 0;
 	}
 }

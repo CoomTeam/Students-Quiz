@@ -38,28 +38,25 @@ let QUESTION_LIST: QuestionSelect;
 /* Types (start) */
 
 interface Question {
-	text ?: string,
-	id ?: number,
-	order ?: number,
-	answers ?: Answer[],
+	text?: string,
+	id?: number,
+	order?: number,
+	answers?: Answer[],
 }
 
 interface Answer {
-	text ?: string,
-	id ?: number,
-	coefs ?: Coef[],
+	text?: string,
+	id?: number,
+	coefs?: Coef[],
 }
 
 interface Coef {
-	name ?: string,
-	id ?: string,
-	value ?: number,
+	name?: string,
+	id?: string,
+	value?: number,
 }
 
 /* Types (end) */
-
-
-
 
 
 /* Select (start) */
@@ -71,7 +68,7 @@ class QuestionSelect {
 	private elOptions: HTMLElement;
 	private defaultText: string = "Select Question:";
 
-	public constructor (container: HTMLElement) {
+	public constructor(container: HTMLElement) {
 
 		this.elSelect = createElem('div', 'select', container);
 		this.elSelection = createElem('div', 'select-selection', this.elSelect);
@@ -169,7 +166,7 @@ class QuestionSelect {
 async function loadQuestion() {
 
 	// Get question
-	const question: Question = await POST('/quiz-panel/admin/quiz-editor/getQuestion', {'id': CHOSEN_QUESTION});
+	const question: Question = await POST('/quiz-panel/admin/quiz-editor/getQuestion', { 'id': CHOSEN_QUESTION });
 
 	// Get elements
 	const input = document.getElementById('EdQuestionInput') as HTMLInputElement;
@@ -185,7 +182,7 @@ async function loadQuestion() {
 	answers.innerHTML = '';
 
 	// + new answers
-	question.answers.forEach((answer , index) => {
+	question.answers.forEach((answer, index) => {
 
 		// Answer button
 		const answerElement = createElem('button', 'button answer', answers);
@@ -211,9 +208,9 @@ async function loadQuestion() {
 /**
  * Load CHOSEN_ANSWER FROM SERVER
  */
- async function loadAnswer() {
+async function loadAnswer() {
 
-	const answer: Answer = await POST('/quiz-panel/admin/quiz-editor/getAnswer', {'id': CHOSEN_ANSWER});
+	const answer: Answer = await POST('/quiz-panel/admin/quiz-editor/getAnswer', { 'id': CHOSEN_ANSWER });
 
 	const inputWrap = document.getElementById('EdAnswerInputWrap');
 	inputWrap.innerHTML = '';
@@ -283,7 +280,7 @@ async function onQuestionSelect(id: number) {
  * !!! this is not chooseAnswer()
  * (when ANSWER BUTTON INSIDE QUESTION is clicked)
  */
- async function onAnswerSelect(id: number) {
+async function onAnswerSelect(id: number) {
 	// If something was changed, stop, and show error
 	if (NEED_SAVE) return pleaseSave();
 	// Hide answer
@@ -306,7 +303,7 @@ async function newAnswer() {
 	// Hide everything
 	before_question();
 	// Hey server, make new question
-	const resp = await POST('/quiz-panel/admin/quiz-editor/newAnswer', {'id': CHOSEN_QUESTION});
+	const resp = await POST('/quiz-panel/admin/quiz-editor/newAnswer', { 'id': CHOSEN_QUESTION });
 	// Get updated question (with new answer)
 	await loadQuestion();
 	// CHOSEN_ANSWER = resp.id
@@ -340,7 +337,7 @@ async function newQuestion() {
 async function deleteQuestion() {
 	if (NEED_SAVE) return pleaseSave();
 	before_question();
-	await POST('/quiz-panel/admin/quiz-editor/deleteQuestion', {id: CHOSEN_QUESTION});
+	await POST('/quiz-panel/admin/quiz-editor/deleteQuestion', { id: CHOSEN_QUESTION });
 	await chooseQuestion(-1);
 }
 
@@ -351,7 +348,7 @@ async function deleteQuestion() {
 async function deleteAnswer() {
 	if (NEED_SAVE) return pleaseSave();
 	before_question();
-	await POST('/quiz-panel/admin/quiz-editor/deleteAnswer', {id: CHOSEN_ANSWER});
+	await POST('/quiz-panel/admin/quiz-editor/deleteAnswer', { id: CHOSEN_ANSWER });
 	chooseAnswer(-1);
 	await loadQuestion();
 	after_question();
@@ -373,12 +370,12 @@ async function save() {
 
 	// Define what can request hold
 	const req: {
-		with_answer ?: any,
-		answer_id ?: number,
-		answer_text ?: string,
-		answer_coefs ?: {id: number, value: number}[],
-		question_id ?: number,
-		question_text ?: string,
+		with_answer?: any,
+		answer_id?: number,
+		answer_text?: string,
+		answer_coefs?: { id: number, value: number }[],
+		question_id?: number,
+		question_text?: string,
 	} = {};
 
 	// In case answer is chosen, save it
@@ -434,7 +431,7 @@ async function save() {
  *
  * @param id Answer ID or -1
  */
- function chooseAnswer(id: number) {
+function chooseAnswer(id: number) {
 
 	CHOSEN_ANSWER = id;
 	if (CHOSEN_ANSWER === -1) return;
@@ -478,7 +475,7 @@ async function chooseQuestion(id: number) {
 /** Help for saving (start) */
 
 function pleaseSave() {
-	alert('please save');
+	alert('Please, save your changes');
 }
 
 function setNeedToSave() {
