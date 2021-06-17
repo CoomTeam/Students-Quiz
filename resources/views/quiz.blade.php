@@ -10,7 +10,9 @@
 	<link href="https://cdn.jsdelivr.net/npm/shareon@1/dist/shareon.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/shareon@1/dist/noinit/shareon.min.js" type="text/javascript"></script>
 
+
 	<main class="quiz">
+	<div class="animated-background"></div>
 		<noscript>Enable JavaScript, to see this page!</noscript>
 
 		<div id="question" class="hidden">
