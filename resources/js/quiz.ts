@@ -1,45 +1,55 @@
-/**
- * @typedef ServerResponse Response from the server.
- * @property {"question" | "result"} type Type of response.
- * @property {Question | Result} content Respone content.
- */
+import { POST } from './utils';
 
-/**
- * @typedef Question Question response.
- * @property {string} text Question text.
- * @property {number} order Question order.
- * @property {Answer[]} answers Possible answers.
- */
+localStorage.setItem('form-submited', 'true');
 
-/**
- * @typedef Answer Possible answer for question.
- * @property {string} text Answer text.
- * @property {number} id Answer ID.
- */
+// Libraries declaration
+declare function shareon(): void;
+declare namespace hbspt {
+	namespace forms {
+		function create(config: any): void;
+	}
+};
 
-/**
- * @typedef Result Quiz result.
- * @property {string} name Student type.
- * @property {string} url Student image url.
- * @property {string} description Student description.
- */
+interface QuestionServerResponse {
+	type: 'question';
+	content: Question;
+}
+
+interface ResultServerResponse {
+	type: 'result';
+	content: Result;
+}
+
+interface Question {
+	text: string;
+	order: number;
+	answers: Answer[];
+}
+
+interface Answer {
+	id: number;
+	text: string;
+}
+
+interface Result {
+	name: string;
+	url: string;
+	description: string;
+}
 
 // Amount of secconds to wait
 const waitingTime = 30;
-
-// True if HubSpot form was submited
-let isFormSubmited = localStorage.getItem('form-submited') === 'true' ? true : false;
 
 // Amount of time left before showing the result
 let secondsToShow = waitingTime;
 
 // Countdown timer for showing result
-let countdownTimer;
+let countdownTimer: number;
 
 /**
  * Quiz initalization
  */
-async function init() {
+async function init(): Promise<void> {
 
 	// HubSpot Setup
 	hbspt.forms.create({
@@ -68,18 +78,18 @@ async function init() {
 
 /**
  * Process and render response from the server
- * @param {ServerResponse} response Server response
+ * @param response Server response
  */
-function RENDER(response) {
+function RENDER(response: QuestionServerResponse | ResultServerResponse): void {
 	if (response.type === 'question') renderQuestion(response.content);
 	if (response.type === 'result') renderResult(response.content);
 }
 
 /**
  * Render question element
- * @param {Question} question Question content received from the server
+ * @param question Question content received from the server
  */
-function renderQuestion(question) {
+function renderQuestion(question: Question): void {
 	const title = document.getElementById('question-title');
 	const text = document.getElementById('text');
 	const answers = document.getElementById('answers');
@@ -110,9 +120,9 @@ function renderQuestion(question) {
 
 /**
  * Render result element
- * @param {Result} result Result content received from the server
+ * @param result Result content received from the server
  */
-function renderResult(result) {
+function renderResult(result: Result): void {
 	const image = document.getElementById('student-image');
 	const name = document.getElementById('student-name');
 	const description = document.getElementById('student-description');
@@ -121,9 +131,6 @@ function renderResult(result) {
 	image.style.backgroundImage = `url(${result.url})`;
 	name.innerText = result.name;
 	description.innerText = result.description;
-
-	// Remove old answers
-	answers.innerHTML = '';
 
 	// For sharing
 	document.title = `Student Type Quiz: Im a "${result.name}"! Which one are you?`;
@@ -137,6 +144,12 @@ function renderResult(result) {
 		showForm();
 		hideResult();
 		hideQuestion();
+
+		setTimeout(() => {
+			const hubspotIFrame = document.querySelector<HTMLIFrameElement>('iframe.hs-form-iframe').contentWindow.document;
+			const hubspotResultField = hubspotIFrame.querySelector<HTMLInputElement>('[name="studenttypequizresult"]');
+			if (hubspotResultField) hubspotResultField.value = result.name;
+		}, 1000);
 	}
 }
 
@@ -154,9 +167,9 @@ async function goBack() {
 
 /**
  * Send answer to the server.
- * @param {number} id Answer id.
+ * @param id Answer id.
  */
-async function sendAnswer(id) {
+async function sendAnswer(id: number): Promise<void> {
 	hideResult();
 	hideQuestion();
 
@@ -167,7 +180,7 @@ async function sendAnswer(id) {
 /**
  * Restart quiz
  */
-async function restartQuiz() {
+async function restartQuiz(): Promise<void> {
 	document.title = 'Student Type Quiz';
 	hideForm();
 	hideResult();
@@ -178,14 +191,14 @@ async function restartQuiz() {
 }
 
 /** Show form modal */
-function showForm() {
+function showForm(): void {
 
 	// Reset timer
 	secondsToShow = waitingTime;
 	setWaitingTime(secondsToShow);
 
 	// Set timer
-	countdownTimer = setInterval(() => {
+	countdownTimer = window.setInterval(() => {
 		secondsToShow -= 1;
 		setWaitingTime(secondsToShow);
 
@@ -200,28 +213,28 @@ function showForm() {
 }
 
 /** Hide form modal */
-function hideForm() {
+function hideForm(): void {
 	clearInterval(countdownTimer);
 	document.getElementById('form').className = 'hidden';
 }
 
 /** Show question modal */
-function showQuestion() {
+function showQuestion(): void {
 	document.getElementById('question').className = '';
 }
 
 /** Hide question modal */
-function hideQuestion() {
+function hideQuestion(): void {
 	document.getElementById('question').className = 'hidden';
 }
 
 /** Show result modal */
-function showResult() {
+function showResult(): void {
 	document.getElementById('result').className = '';
 }
 
 /** Hide result modal */
-function hideResult() {
+function hideResult(): void {
 	document.getElementById('result').className = 'hidden';
 }
 
@@ -229,32 +242,9 @@ function hideResult() {
  * Update time on page timer
  * @param {number} seconds
  */
- function setWaitingTime(seconds) {
-	document.getElementById('waiting-time').innerText = `${seconds} ${seconds === 1 ? 'second' : 'seconds' }`;
+function setWaitingTime(seconds: number): void  {
+	document.getElementById('waiting-time').innerText = `${seconds} ${seconds === 1 ? 'second' : 'seconds'}`;
 }
-
-/**
- * Send request to the server
- * @param {string} url URL to send requets
- * @param {object} body Data to send (Optional)
- * @returns Response in JSON format
- */
-async function POST(url, body) {
-	const request = {
-		method: 'POST',
-		body: body ? JSON.stringify(body) : undefined,
-		headers: {
-			'Content-type': 'application/json; charset=UTF-8',
-			'X-CSRF-Token': document.querySelector('input[name="_token"]').value
-		}
-	}
-
-	const response = await fetch(url, request);
-	const data = await response.json();
-
-	return data;
-}
-
 
 // Initialize on page load
 window.addEventListener('load', init);

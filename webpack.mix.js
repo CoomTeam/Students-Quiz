@@ -11,8 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
- mix.js('resources/js/app.js', 'public/mix')
-    .js('resources/js/quiz.js', 'public/mix')
+ mix.js('resources/js/quiz.ts', 'public/mix')
     .ts('resources/js/editor.ts', 'public/mix')
     .ts('resources/js/darkmode.js', 'public/mix')
     .ts('resources/js/resEditor.ts', 'public/mix')

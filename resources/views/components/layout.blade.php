@@ -17,26 +17,6 @@
 	{{-- CSS --}}
 	<link rel="stylesheet" href="{{ asset('mix/main.css') }}">
 
-	{{-- TEMP START --}}
-	<style>
-		#links {
-			position: fixed;
-			top: 15px;
-			right: 20px;
-			display: flex;
-			z-index: 999999999;
-
-		}
-
-		#links a {
-			text-decoration: none;
-			color: rgb(217, 215, 230);
-			font-weight: bold;
-			margin-left: 10px;
-		}
-	</style>
-	{{-- TEMP END --}}
-
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-2583700-9"></script>
 	<script>

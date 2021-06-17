@@ -1,4 +1,4 @@
-///////////////////////////////////////////
+import { POST, createElem } from './utils';
 
 //Used in ResultSelect class
 interface Option {
@@ -151,7 +151,7 @@ async function renderResult(id: number) {
 	urlInput.value = result.url;
 
 	console.log(urlInput.value);
-	
+
 
     selectedID = id;
 }
@@ -208,36 +208,4 @@ function showResultEditor() {
 function hideResultEditor() {
 	const rshow  = document.getElementById('EdResult');
 	rshow.className = 'hidden';
-}
-
-
-
-/*** Helper functions from other teammates ***/
-
-async function POST(url: string, body = undefined) {
-	const csrf = document.querySelector('input[name="_token"]') as HTMLInputElement;
-	const request = {
-		method: 'POST',
-		body: body ? JSON.stringify(body) : undefined,
-		headers: {
-			'Content-type': 'application/json; charset=UTF-8',
-			'X-CSRF-Token': csrf.value
-		}
-	}
-
-	const response = await fetch(url, request);
-	const data = await response.json();
-
-	return data;
-}
-
-function createElem(elemName: string, className: string, putInto: HTMLElement = null): HTMLElement {
-	let elem = document.createElement(elemName);
-	elem.className = className;
-
-	if (putInto) {
-		putInto.appendChild(elem);
-	}
-
-	return elem;
 }
