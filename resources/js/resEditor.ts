@@ -138,7 +138,6 @@ async function updateResultList() {
 async function renderResult(id: number) {
 
 	let result = await POST('/quiz-panel/admin/results-editor/getResult', {'id': id});
-    console.log(result);
 	showResultEditor();
 
     const nameInput = document.getElementById('ResEdNameInput') as HTMLInputElement;
@@ -149,8 +148,6 @@ async function renderResult(id: number) {
     nameInput.value = result.name;
     descInput.value = result.description;
 	urlInput.value = result.url;
-
-	console.log(urlInput.value);
 
 
     selectedID = id;
@@ -200,7 +197,6 @@ async function deleteResult(){
 
 
 function showResultEditor() {
-	console.log('r shown');
 	const rshow  = document.getElementById('EdResult');
 	rshow.className = '';
 }

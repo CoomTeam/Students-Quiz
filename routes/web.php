@@ -1,99 +1,61 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\AllResultsController;
-use App\Http\Controllers\IndexController;
-use App\Http\Controllers\TypesController;
+use App\Http\Controllers\OtherController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\EditorController;
 use App\Http\Controllers\ResEditorController;
-use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 
 // Home page
-Route::get('/', function () {
-  return view('home');
-});
+Route::view('/', 'home');
 
-// Result prototype -> THINK WHAT TO DO
-Route::get('/result', function () {
-  return view('result');
-});
+// Cookies page
+Route::view('/cookies', 'cookies');
 
 // All result page
-Route::get('/all-results', [AllResultsController::class, 'index']);
+Route::get('/all-results', [OtherController::class, 'allResults']);
 
-
-/******** QUIZ ********/
-
-// Gives a page of quiz - an empty page without questions or results -> those are loaded by a separate request
-Route::get('/quiz', [QuizController::class, 'index']);
-// Returns current question or result
-Route::post('/quiz/current', [QuizController::class, 'current']);
-// Submits the answer, then same as `current`
-Route::post('/quiz/answer', [QuizController::class, 'answer']);
-// Unsibmits last answer, then same as `current`
-Route::post('/quiz/back', [QuizController::class, 'back']);
-// Starts quiz from beginning, then same as `current`
-Route::post('/quiz/restart', [QuizController::class, 'restart']);
-
-
-/******** SESSION ********/
-
-// Gives a dump of your session
-Route::get('/ses', function (Request $request) {
-  return $request->session()->all();
+// Quiz
+Route::prefix('quiz')->group(function() {
+	Route::get('/', [QuizController::class, 'index']);
+	Route::post('/current', [QuizController::class, 'current']);
+	Route::post('/answer', [QuizController::class, 'answer']);
+	Route::post('/back', [QuizController::class, 'back']);
+	Route::post('/restart', [QuizController::class, 'restart']);
 });
 
-// Clears your session, redirects to /ses (to see a clear dump)
-Route::get('/delses', function (Request $request) {
-  $request->session()->invalidate();
-  return redirect('/ses');
-});
+// Admin
+Route::prefix('quiz-panel/admin')->group(function() {
+	Voyager::routes();
 
-/******** Cookies ********/
-
-Route::get('/cookies', function () {
-	return view('cookies');
-});
-
-Route::group(['prefix' => 'quiz-panel'], function () {
-	Route::group(['prefix' => 'admin'], function () {
-		Voyager::routes();
-
-		/******** EDITOR ********/
-		Route::post('/quiz-editor/getAllQuestions', [EditorController::class, 'getAllQuestions'])->middleware('admin.user');
-		Route::post('/quiz-editor/getQuestion', [EditorController::class, 'getQuestion'])->middleware('admin.user');
-		Route::post('/quiz-editor/getAnswer', [EditorController::class, 'getAnswer'])->middleware('admin.user');
-		Route::post('/quiz-editor/newQuestion', [EditorController::class, 'newQuestion'])->middleware('admin.user');
-		Route::post('/quiz-editor/newAnswer', [EditorController::class, 'newAnswer'])->middleware('admin.user');
-		Route::post('/quiz-editor/save', [EditorController::class, 'save'])->middleware('admin.user');
-		Route::post('/quiz-editor/deleteAnswer', [EditorController::class, 'deleteAnswer'])->middleware('admin.user');
-		Route::post('/quiz-editor/deleteQuestion', [EditorController::class, 'deleteQuestion'])->middleware('admin.user');
-		Route::get('/quiz-editor/export', [EditorController::class, 'export'])->middleware('admin.user');
-		Route::post('/quiz-editor/import', [EditorController::class, 'import'])->middleware('admin.user');
-		Route::get('/quiz-editor/import', [EditorController::class, 'indexImport'])->middleware('admin.user');
-		Route::get('/quiz-editor', [EditorController::class, 'index'])->middleware('admin.user');
-
-		/******** Result Editor ********/
-		Route::post('/results-editor/getAllResults', [ResEditorController::class, 'getAllResults'])->middleware('admin.user');
-		Route::post('/results-editor/getResult', [ResEditorController::class, 'getResult'])->middleware('admin.user');
-		Route::post('/results-editor/newResult', [ResEditorController::class, 'newResult'])->middleware('admin.user');
-		Route::post('/results-editor/saveResult', [ResEditorController::class, 'saveResult'])->middleware('admin.user');
-		Route::post('/results-editor/deleteResult', [ResEditorController::class, 'deleteResult'])->middleware('admin.user');
-		Route::get('/results-editor', [ResEditorController::class, 'index'])->middleware('admin.user');
+	/******** EDITOR ********/
+	Route::prefix('quiz-editor')->middleware('admin.user')->group(function () {
+		Route::post('getAllQuestions', [EditorController::class, 'getAllQuestions']);
+		Route::post('getQuestion', [EditorController::class, 'getQuestion']);
+		Route::post('getAnswer', [EditorController::class, 'getAnswer']);
+		Route::post('newQuestion', [EditorController::class, 'newQuestion']);
+		Route::post('newAnswer', [EditorController::class, 'newAnswer']);
+		Route::post('save', [EditorController::class, 'save']);
+		Route::post('deleteAnswer', [EditorController::class, 'deleteAnswer']);
+		Route::post('deleteQuestion', [EditorController::class, 'deleteQuestion']);
+		Route::get('export', [EditorController::class, 'export']);
+		Route::post('import', [EditorController::class, 'import']);
+		Route::get('import', [EditorController::class, 'indexImport']);
+		Route::get('/', [EditorController::class, 'index']);
 	});
+
+
+	/******** Result Editor ********/
+	Route::prefix('results-editor')->middleware('admin.user')->group(function () {
+		Route::post('/getAllResults', [ResEditorController::class, 'getAllResults']);
+		Route::post('getResult', [ResEditorController::class, 'getResult']);
+		Route::post('newResult', [ResEditorController::class, 'newResult']);
+		Route::post('saveResult', [ResEditorController::class, 'saveResult']);
+		Route::post('deleteResult', [ResEditorController::class, 'deleteResult']);
+		Route::get('/', [ResEditorController::class, 'index']);
+	});
+
 });
 
