@@ -135,7 +135,7 @@
 
 	&.hidden #student-image {
 		opacity: 0;
-		transform: translateY(64px);
+		transform: translateY(64px) scale(2);
 	}
 
 	&.hidden #student-name {
@@ -145,7 +145,7 @@
 
 	#student-image {
 		transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-		transition-delay: 1000ms;
+		transition-delay: 750ms;
 
 		width: 256px;
 		height: 256px;
@@ -161,7 +161,7 @@
 
 	#student-name {
 		transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-		transition-delay: 1250ms;
+		transition-delay: 1000ms;
 
 		color: var(--white);
 		padding: 6px 24px;
