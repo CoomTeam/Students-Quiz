@@ -20,23 +20,18 @@
 	{{-- ICON --}}
 	<link rel="icon" type="image/png" href="/img/favicon.png"/>
 
-	<!-- Global site tag (gtag.js) - Google Analytics -->
+	{{-- Global site tag (gtag.js) - Google Analytics --}}
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-2583700-9"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
-
-		function gtag() {
-			dataLayer.push(arguments);
-		}
+		function gtag() {dataLayer.push(arguments);}
 		gtag('js', new Date());
-
 		gtag('config', 'UA-2583700-9');
 	</script>
 </head>
 
 
 <body class="light">
-
 	<header>
 		<a href="https://www.hz.nl">
 			<img src="img/logo.svg" alt="HZ Logo" id='logo'>
@@ -46,6 +41,7 @@
 			<img src="/img/moon.png" id="darkmodeIcon" alt="darkmode-icon">
 		</div>
 	</header>
+
 	<script src="{{ asset('mix/darkmode.js') }}"></script>
 
 	@csrf
@@ -59,7 +55,6 @@
 			<a class="footer-link" href="/cookies">Cookie Policy</a>
 		</div>
 	</footer>
-
 </body>
 
 
