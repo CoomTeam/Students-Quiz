@@ -261,6 +261,7 @@ class EditorController extends Controller
 		$new->id = $result['id'];
 		$new->name = $result['name'];
 		$new->description = $result['description'];
+		$new->url = $result['url'];
 		$new->created_at = $result['created_at'];
 		$new->updated_at = $result['updated_at'];
 		$new->save();
