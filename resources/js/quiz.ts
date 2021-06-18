@@ -101,9 +101,6 @@ function renderQuestion(question: Question): void {
 	// Remove old answers
 	answers.innerHTML = '';
 
-	// Remove background zoom
-	document.querySelector('.animated-background').classList.remove('zoomed');
-
 	// Render answers
 	question.answers.forEach((answer) => {
 		const answerElement = document.createElement('button');
@@ -129,6 +126,7 @@ function renderResult(result: Result): void {
 	const image = document.getElementById('student-image');
 	const name = document.getElementById('student-name');
 	const description = document.getElementById('student-description');
+	const background = document.querySelector('.animated-background');
 
 	// Update values
 	image.style.backgroundImage = `url(${result.url})`;
@@ -136,7 +134,9 @@ function renderResult(result: Result): void {
 	description.innerText = result.description;
 
 	// Make background zoomed
-	document.querySelector('.animated-background').classList.add('zoomed');
+	if (background.classList.contains('zoomed') === false) {
+		background.classList.add('zoomed');
+	}
 
 	// For sharing
 	document.title = `Student Type Quiz: Im a "${result.name}"! Which one are you?`;
@@ -191,6 +191,9 @@ async function restartQuiz(): Promise<void> {
 	hideForm();
 	hideResult();
 	hideQuestion();
+
+	// Remove background zoom
+	document.querySelector('.animated-background').classList.remove('zoomed');
 
 	const data = await POST('/quiz/restart');
 	RENDER(data);
@@ -248,7 +251,7 @@ function hideResult(): void {
  * Update time on page timer
  * @param {number} seconds
  */
-function setWaitingTime(seconds: number): void  {
+function setWaitingTime(seconds: number): void {
 	document.getElementById('waiting-time').innerText = `${seconds} ${seconds === 1 ? 'second' : 'seconds'}`;
 }
 

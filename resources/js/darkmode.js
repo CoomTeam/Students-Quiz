@@ -1,44 +1,41 @@
 const body = document.body;
 const logo = document.getElementById('logo');
-const toggleImage = document.getElementById("darkmodeIcon");
+const toggleImage = document.getElementById('darkmodeIcon');
 
-let darkmode = localStorage.getItem('darkmode');
-
-checkLocalStorage();
-
-toggleImage.onclick = function () {
-	darkmode = localStorage.getItem('');
-	if(body.classList.contains('light')){
-		toggleImage.src = "img/sun.png";
-		darkToggle();
+toggleImage.addEventListener('click', () => {
+	if (body.classList.contains('light')) {
+		setDarkMode();
 		return;
 	}
-	if(body.classList.contains('dark')){
-		toggleImage.src = "img/moon.png";
-		lightToggle();
+
+	if (body.classList.contains('dark')) {
+		setLightMode();
 		return;
 	}
-}
+});
 
-function checkLocalStorage () {
-	if (darkmode === 'on') {
-        darkToggle();
-        toggleImage.src = "img/sun.png"
+function checkLocalStorage() {
+	const mode = localStorage.getItem('darkmode');
+
+	if (mode === 'on') {
+        setDarkMode();
     } else {
-        lightToggle();
-        toggleImage.src = "img/moon.png"
+        setLightMode();
     }
 }
 
-function lightToggle() {
+function setLightMode() {
+	localStorage.setItem('darkmode', 'off');
     body.classList.replace('dark', 'light');
     logo.src ='/img/logo.svg';
-    localStorage.setItem('darkmode', 'off');
+	toggleImage.src = '/img/moon.png'
 }
 
-function darkToggle() {
+function setDarkMode() {
+    localStorage.setItem('darkmode', 'on');
     body.classList.replace('light', 'dark');
     logo.src ='/img/logo-white.svg';
-    localStorage.setItem('darkmode', 'on');
+	toggleImage.src = '/img/sun.png'
 }
 
+checkLocalStorage();

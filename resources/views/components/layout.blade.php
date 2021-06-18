@@ -46,6 +46,7 @@
 			<img src="/img/moon.png" id="darkmodeIcon" alt="darkmode-icon">
 		</div>
 	</header>
+	<script src="{{ asset('mix/darkmode.js') }}"></script>
 
 	@csrf
 	{{ $slot }}
@@ -59,7 +60,6 @@
 		</div>
 	</footer>
 
-	<script src="{{ asset('mix/darkmode.js') }}"></script>
 </body>
 
 
