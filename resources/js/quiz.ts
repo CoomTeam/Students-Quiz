@@ -1,7 +1,5 @@
 import { POST } from './utils';
 
-localStorage.setItem('form-submited', 'true');
-
 // Libraries declaration
 declare function shareon(): void;
 declare namespace hbspt {
