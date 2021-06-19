@@ -14,7 +14,7 @@ return [
         'add_default_role_on_register' => true,
         'default_role'                 => 'user',
         'default_avatar'               => 'users/default.png',
-        'redirect'                     => '/admin',
+        'redirect'                     => '/quiz-panel/admin',
     ],
 
     /*
@@ -140,25 +140,7 @@ return [
             'voyager::generic.logout' => [
                 'route'      => 'voyager.logout',
                 'icon_class' => 'voyager-power',
-            ],
-			'Quiz Editor' => [
-                'route'        => '/quiz-panel/admin/quiz-editor',
-                'icon_class'   => 'voyager-controller',
-                'target_blank' => true,
-            ],
-			'Results Editor' => [
-                'route'        => '/quiz-panel/admin/results-editor',
-                'icon_class'   => 'voyager-trophy',
-                'target_blank' => true,
-            ],
-			'Import' => [
-                'route'        => '/quiz-panel/admin/quiz-editor/import',
-                'icon_class'   => 'voyager-upload',
-            ],
-			'Export' => [
-                'route'        => '/quiz-panel/admin/quiz-editor/export',
-                'icon_class'   => 'voyager-download',
-            ],
+            ]
         ],
 
         'widgets' => [
