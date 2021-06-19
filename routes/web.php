@@ -5,7 +5,7 @@ use App\Http\Controllers\OtherController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\EditorController;
 use App\Http\Controllers\ResEditorController;
-
+use Illuminate\Support\Facades\URL;
 
 
 // Home page
@@ -59,3 +59,6 @@ Route::prefix('quiz-panel/admin')->group(function() {
 
 });
 
+if (env('APP_ENV') === 'production') {
+    URL::forceScheme('https');
+}
