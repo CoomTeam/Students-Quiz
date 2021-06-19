@@ -82,7 +82,7 @@ return [
         'tables' => [
             'hidden' => ['migrations', 'data_rows', 'data_types', 'menu_items', 'password_resets', 'permission_role', 'settings'],
         ],
-        'autoload_migrations' => true,
+        'autoload_migrations' => ENV('APP_ENV') != 'production',
     ],
 
     /*
@@ -141,6 +141,24 @@ return [
                 'route'      => 'voyager.logout',
                 'icon_class' => 'voyager-power',
             ],
+			'Quiz Editor' => [
+                'route'        => '/quiz-panel/admin/quiz-editor',
+                'icon_class'   => 'voyager-controller',
+                'target_blank' => true,
+            ],
+			'Results Editor' => [
+                'route'        => '/quiz-panel/admin/results-editor',
+                'icon_class'   => 'voyager-trophy',
+                'target_blank' => true,
+            ],
+			'Import' => [
+                'route'        => '/quiz-panel/admin/quiz-editor/import',
+                'icon_class'   => 'voyager-upload',
+            ],
+			'Export' => [
+                'route'        => '/quiz-panel/admin/quiz-editor/export',
+                'icon_class'   => 'voyager-download',
+            ],
         ],
 
         'widgets' => [
@@ -181,7 +199,7 @@ return [
     |
     */
 
-    'primary_color' => '#22A7F0',
+    'primary_color' => '#000000',
 
     'show_dev_tips' => true, // Show development tip "How To Use:" in Menu and Settings
 

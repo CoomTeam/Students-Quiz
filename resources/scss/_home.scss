@@ -6,32 +6,53 @@
 	background-size: cover;
 	place-items: center;
 
-	.cookie-title {
-		color: white;
-		margin-top: 7%;
-	}
+	.cookie-container {
+		margin: none;
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 700px;
+		width: 100%;
 
-	.cookie-table {
-		border-spacing: 5px;
-		border-collapse: separate;
-		width: 40%;
-		height: 200px;
-		border: hidden;
-		margin-top: 1%;
-
-		th {
-			height: 40px;
-			font-size: 20px;
+		.cookie-title {
+			font-size: 24px;
+			width: 100%;
+			color: white;
+			text-align: center;
+			margin-bottom: 32px;
 		}
 
-		th,
-		td {
-			color: #0594e7;
-			width: 33.333%;
-			text-align: center;
-			font-weight: 600;
+		.cookie-table {
+			border: none;
+			overflow: hidden;
 			border-radius: 4px;
+			border-spacing: 0;
+			margin-bottom: 32px;
 			background-color: white;
+			border-collapse: separate;
+			box-shadow: var(--quiz-modal-shadow);
+
+			tr {
+				display: flex;
+				flex-direction: row;
+
+				* {
+					width: 100%;
+				}
+			}
+
+			th {
+				padding: 8px;
+				font-size: 20px;
+				text-align: center;
+				border-bottom: 1px solid;
+			}
+
+			td {
+				padding: 24px 16px;
+				color: #6e6e6e;
+				font-size: 16px;
+				text-align: center;
+			}
 		}
 	}
 
@@ -79,7 +100,6 @@
 
 @media only screen and (max-width: 700px) {
 	.welcome {
-
 		.content {
 			h1 {
 				font-size: 28px;
@@ -99,15 +119,20 @@
 			}
 		}
 
-		.cookie-title {
-			margin-top: 25%;
-		}
+		.cookie-container {
+			padding: 0px 8px;
+			.cookie-table {
 
-		.cookie-table {
-			table-layout: auto;
-			width: 95%;
-			text-align: left;
-			font-size: 12px;
+				th {
+					font-size: 16px;
+					padding: 6px;
+				}
+
+				td {
+					font-size: 13px;
+					padding: 16px 8px;
+				}
+			}
 		}
 	}
 }

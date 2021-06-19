@@ -178,7 +178,11 @@ async function sendAnswer(id: number): Promise<void> {
 	hideQuestion();
 
 	const data = await POST('/quiz/answer', { answer: id });
-	RENDER(data);
+
+	// Create timeout for animation delay
+	setTimeout(() => {
+		RENDER(data);
+	}, 50);
 }
 
 /**
