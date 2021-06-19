@@ -11,14 +11,11 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Chango&family=Syne+Mono&display=swap" rel="stylesheet">
 
-	{{-- JS --}}
-	<script src="{{ asset('mix/app.js') }}"></script>
-
 	{{-- CSS --}}
 	<link rel="stylesheet" href="{{ asset('mix/main.css') }}">
 
 	{{-- ICON --}}
-	<link rel="icon" type="image/png" href="/img/favicon2.png"/>
+	<link rel="icon" type="image/png" href="/img/favicon.png"/>
 
 	{{-- Global site tag (gtag.js) - Google Analytics --}}
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-2583700-9"></script>

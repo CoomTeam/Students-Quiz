@@ -182,7 +182,7 @@ async function sendAnswer(id: number): Promise<void> {
 	// Create timeout for animation delay
 	setTimeout(() => {
 		RENDER(data);
-	}, 50);
+	}, 100);
 }
 
 /**
