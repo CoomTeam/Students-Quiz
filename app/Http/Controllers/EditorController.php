@@ -7,6 +7,7 @@ use App\Models\Question;
 use App\Models\Answer;
 use App\Models\Result;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class EditorController extends Controller
 {
@@ -251,6 +252,17 @@ class EditorController extends Controller
 			foreach ($question['answers'] as $answer) {
 				$this->importAnswer($answer);
 			}
+		}
+
+		if (env('DB_CONNECTION') === 'pgsql') {
+			$lastAnswer = Answer::orderBy('id','desc')->first();
+			DB::statement('alter sequence answers_id_seq restart with '.(intval($lastAnswer->id)+1));
+
+			$lastQuestion = Question::orderBy('id','desc')->first();
+			DB::statement('alter sequence questions_id_seq restart with '.(intval($lastQuestion->id)+1));
+
+			$lastResult = Result::orderBy('id','desc')->first();
+			DB::statement('alter sequence results_id_seq restart with '.(intval($lastResult->id)+1));
 		}
 
 		return [];
