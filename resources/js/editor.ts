@@ -23,9 +23,9 @@ window.addEventListener('load', init);
 
 /* Global vars (start) */
 
-let CHOSEN_QUESTION: number = -1;
-let CHOSEN_ANSWER: number = -1;
-let NEED_SAVE: boolean = false;
+let CHOSEN_QUESTION = -1;
+let CHOSEN_ANSWER = -1;
+let NEED_SAVE = false;
 
 let QUESTION_LIST: QuestionSelect;
 
@@ -38,22 +38,22 @@ let QUESTION_LIST: QuestionSelect;
 /* Types (start) */
 
 interface Question {
-	text?: string,
-	id?: number,
-	order?: number,
-	answers?: Answer[],
+	text: string;
+	id: number;
+	order: number;
+	answers: Answer[];
 }
 
 interface Answer {
-	text?: string,
-	id?: number,
-	coefs?: Coef[],
+	text: string;
+	id: number;
+	coefs: Coef[];
 }
 
 interface Coef {
-	name?: string,
-	id?: string,
-	value?: number,
+	name: string;
+	id: string;
+	value: number;
 }
 
 /* Types (end) */
@@ -66,7 +66,7 @@ class QuestionSelect {
 	private elSelect: HTMLElement;
 	private elSelection: HTMLElement;
 	private elOptions: HTMLElement;
-	private defaultText: string = "Select Question:";
+	private defaultText = 'Select Question:';
 
 	public constructor(container: HTMLElement) {
 
@@ -121,7 +121,7 @@ class QuestionSelect {
 
 		if (CHOSEN_QUESTION === -1) return;
 
-		const questions = Array.from(document.getElementsByClassName('select-option')) as any[];
+		const questions = Array.from(document.getElementsByClassName('select-option')) as HTMLElement[];
 
 		// Find question to select
 		const question = questions.find(
@@ -165,7 +165,7 @@ class QuestionSelect {
 async function loadQuestion() {
 
 	// Get question
-	const question: Question = await POST('/quiz-panel/admin/quiz-editor/getQuestion', { 'id': CHOSEN_QUESTION });
+	const question = await POST('/quiz-panel/admin/quiz-editor/getQuestion', { 'id': CHOSEN_QUESTION }) as Question;
 
 	// Get elements
 	const input = document.getElementById('EdQuestionInput') as HTMLInputElement;
@@ -181,7 +181,7 @@ async function loadQuestion() {
 	answers.innerHTML = '';
 
 	// + new answers
-	question.answers.forEach((answer, index) => {
+	question.answers.forEach((answer) => {
 
 		// Answer button
 		const answerElement = createElem('button', 'button answer', answers);
@@ -208,15 +208,14 @@ async function loadQuestion() {
  * Load CHOSEN_ANSWER FROM SERVER
  */
 async function loadAnswer() {
-
-	const answer: Answer = await POST('/quiz-panel/admin/quiz-editor/getAnswer', { 'id': CHOSEN_ANSWER });
+	const answer = await POST('/quiz-panel/admin/quiz-editor/getAnswer', { 'id': CHOSEN_ANSWER }) as Answer;
 
 	const inputWrap = document.getElementById('EdAnswerInputWrap');
 	inputWrap.innerHTML = '';
 
 	const inputEl = createElem('input', '', inputWrap) as HTMLInputElement;
 	inputEl.id = 'EdAnswerInput';
-	inputEl.type = "text";
+	inputEl.type = 'text';
 	inputEl.value = answer.text;
 
 	inputEl.addEventListener('input', setNeedToSave);
@@ -239,7 +238,7 @@ async function loadAnswer() {
 
 		const outputEl = createElem('output', '', coefEl) as HTMLInputElement;
 		coefSliderEl.addEventListener('input', () => {
-			outputEl.value = coefSliderEl.value
+			outputEl.value = coefSliderEl.value;
 		});
 
 		coefSliderEl.addEventListener('input', setNeedToSave);
@@ -302,7 +301,7 @@ async function newAnswer() {
 	// Hide everything
 	before_question();
 	// Hey server, make new question
-	const resp = await POST('/quiz-panel/admin/quiz-editor/newAnswer', { 'id': CHOSEN_QUESTION });
+	const resp = await POST('/quiz-panel/admin/quiz-editor/newAnswer', { 'id': CHOSEN_QUESTION }) as Answer;
 	// Get updated question (with new answer)
 	await loadQuestion();
 	// CHOSEN_ANSWER = resp.id
@@ -323,7 +322,7 @@ async function newQuestion() {
 	if (NEED_SAVE) return pleaseSave();
 	before_question();
 
-	const resp = await POST('/quiz-panel/admin/quiz-editor/newQuestion');
+	const resp = await POST('/quiz-panel/admin/quiz-editor/newQuestion') as Question;
 	await chooseQuestion(resp.id);
 	await loadQuestion();
 	after_question();
@@ -369,7 +368,7 @@ async function save() {
 
 	// Define what can request hold
 	const req: {
-		with_answer?: any,
+		with_answer?: unknown,
 		answer_id?: number,
 		answer_text?: string,
 		answer_coefs?: { id: number, value: number }[],
@@ -380,8 +379,8 @@ async function save() {
 	// In case answer is chosen, save it
 	if (CHOSEN_ANSWER !== -1) {
 		const text = document.getElementById('EdAnswerInput') as HTMLInputElement;
-		const sliders = Array.from(document.getElementsByClassName('coef-slider')) as any[];
-		req.with_answer = "Yeah boy, it is";
+		const sliders = Array.from(document.getElementsByClassName('coef-slider')) as HTMLInputElement[];
+		req.with_answer = 'Yeah boy, it is';
 		req.answer_id = CHOSEN_ANSWER;
 		req.answer_text = text.value;
 
@@ -437,7 +436,7 @@ function chooseAnswer(id: number) {
 
 	// Below: Give the selected answer element an outline
 
-	const answers = Array.from(document.getElementsByClassName('answer')) as any[];
+	const answers = Array.from(document.getElementsByClassName('answer')) as HTMLElement[];
 
 	//  Unselect the selected
 	answers.forEach(answer =>
@@ -461,7 +460,7 @@ function chooseAnswer(id: number) {
 async function chooseQuestion(id: number) {
 	CHOSEN_QUESTION = id;
 	QUESTION_LIST.update(
-		await POST('/quiz-panel/admin/quiz-editor/getAllQuestions')
+		await POST('/quiz-panel/admin/quiz-editor/getAllQuestions') as Question[]
 	);
 }
 

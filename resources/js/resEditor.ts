@@ -3,14 +3,15 @@ import { POST, createElem } from './utils';
 //Used in ResultSelect class
 interface Option {
 	text: string,
-	callback: () => any,
+	callback: () => void,
 }
 
 //Used in ResultSelect class
 interface Result {
-	id?: number,
-	name?: string,
-	description?: string,
+	id: number;
+	name: string;
+	description: string;
+	url: string;
 }
 
 class ResultSelect {
@@ -44,7 +45,7 @@ class ResultSelect {
 			const option = {
 				text: result.name,
 				callback: () => renderResult(result.id),
-			}
+			};
 			return option;
 		});
 		this.updateOptions(options);
@@ -109,10 +110,9 @@ function init() {
     deleteBtn.addEventListener('click', deleteResult);
 
 	// Set up the result list
-    const listContainer = document.getElementById('ResEdList')
+    const listContainer = document.getElementById('ResEdList');
     resultList = new ResultSelect(listContainer, 'Select result:');
     updateResultList();
-
 }
 
 window.addEventListener('load', init);
@@ -122,10 +122,8 @@ window.addEventListener('load', init);
  * Then put them into list
  */
 async function updateResultList() {
-
-    let results = await POST('/quiz-panel/admin/results-editor/getAllResults');
+    const results = await POST('/quiz-panel/admin/results-editor/getAllResults') as Result[];
     resultList.updateResults(results);
-
 }
 
 /**
@@ -137,7 +135,7 @@ async function updateResultList() {
  */
 async function renderResult(id: number) {
 
-	let result = await POST('/quiz-panel/admin/results-editor/getResult', {'id': id});
+	const result = await POST('/quiz-panel/admin/results-editor/getResult', {'id': id}) as Result;
 	showResultEditor();
 
     const nameInput = document.getElementById('ResEdNameInput') as HTMLInputElement;
@@ -180,7 +178,7 @@ async function saveResult() {
  * Render that result
  */
 async function newResult() {
-    const data = await POST('/quiz-panel/admin/results-editor/newResult');
+    const data = await POST('/quiz-panel/admin/results-editor/newResult') as Result;
     renderResult(data.id);
 }
 
@@ -195,13 +193,7 @@ async function deleteResult(){
     location.reload();
 }
 
-
 function showResultEditor() {
 	const rshow  = document.getElementById('EdResult');
 	rshow.className = '';
-}
-
-function hideResultEditor() {
-	const rshow  = document.getElementById('EdResult');
-	rshow.className = 'hidden';
 }
