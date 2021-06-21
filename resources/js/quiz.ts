@@ -4,9 +4,11 @@ import { POST } from './utils';
 declare function shareon(): void;
 declare namespace hbspt {
 	namespace forms {
-		function create(config: any): void;
+		function create(config: unknown): void;
 	}
-};
+}
+
+type ServerResponse = QuestionServerResponse | ResultServerResponse;
 
 interface QuestionServerResponse {
 	type: 'question';
@@ -49,26 +51,12 @@ let countdownTimer: number;
  */
 async function init(): Promise<void> {
 
-	// HubSpot Setup
-	hbspt.forms.create({
-		target: '#hubspot-form',
-		region: 'na1',
-		portalId: '2034076',
-		formId: '5615ba28-acdd-418e-a456-9ca21b62d766',
-		onFormSubmitted: () => {
-			localStorage.setItem('form-submited', 'true');
-			hideForm();
-			hideQuestion();
-			showResult();
-		}
-	});
-
 	// Listen for go back & restart buttons
 	document.getElementById('go-back').addEventListener('click', goBack);
 	document.getElementById('restart').addEventListener('click', restartQuiz);
 
 	// Get current question or result
-	const data = await POST('/quiz/current');
+	const data = await POST('/quiz/current') as ServerResponse;
 
 	// Render response
 	RENDER(data);
@@ -78,7 +66,7 @@ async function init(): Promise<void> {
  * Process and render response from the server
  * @param response Server response
  */
-function RENDER(response: QuestionServerResponse | ResultServerResponse): void {
+function RENDER(response: ServerResponse): void {
 	if (response.type === 'question') renderQuestion(response.content);
 	if (response.type === 'result') renderResult(response.content);
 }
@@ -125,6 +113,7 @@ function renderResult(result: Result): void {
 	const name = document.getElementById('student-name');
 	const description = document.getElementById('student-description');
 	const background = document.querySelector('.animated-background');
+	const form = document.getElementById('hubspot-form');
 
 	// Update values
 	image.style.backgroundImage = `url(${result.url})`;
@@ -140,21 +129,45 @@ function renderResult(result: Result): void {
 	document.title = `Student Type Quiz: Im a "${result.name}"! Which one are you?`;
 	shareon();
 
-	// Show HubSpot form if its not submited
+	// Hide other modals
+	hideQuestion();
+	hideResult();
+	hideForm();
+
+	// Skip form if its submited
 	if (localStorage.getItem('form-submited') === 'true') {
 		showResult();
-		hideQuestion();
-	} else {
-		showForm();
-		hideResult();
-		hideQuestion();
+		return;
+	}
 
-		setTimeout(() => {
+	// Remove old form
+	form.innerHTML = '';
+
+	// Timeout timer, if form is not loaded
+	const initializationTimeout = window.setTimeout(() => {
+		hideForm();
+		showResult();
+	}, 5000);
+
+	// HubSpot Setup
+	hbspt.forms.create({
+		target: '#hubspot-form',
+		region: 'na1',
+		portalId: '2034076',
+		formId: '5615ba28-acdd-418e-a456-9ca21b62d766',
+		onFormReady: () => {
+			clearTimeout(initializationTimeout);
+			showForm();
 			const hubspotIFrame = document.querySelector<HTMLIFrameElement>('iframe.hs-form-iframe').contentWindow.document;
 			const hubspotResultField = hubspotIFrame.querySelector<HTMLInputElement>('[name="studenttypequizresult"]');
 			if (hubspotResultField) hubspotResultField.value = result.name;
-		}, 1000);
-	}
+		},
+		onFormSubmitted: () => {
+			localStorage.setItem('form-submited', 'true');
+			hideForm();
+			showResult();
+		}
+	});
 }
 
 
@@ -165,7 +178,7 @@ async function goBack() {
 	hideResult();
 	hideQuestion();
 
-	const data = await POST('/quiz/back');
+	const data = await POST('/quiz/back') as ServerResponse;
 	RENDER(data);
 }
 
@@ -177,7 +190,7 @@ async function sendAnswer(id: number): Promise<void> {
 	hideResult();
 	hideQuestion();
 
-	const data = await POST('/quiz/answer', { answer: id });
+	const data = await POST('/quiz/answer', { answer: id }) as ServerResponse;
 
 	// Create timeout for animation delay
 	setTimeout(() => {
@@ -197,7 +210,7 @@ async function restartQuiz(): Promise<void> {
 	// Remove background zoom
 	document.querySelector('.animated-background').classList.remove('zoomed');
 
-	const data = await POST('/quiz/restart');
+	const data = await POST('/quiz/restart') as ServerResponse;
 	RENDER(data);
 }
 
@@ -214,6 +227,7 @@ function showForm(): void {
 		setWaitingTime(secondsToShow);
 
 		if (secondsToShow <= 0) {
+			localStorage.setItem('form-submited', 'true');
 			hideForm();
 			hideQuestion();
 			showResult();

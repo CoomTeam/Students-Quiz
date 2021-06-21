@@ -56,7 +56,7 @@ main {
 		background-image: url('/img/bg.png');
 		transform: translate(-50%, -50%) rotate(-5deg) scale(1.2);
 		transition: transform 1s ease-in-out, opacity 1s ease-in-out;
-		animation: Falling 45s linear infinite;
+		animation: Falling 100s linear infinite;
 
 		&.zoomed {
 			opacity: 0.3;
@@ -132,6 +132,6 @@ footer {
 		background-position: 0 0;
 	}
 	to {
-		background-position: -600px 0;
+		background-position: -1200px 0;
 	}
 }

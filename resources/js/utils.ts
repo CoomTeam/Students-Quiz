@@ -4,7 +4,7 @@
  * @param body Data to send (Optional)
  * @returns Response in JSON format
  */
-export async function POST(url: string, body?: object): Promise<any> {
+export async function POST(url: string, body?: Record<string, unknown>): Promise<unknown> {
 	const request = {
 		method: 'POST',
 		body: body ? JSON.stringify(body) : undefined,
@@ -12,7 +12,7 @@ export async function POST(url: string, body?: object): Promise<any> {
 			'Content-type': 'application/json; charset=UTF-8',
 			'X-CSRF-Token': document.querySelector<HTMLInputElement>('input[name="_token"]').value
 		}
-	}
+	};
 
 	const response = await fetch(url, request);
 	const data = await response.json();
@@ -28,7 +28,7 @@ export async function POST(url: string, body?: object): Promise<any> {
  * @returns Created element
  */
 export function createElem(elemName: string, className: string, putInto: HTMLElement = null): HTMLElement {
-	let elem = document.createElement(elemName);
+	const elem = document.createElement(elemName);
 	elem.className = className;
 
 	if (putInto) {
@@ -45,7 +45,7 @@ export function createElem(elemName: string, className: string, putInto: HTMLEle
  * @param id Element ID
  * @param callback Function
  */
-export function on(type: string, id: string, callback: () => any) {
-	let element = document.getElementById(id);
+export function on(type: string, id: string, callback: () => void): void {
+	const element = document.getElementById(id);
 	element.addEventListener(type, callback);
 }
