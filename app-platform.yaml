@@ -1,0 +1,70 @@
+databases:
+- engine: PG
+  name: db
+  num_nodes: 1
+  size: db-s-dev-database
+  version: "12"
+domains:
+- domain: snowbalzz.tech
+  type: PRIMARY
+  zone: snowbalzz.tech
+envs:
+- key: APP_KEY
+  scope: RUN_AND_BUILD_TIME
+  value: base64:WNCehHkReL2RtoF8qkOHtKiwS0vkBgpgLUzP4rLGTag=
+- key: APP_DEBUG
+  scope: RUN_AND_BUILD_TIME
+  value: "true"
+- key: APP_NAME
+  scope: RUN_AND_BUILD_TIME
+  value: hz-quiz
+- key: DATABASE_URL
+  scope: RUN_AND_BUILD_TIME
+  value: ${db.DATABASE_URL}
+- key: DB_CONNECTION
+  scope: RUN_AND_BUILD_TIME
+  value: pgsql
+- key: APP_URL
+  scope: RUN_AND_BUILD_TIME
+  value: https://hz-students-quiz-8eh52.ondigitalocean.app/
+- key: APP_ENV
+  scope: RUN_AND_BUILD_TIME
+  value: production
+name: hz-students-quiz
+region: ams
+services:
+- build_command: npm run prod && php artisan storage:link
+  environment_slug: php
+  envs:
+  - key: DATABASE_URL
+    scope: RUN_TIME
+    value: ${db.DATABASE_URL}
+  - key: DATABASE_URL
+    scope: RUN_TIME
+    value: ${db.DATABASE_URL}
+  - key: DATABASE_URL
+    scope: RUN_TIME
+    value: ${db.DATABASE_URL}
+  - key: DATABASE_URL
+    scope: RUN_TIME
+    value: ${hz-quiz-database.DATABASE_URL}
+  - key: DATABASE_URL
+    scope: RUN_TIME
+    value: ${hz-quiz-database.DATABASE_URL}
+  - key: DATABASE_URL
+    scope: RUN_TIME
+    value: ${hz-quiz-database.DATABASE_URL}
+  - key: DATABASE_URL
+    scope: RUN_TIME
+    value: ${db.DATABASE_URL}
+  github:
+    branch: main
+    repo: CoomTeam/Students-Quiz
+  http_port: 8080
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  name: hz-students-quiz
+  routes:
+  - path: /
+  run_command: heroku-php-apache2 public/
+  source_dir: /
